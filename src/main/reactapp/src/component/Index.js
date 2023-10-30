@@ -18,16 +18,6 @@ function Index(props){
                 <div className={}>
                     <SideCategory/>
                     <Routes>
-<div>
-    <div>
-      <SideCategory/>
-    </div>
-    <div>
-         <Header/>
-        <Routes>
-    </div>
-</div>
-
                     </Routes>
                 </div>
             </BrowserRouter> */}
