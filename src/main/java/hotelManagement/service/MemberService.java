@@ -1,5 +1,6 @@
 package hotelManagement.service;
 
+import hotelManagement.model.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;

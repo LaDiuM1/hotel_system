@@ -1,5 +1,6 @@
 package hotelManagement.controller;
 
+import hotelManagement.model.dto.MemberDto;
 import hotelManagement.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

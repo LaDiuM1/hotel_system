@@ -1,8 +1,10 @@
+// 리액트 라우터 라이브러리
 import{ BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import Header from './Header'
 import SideCategory from './SideCategory'
-export default function Index(props){
+let page =
+function Index(props){
     return(<>
         <div className={'webContainer'}>
             <BrowserRouter>
@@ -18,3 +20,10 @@ export default function Index(props){
         </div>
     </>)
 }
+function Login(){
+    return(<>
+
+    </>)
+}
+export default page;
+
