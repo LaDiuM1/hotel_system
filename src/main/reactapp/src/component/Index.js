@@ -1,30 +1,40 @@
 // 리액트 라우터 라이브러리
 import{ BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
+import styles from './css/index.css'
 import Header from './Header'
 import SideCategory from './SideCategory'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Header from './Header'
+import Sidebar from './Sidebar'
+import Main from "./Main";
 import styles from './css/Login.css'
 
 let page = Login;
 
-function Index(props){
+export default function Index(props){
     return(<>
         <div className={'webContainer'}>
-{/*            <BrowserRouter>
-                <Header/>
-                <div className={}>
-                    <SideCategory/>
-                    <Routes>
-                    </Routes>
+            <BrowserRouter>
+                <div className={"sidebar"}>
+                    <Sidebar/>
                 </div>
-            </BrowserRouter> */}
+                <div className={"main"}>
+                    <div className={"header"}>
+                        <Header/>
+                    </div>
+                    <div className={"content"}>
+                        <Main/>
+                    </div>
+
+                </div>
+
+                <Routes>
+
+
+                </Routes>
+            </BrowserRouter>
         </div>
     </>)
 }
-
 function Login(){
     return(<>
         <div>
