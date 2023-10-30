@@ -1,16 +1,14 @@
 // 리액트 라우터 라이브러리
 import{ BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import styles from './css/index.css'
-import Header from './Header'
-import SideCategory from './SideCategory'
+import './css/index.css'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Main from "./Main";
-import styles from './css/Login.css'
+import './css/Login.css'
 
-let page = Login;
+let page = Index;
 
-export default function Index(props){
+function Index(props){
     return(<>
         <div className={'webContainer'}>
             <BrowserRouter>
@@ -24,7 +22,6 @@ export default function Index(props){
                     <div className={"content"}>
                         <Main/>
                     </div>
-
                 </div>
 
                 <Routes>
@@ -52,4 +49,3 @@ function Login(){
     </>)
 }
 export default page;
-

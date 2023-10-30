@@ -1,0 +1,13 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+*{font-family: 'Noto Sans KR', sans-serif;}
+.notosanskr * {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+/*이름구역*/
+.profile{
+    text-align: right;
+    padding: 5px 30px 0px 0px;
+}
+.profile .mno{
+    margin-left: 18px;
+}

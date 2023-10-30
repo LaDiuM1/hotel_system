@@ -6,7 +6,15 @@ export default function Sidebar(){
     return(<>
             <div className={"sidebar"}>
 
-                <h1> 사이드바 메뉴 </h1>
+                <div className={"mainText"}> 관리 메뉴 </div>
+
+                <div className={"categoryMenu"}>
+                    <div className={"category"}> 객실 관리 </div>
+                    <div className={"category"}> 예약 관리 </div>
+                    <div className={"category"}> 시설 관리 </div>
+                    <div className={"category"}> 직원 관리 </div>
+                    <div className={"category"}> 매출 관리 </div>
+                </div>
 
 
             </div>
