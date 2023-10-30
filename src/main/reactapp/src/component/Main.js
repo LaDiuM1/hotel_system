@@ -1,7 +1,13 @@
+
+import './css/Main.css'
 export default function Main(){
 
     return(<>
-        <h1> 메인페이지 </h1>
+        <div className={"mainContainer"}>
+            <div>
+                <h1>Welcom Hotel Manegement System</h1>
+            </div>
+        </div>
 
 
 

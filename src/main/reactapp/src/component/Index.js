@@ -1,16 +1,13 @@
 // 리액트 라우터 라이브러리
 import{ BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import styles from './css/index.css'
-import Header from './Header'
-import SideCategory from './SideCategory'
+import './css/index.css'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Main from "./Main";
-import styles from './css/Login.css'
+import './css/Login.css'
+let page = Index;
 
-let page = Login;
-
-export default function Index(props){
+function Index(props){
     return(<>
         <div className={'webContainer'}>
             <BrowserRouter>
@@ -22,15 +19,14 @@ export default function Index(props){
                         <Header/>
                     </div>
                     <div className={"content"}>
-                        <Main/>
+                        <Routes>{/*라우트 구역*/}
+                            <Route path={"/"} element={<Main/>}></Route>
+                            <Route></Route>
+                        </Routes>
                     </div>
-
                 </div>
 
-                <Routes>
 
-
-                </Routes>
             </BrowserRouter>
         </div>
     </>)
