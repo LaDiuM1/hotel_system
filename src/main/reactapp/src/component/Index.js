@@ -5,7 +5,8 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 import Main from "./Main";
 import './css/Login.css'
-let page = Index;
+
+let page = Login;
 
 function Index(props){
     return(<>
@@ -24,9 +25,8 @@ function Index(props){
                             <Route></Route>
                         </Routes>
                     </div>
+
                 </div>
-
-
             </BrowserRouter>
         </div>
     </>)

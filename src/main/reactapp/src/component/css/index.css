@@ -13,7 +13,7 @@
 
 .main{
     width: 500%;
-    border: 1px solid black;
+    background-color: rgba(250, 250, 250, 0.54);
 
 }
 .header{
