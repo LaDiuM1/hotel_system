@@ -3,7 +3,11 @@ import{ BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import Header from './Header'
 import SideCategory from './SideCategory'
-let page =
+
+
+
+
+
 function Index(props){
     return(<>
         <div className={'webContainer'}>
@@ -25,5 +29,5 @@ function Login(){
 
     </>)
 }
-export default page;
+
 
