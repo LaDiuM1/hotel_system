@@ -6,7 +6,7 @@ import Sidebar from './Sidebar'
 import Main from "./Main";
 import './css/Login.css'
 
-let page = Login;
+let page = Index;
 
 function Index(props){
     return(<>
