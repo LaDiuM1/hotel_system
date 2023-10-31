@@ -5,7 +5,8 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 import Main from "./Main";
 import './css/Login.css'
-import Reservation from './guestroom/RoomReservation'
+import RoomManagement from "./guestroom/RoomManagement";
+
 let page = Index;
 
 function Index(props){
@@ -23,6 +24,7 @@ function Index(props){
                         <Routes>{/*라우트 구역*/}
                             <Route path={"/"} element={<Main/>}></Route>
                             <Route path={"/reservation"} element={<Reservation/>}></Route>
+                            <Route path={"/roomManagement"} element={<RoomManagement/>}></Route>
                         </Routes>
                     </div>
 
