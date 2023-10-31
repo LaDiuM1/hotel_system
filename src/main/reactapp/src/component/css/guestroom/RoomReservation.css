@@ -54,7 +54,7 @@
 .tableRecord .guestRoomNum,.tableRecord .guestRoomGrade
 ,.tableRecord .guestRoomStart, .tableRecord .guestRoomEnd
 ,.tableRecord .guestRoomName,.tableRecord .guestRoomPhone
-{border:1px solid #e8e8e8; padding:5px;}
+{border:1px solid #e8e8e8; padding:5px; text-align: center;}
 /* 테이블 컬럼 크기 */
 .tableWrap .guestRoomNum{ width: 10% }
 .tableWrap .guestRoomGrade{ width:20%}
