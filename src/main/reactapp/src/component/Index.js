@@ -5,6 +5,7 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 import Main from "./Main";
 import './css/Login.css'
+import RoomManagement from "./guestroom/RoomManagement";
 
 let page = Index;
 
@@ -22,6 +23,7 @@ function Index(props){
                     <div className={"content"}>
                         <Routes>{/*라우트 구역*/}
                             <Route path={"/"} element={<Main/>}></Route>
+                            <Route path={"/roomManagement"} element={<RoomManagement/>}></Route>
                             <Route></Route>
                         </Routes>
                     </div>

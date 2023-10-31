@@ -1,0 +1,119 @@
+.webConteiner{
+    width: 95%;
+    margin: 0 auto;
+
+
+
+}
+
+.mainNameText{
+    margin: 20px;
+}
+
+.contentArea{
+    width: 1030px;
+    height: 600px;
+    background-color: white;
+    margin: 50px auto;
+    box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.roomStateTable{
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+    padding-top: 40px;
+
+}
+
+.roomComponent{
+    width: 40px;
+    height: 40px;
+    max-width: 40px!important;
+    max-height: 40px!important;
+    background-color: #8c8c8c;
+    color: white;
+
+}
+.roomComponentSpacing{
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+
+}
+
+.roomStateTable th{
+    margin-top: 20px;
+    font-size: 25px;
+    overflow: visible;
+    white-space: nowrap;
+    position: relative;
+    color: black;
+    height: 50px;
+
+}
+.contentName{
+    position: absolute;
+    top:0;
+    left: 25%;
+
+}
+
+.contentName4{
+    position: absolute;
+    top:0;
+    left: -10px;
+
+}
+.contentName5{
+    position: absolute;
+    top:0;
+    left: -15px;
+
+}
+
+.floor{
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    //text-shadow: 1px 1px 2px black;
+}
+
+.state1{ /* 공실일때 표기색 */
+    background-color: green;
+
+}.state2{ /* 예약중 표기색 */
+    background-color: #8c8c8c;
+
+}.state3{ /* 사용불가 표기색 */
+    background-color: #ff6a00;
+
+}
+
+ .guide{
+     display: flex;
+     justify-content: end;
+
+ }
+ .color1{
+     width:15px;
+     height: 15px;
+     background-color: green;
+     margin: 5px 10px;
+
+ }
+.color2{
+     width:15px;
+     height: 15px;
+     background-color: #8c8c8c;
+     margin: 5px 10px;
+
+ }
+.color3{
+     width:15px;
+     height: 15px;
+     background-color: #ff6a00;
+     margin: 5px 10px;
+
+ }

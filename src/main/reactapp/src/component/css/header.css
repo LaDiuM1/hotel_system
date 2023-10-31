@@ -1,12 +1,29 @@
+
+
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-*{font-family: 'Noto Sans KR', sans-serif;}
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+    padding:0; margin:0;
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color:inherit;
+}
 .notosanskr * {
     font-family: 'Noto Sans KR', sans-serif;
 }
 /*이름구역*/
+
 .profile{
+    padding: 20px;
     text-align: right;
-    padding: 5px 30px 0px 0px;
+    background-color: white;
+    box-shadow: -1px 0 5px 4px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    color: #4682A9;
+    font-size: 18px;
+    font-family: "맑은 고딕", serif;
 
 }
 
@@ -14,4 +31,8 @@
     margin-left: 18px;
 }
 .profile .mname{
+    margin-left: 18px;
+}
+.profile .tier{
+    margin-left: 18px;
 }
