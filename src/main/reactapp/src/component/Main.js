@@ -8,11 +8,5 @@ export default function Main(){
                 <h1>Welcom Hotel Manegement System</h1>
             </div>
         </div>
-
-
-
     </>)
-
-
-
 }

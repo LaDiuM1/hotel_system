@@ -1,0 +1,82 @@
+/*예약 관리 전체 구역*/
+.reservationContainer{padding: 20px 70px 20px 30px;}
+/*예약 관리 구역*/
+.reservationWrap{margin: 50px 0 0 50px;}
+/*검색구역*/
+.reservationWrap .searchBox{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+/* 인풋 박스 설정 */
+.ReservationGrade{width:20%;}
+.ReservationDate{width:30%;}
+.ReservationSearch{width:30%;}
+.searchBtn{
+    width:10%;
+    background-color: #282c34;
+    color:white;
+    border-radius: 4px;
+}
+.ReservationGrade, .ReservationDate ,.ReservationSearch{
+    padding: 3px 5px 3px 5px;
+}
+/* 테이블 구역 */
+.reservationWrap .tableWrap{
+    margin-top: 20px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 2px 0 8px 5px rgba(0, 0, 0, 0.2);
+}
+/* 컬럼 구역 */
+.tableWrap .tableColumn{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+/* 테이블 레코드 구역 설정 */
+.tableWrap .tableRecord{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+/* 컬럼 설정 */
+.tableColumn .guestRoomNum,.tableColumn .guestRoomGrade
+ ,.tableColumn .guestRoomStart, .tableColumn .guestRoomEnd
+ ,.tableColumn .guestRoomName,.tableColumn .guestRoomPhone
+ {
+    background-color: #4682A9;
+    color:white;
+    text-align: center;
+    padding:6px;
+    border: 1px solid #4b8dbd;
+}
+/* 레코드 설정 */
+.tableRecord .guestRoomNum,.tableRecord .guestRoomGrade
+,.tableRecord .guestRoomStart, .tableRecord .guestRoomEnd
+,.tableRecord .guestRoomName,.tableRecord .guestRoomPhone
+{border:1px solid #e8e8e8; padding:5px;}
+/* 테이블 컬럼 크기 */
+.tableWrap .guestRoomNum{ width: 10% }
+.tableWrap .guestRoomGrade{ width:20%}
+.tableWrap .guestRoomStart{ width:20%}
+.tableWrap .guestRoomEnd{width:20% }
+.tableWrap .guestRoomName{ width:10% }
+.tableWrap .guestRoomPhone{width:20% }
+
+.tablePage{
+    text-align: center;
+    margin: 30px;
+}
+.tablePage button{
+    margin-right: 7px;
+    width:20px;
+    padding:2px;
+    background-color: transparent;
+    border: 1px solid #4682A9;
+    border-radius: 3px;
+    color:black;
+    box-shadow: 2px 0 8px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+

@@ -40,7 +40,11 @@
     color: rgba(0, 60, 255, 0.74);
     font-weight: bold;
 }
-
+.active{
+    background-color: rgba(145, 200, 228, 0.54);
+    color: rgba(0, 60, 255, 0.74);
+    font-weight: bold;
+}
 
 
 
