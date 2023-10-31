@@ -6,6 +6,7 @@ import Sidebar from './Sidebar'
 import Main from "./Main";
 import './css/Login.css'
 import RoomManagement from "./guestroom/RoomManagement";
+import Reservation from "./guestroom/RoomReservation"
 
 let page = Index;
 

@@ -2,8 +2,6 @@
 import '../css/guestroom/RoomReservation.css'
 import {useState} from 'react'
 
-
-
 export default function RoomReservation(){
 
     /*let info = {
