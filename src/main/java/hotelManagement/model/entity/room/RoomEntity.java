@@ -17,7 +17,7 @@ public class RoomEntity {
     @Id
     private int rno;                    // 호실 번호 [ pk ]
     @Column(nullable = false)
-    private boolean mname;              // 객실 상태
+    private boolean rstate;              // 객실 상태
     @Column(length = 20, nullable = false)
 
     // String 타입 One To One 선언 불가
