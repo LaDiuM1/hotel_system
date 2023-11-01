@@ -83,7 +83,7 @@
 .state1{ /* 공실일때 표기색 */
     background-color: green;
 
-}.state2{ /* 예약중 표기색 */
+}.state2{ /* 사용중 표기색 */
     background-color: #8c8c8c;
 
 }.state3{ /* 사용불가 표기색 */
