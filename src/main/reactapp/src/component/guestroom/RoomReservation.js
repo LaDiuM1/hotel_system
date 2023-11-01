@@ -1,38 +1,32 @@
 import axios from 'axios'
 import '../css/guestroom/RoomReservation.css'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Record from './RecordComponent'
 export default function RoomReservation(){
-/*    let[ info, setInfo ] = useState( {rgname: "Nonselect", } )
-    let info = {
-        rgname: "nonselect"
-    }*/
-    axios
-        .get('http://localhost:80/member/test').then( response => {console.log(response)})
-
-    /* 등급 onChange 함수 */
-    const changeGrade = (e) => {
-        console.log(document.querySelector('.ReservationGrade').value)
+    /* 등급명, 시작날짜, 키워드*/
+    let[ info, setInfo ] = useState( {
+        gname: "Nonselect",
+        rrstartdate:'',
+        keyword: ''
+    })
+    /* date 오늘 날짜로 변경 */
+    useEffect(() => {
+        // input type date에 현재 날짜 대입, useState에 현재날짜 대입
+        let today = new Date().toISOString().slice(0, 10);
+        info.rrstartdate = today;
+        document.querySelector('.ReservationDate').value = today;
+    }, []);
+    const onSearch = () => {
+        axios
+            .get("http://localhost:80/member/")
+            .then( response => {})
     }
-
-    /* 날짜 onChange 함수 */
-    const changeDate = () => {
-        console.log(document.querySelector('.ReservationDate').value === "2023-10-30")
-    }
-    /* 검색 onChange 함수 */
-    const changeSearch = () => {
-
-    }
-    /* 날짜 */
-    let today = new Date();
-
-
     /* 객실 예약 컴포넌트 */
     return(<>
         <div className={"reservationContainer"}>
             <div className={"reservationWrap"}>
                 <div className={"searchBox"}>
-                    <select onChange={changeGrade} className={"ReservationGrade"}>
+                    <select onChange={(e)=>{ setInfo({...info, gname: e.target.value}) }} className={"ReservationGrade"}>
                         <option value={"Nonselect"}>전체</option>
                         <option value={"Standard"}>Standard</option>
                         <option value={"Deluxe"}>Deluxe</option>
@@ -40,9 +34,9 @@ export default function RoomReservation(){
                         <option value={"Royal"}>Royal</option>
                         <option value={"Suite"}>Suite</option>
                     </select>
-                    <input type={"date"} className={"ReservationDate"} onChange={changeDate}/>
-                    <input type={"text"} className={"ReservationSearch"} placeholder={"검색"}/>
-                    <button type={"button"} className={"searchBtn"}>검색</button>
+                    <input type={"date"} className={"ReservationDate"} value={info.rrstartdate} onChange={(e)=>{setInfo({...info, rrstartdate: e.target.value}) }}/>
+                    <input type={"text"} className={"ReservationSearch"} value={info.keyword} onChange={(e)=>{ setInfo( {...info, keyword: e.target.value })} } placeholder={"검색"}/>
+                    <button type={"button"} className={"searchBtn"} onClick={ onSearch }>검색</button>
                 </div>
                 <div className={"tableWrap"}>
                     {/* 테이블 컬럼 명 */}

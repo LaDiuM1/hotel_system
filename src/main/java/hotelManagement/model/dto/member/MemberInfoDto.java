@@ -24,7 +24,6 @@ public class MemberInfoDto {
                 .msex(this.msex)
                 .mphone(this.mphone)
                 .mbirth(this.mbirth)
-                .mgno(this.mgno)
                 .build();
     }
 

@@ -20,10 +20,4 @@ public class MemberEntity {
     @Column(nullable = false)
     private String mpwd;
 
-    @ToString.Exclude
-    @JoinColumn ( name="mgno_fk" )
-    @ManyToOne
-    MemberInfoEntity memberInfoEntity;
-
-
 }

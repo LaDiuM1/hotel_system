@@ -17,7 +17,6 @@ public class GuestEntity {
     private int mgno;
 
     @ToString.Exclude
-    @JoinColumn ( name="mgno_fk" )
     @ManyToOne
     MemberInfoEntity memberInfoEntity;
 
