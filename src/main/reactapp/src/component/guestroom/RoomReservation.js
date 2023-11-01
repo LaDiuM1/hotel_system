@@ -1,4 +1,4 @@
-
+import axios from 'axios'
 import '../css/guestroom/RoomReservation.css'
 import {useState} from 'react'
 import Record from './RecordComponent'
@@ -7,6 +7,9 @@ export default function RoomReservation(){
     let info = {
         rgname: "nonselect"
     }*/
+    axios
+        .get('http://localhost:80/member/test').then( response => {console.log(response)})
+
     /* 등급 onChange 함수 */
     const changeGrade = (e) => {
         console.log(document.querySelector('.ReservationGrade').value)
@@ -37,7 +40,7 @@ export default function RoomReservation(){
                         <option value={"Royal"}>Royal</option>
                         <option value={"Suite"}>Suite</option>
                     </select>
-                    <input type={"date"} className={"ReservationDate"} onChange={changeDate} value={}/>
+                    <input type={"date"} className={"ReservationDate"} onChange={changeDate}/>
                     <input type={"text"} className={"ReservationSearch"} placeholder={"검색"}/>
                     <button type={"button"} className={"searchBtn"}>검색</button>
                 </div>

@@ -20,6 +20,10 @@ public class MemberController {
 
         return null;
     }
+    @GetMapping("/test")
+    public boolean test(){
+        return true;
+    }
     /* 로그인
     * */
     @PostMapping("/login")
