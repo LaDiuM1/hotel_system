@@ -1,4 +1,4 @@
-package hotelManagement.service;
+package hotelManagement.service.member;
 
 import hotelManagement.model.dto.member.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package hotelManagement.model.dto.room;
+package hotelManagement.model.dto.guestroom;
 
 import lombok.*;
 

@@ -1,6 +1,6 @@
 package hotelManagement.model.entity;
 
-import hotelManagement.model.entity.room.RoomReservationEntity;
+import hotelManagement.model.entity.guestroom.RoomReservationEntity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.PrePersist;

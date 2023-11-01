@@ -1,7 +1,35 @@
 import styles from '../css/guestroom/roomManagement.css'
+import RoomStateComponent from "./RoomStateComponent";
 
 
 export default function RoomManagement(){
+    let i = 4
+    let j = 4
+    let k = 1
+    let component = [
+        { floor: i++, roomInfo : [
+            {state: 1, roomNumber: j + "" + k++},
+            {state: 1, roomNumber: j + "" + k++},
+            {state: 1, roomNumber: j + "" + k++},
+            {state: 0, roomNumber: j + "" + k++},
+            {state: 1, roomNumber: j + "" + k++},
+            {state: 0, roomNumber: j + "" + k++},
+            {state: 0, roomNumber: j + "" + k++},
+            {state: 2, roomNumber: j + "" + k++},
+            {state: 0, roomNumber: j + "" + k++},
+            {state: 0, roomNumber: j + "" + k++},
+            {state: 0, roomNumber: j + "" + k++},
+            {state: 1, roomNumber: j + "" + k++},
+            {state: 1, roomNumber: j + "" + k++},
+            {state: 0, roomNumber: j + "" + k++},
+            {state: 1, roomNumber: j + "" + k++}
+            ]
+        }
+    ]
+
+
+
+
 
     return(<>
             <div className={"webConteiner"}>
@@ -50,227 +78,19 @@ export default function RoomManagement(){
                                 </div>
                             </th>
                         </tr>
-                        <tbody>
-                            <tr>
-                                <td className={"floor"}>1F</td>
-                                <td className={"roomComponent"}>401</td>
-                                <td className={"roomComponent"}>402</td>
-                                <td className={"roomComponent state1"}>403</td>
-                                <td className={"roomComponent"}>404</td>
-                                <td className={"roomComponent"}>405</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>406</td>
-                                <td className={"roomComponent"}>407</td>
-                                <td className={"roomComponent"}>408</td>
-                                <td className={"roomComponent"}>409</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>410</td>
-                                <td className={"roomComponent"}>411</td>
-                                <td className={"roomComponent"}>412</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>413</td>
-                                <td className={"roomComponent"}>414</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>415</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>2F</td>
-                                <td className={"roomComponent"}>501</td>
-                                <td className={"roomComponent"}>502</td>
-                                <td className={"roomComponent state2"}>503</td>
-                                <td className={"roomComponent"}>504</td>
-                                <td className={"roomComponent"}>505</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>506</td>
-                                <td className={"roomComponent"}>507</td>
-                                <td className={"roomComponent"}>508</td>
-                                <td className={"roomComponent"}>509</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>510</td>
-                                <td className={"roomComponent"}>511</td>
-                                <td className={"roomComponent"}>512</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent state3"}>513</td>
-                                <td className={"roomComponent"}>514</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>515</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>3F</td>
-                                <td className={"roomComponent"}>401</td>
-                                <td className={"roomComponent"}>402</td>
-                                <td className={"roomComponent"}>403</td>
-                                <td className={"roomComponent"}>404</td>
-                                <td className={"roomComponent"}>405</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>406</td>
-                                <td className={"roomComponent"}>407</td>
-                                <td className={"roomComponent state4"}>408</td>
-                                <td className={"roomComponent"}>409</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>410</td>
-                                <td className={"roomComponent"}>411</td>
-                                <td className={"roomComponent"}>412</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>413</td>
-                                <td className={"roomComponent"}>414</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>415</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>4F</td>
-                                <td className={"roomComponent"}>501</td>
-                                <td className={"roomComponent"}>502</td>
-                                <td className={"roomComponent"}>503</td>
-                                <td className={"roomComponent"}>504</td>
-                                <td className={"roomComponent"}>505</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>506</td>
-                                <td className={"roomComponent"}>507</td>
-                                <td className={"roomComponent"}>508</td>
-                                <td className={"roomComponent"}>509</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>510</td>
-                                <td className={"roomComponent"}>511</td>
-                                <td className={"roomComponent"}>512</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>513</td>
-                                <td className={"roomComponent"}>514</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>515</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>5F</td>
-                                <td className={"roomComponent"}>401</td>
-                                <td className={"roomComponent"}>402</td>
-                                <td className={"roomComponent"}>403</td>
-                                <td className={"roomComponent"}>404</td>
-                                <td className={"roomComponent"}>405</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>406</td>
-                                <td className={"roomComponent"}>407</td>
-                                <td className={"roomComponent"}>408</td>
-                                <td className={"roomComponent"}>409</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>410</td>
-                                <td className={"roomComponent"}>411</td>
-                                <td className={"roomComponent"}>412</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>413</td>
-                                <td className={"roomComponent"}>414</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>415</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>6F</td>
-                                <td className={"roomComponent"}>501</td>
-                                <td className={"roomComponent"}>502</td>
-                                <td className={"roomComponent"}>503</td>
-                                <td className={"roomComponent"}>504</td>
-                                <td className={"roomComponent"}>505</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>506</td>
-                                <td className={"roomComponent"}>507</td>
-                                <td className={"roomComponent"}>508</td>
-                                <td className={"roomComponent"}>509</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>510</td>
-                                <td className={"roomComponent"}>511</td>
-                                <td className={"roomComponent"}>512</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>513</td>
-                                <td className={"roomComponent"}>514</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>515</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>7F</td>
-                                <td className={"roomComponent"}>401</td>
-                                <td className={"roomComponent"}>402</td>
-                                <td className={"roomComponent"}>403</td>
-                                <td className={"roomComponent"}>404</td>
-                                <td className={"roomComponent"}>405</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>406</td>
-                                <td className={"roomComponent"}>407</td>
-                                <td className={"roomComponent"}>408</td>
-                                <td className={"roomComponent"}>409</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>410</td>
-                                <td className={"roomComponent"}>411</td>
-                                <td className={"roomComponent"}>412</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>413</td>
-                                <td className={"roomComponent"}>414</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>415</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>8F</td>
-                                <td className={"roomComponent"}>501</td>
-                                <td className={"roomComponent"}>502</td>
-                                <td className={"roomComponent"}>503</td>
-                                <td className={"roomComponent"}>504</td>
-                                <td className={"roomComponent"}>505</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>506</td>
-                                <td className={"roomComponent"}>507</td>
-                                <td className={"roomComponent"}>508</td>
-                                <td className={"roomComponent"}>509</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>510</td>
-                                <td className={"roomComponent"}>511</td>
-                                <td className={"roomComponent"}>512</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>513</td>
-                                <td className={"roomComponent"}>514</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>515</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>9F</td>
-                                <td className={"roomComponent"}>401</td>
-                                <td className={"roomComponent"}>402</td>
-                                <td className={"roomComponent"}>403</td>
-                                <td className={"roomComponent"}>404</td>
-                                <td className={"roomComponent"}>405</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>406</td>
-                                <td className={"roomComponent"}>407</td>
-                                <td className={"roomComponent"}>408</td>
-                                <td className={"roomComponent"}>409</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>410</td>
-                                <td className={"roomComponent"}>411</td>
-                                <td className={"roomComponent"}>412</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>413</td>
-                                <td className={"roomComponent"}>414</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>415</td>
-                            </tr>
-                            <tr>
-                                <td className={"floor"}>10F</td>
-                                <td className={"roomComponent"}>501</td>
-                                <td className={"roomComponent"}>502</td>
-                                <td className={"roomComponent"}>503</td>
-                                <td className={"roomComponent"}>504</td>
-                                <td className={"roomComponent"}>505</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>506</td>
-                                <td className={"roomComponent"}>507</td>
-                                <td className={"roomComponent"}>508</td>
-                                <td className={"roomComponent"}>509</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>510</td>
-                                <td className={"roomComponent"}>511</td>
-                                <td className={"roomComponent"}>512</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>513</td>
-                                <td className={"roomComponent"}>514</td>
-                                <td className={"roomComponentSpacing"}></td>
-                                <td className={"roomComponent"}>515</td>
-                            </tr>
+                        <tbody> {/* 객실 개별 컴포넌트 표시 구역*/}
+
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+                        <tr><RoomStateComponent component = {component}/></tr>
+
                         </tbody>
 
 

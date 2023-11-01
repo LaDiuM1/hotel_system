@@ -1,4 +1,4 @@
-package hotelManagement.model.entity.room;
+package hotelManagement.model.entity.guestroom;
 
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
