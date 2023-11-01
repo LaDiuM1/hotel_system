@@ -1,0 +1,28 @@
+package hotelManagement.model.dto.room;
+
+import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
+// 객실 예약 명단 DTO
+public class RoomReservationDto {
+
+    private int rrno;                   // 객실 예약 기본키 [ pk ]
+    private LocalDateTime rrtime;       // 객실 예약 시간 필드 / EntityListener 클래스를 통해 default 값으로 현재 시간 설정
+    private LocalDate rrstartdate;      // 예약 시작 날짜
+    private LocalDate rrenddate;        // 예약 종료 날짜
+    private LocalDateTime rrcheckin;    // 체크인 시간
+    private LocalDateTime rrcheckout;   // 체크아웃 시간
+    private int mno;                     // 회원 번호 fk
+    private int rno;                     // 객실 번호 fk
+
+}
+
+

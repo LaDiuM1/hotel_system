@@ -1,6 +1,6 @@
-package hotelManagement.model.dto;
+package hotelManagement.model.dto.member;
 
-import hotelManagement.model.entity.MemberEntity;
+import hotelManagement.model.entity.member.MemberEntity;
 import lombok.*;
 
 @NoArgsConstructor

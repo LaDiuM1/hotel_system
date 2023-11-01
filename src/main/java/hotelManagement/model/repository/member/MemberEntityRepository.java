@@ -1,6 +1,6 @@
-package hotelManagement.model.repository;
+package hotelManagement.model.repository.member;
 
-import hotelManagement.model.entity.MemberEntity;
+import hotelManagement.model.entity.member.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

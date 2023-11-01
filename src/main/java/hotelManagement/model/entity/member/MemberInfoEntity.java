@@ -1,5 +1,6 @@
-package hotelManagement.model.entity;
+package hotelManagement.model.entity.member;
 
+import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
