@@ -21,13 +21,13 @@ public class MemberInfoEntity extends BaseTime {
     @Column(columnDefinition = "tinyint", nullable = false)
     private int mtype;              // 회원 비회원 구분 필드
     @Column(nullable = false, length = 20)
-    private int mname;              // 회원 이름 공통 필드
+    private String mname;              // 회원 이름 공통 필드
     @Column(nullable = false, length = 5)
-    private int msex;               // 회원 성별 공통 필드
+    private String msex;               // 회원 성별 공통 필드
     @Column(nullable = false, length = 20)
-    private int mphone;             // 회원 전화번호 공통 필드
+    private String mphone;             // 회원 전화번호 공통 필드
     @Column(nullable = false, length = 10)
-    private int mbirth;             // 회원 생년월일 공통 필드
+    private String mbirth;             // 회원 생년월일 공통 필드
     @Column(nullable = false)
     private int mgno;               // 회원, 비회원 참조 필드
 
