@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface RoomReservationEntityRepository extends JpaRepository<RoomReservationEntity, Integer> {
-    //boolean existsByRnoAndRrcheckinGreaterThanAndRrcheckoutLessThan(int rno, LocalDateTime date1, LocalDateTime date2);
+    boolean existsByRoomEntity_RnoAndRrcheckinGreaterThanAndRrcheckoutLessThan(int rno, LocalDateTime date1, LocalDateTime date2);
 
     // ---------------- //
     // 1. get All

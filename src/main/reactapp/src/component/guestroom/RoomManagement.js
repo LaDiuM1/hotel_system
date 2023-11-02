@@ -11,8 +11,9 @@ export default function RoomManagement(){
           axios
             .get('/guestRoom')
             .then(r => {
-
+                console.dir(r.data)
                 setRoomStateData(r.data);
+
             })
 
     }, [])
@@ -68,11 +69,12 @@ export default function RoomManagement(){
                         <tbody> {/* 객실 개별 컴포넌트 표시 구역*/}
                         {
 
-                            roomStateData.map( p => {
+                            roomStateData.map( (p, i) => {
                                 return(<>
-                                    {  <RoomStateComponent state = {p.rstate} rno = {p.rno} /> }
-
-
+                                    {  i %15 === 0 ? <td className={"floor"}>{Math.floor(p.rno / 100)}F</td> : null }
+                                    {  <RoomStateComponent state = {p.rstate} rno = {p.rno} />  }
+                                    { i%15 === 4 || i%15 === 8 || i%15 === 11 || i%15 === 13 ? <td className={"roomComponentSpacing"}></td> : null }
+                                    { (i+1) % 15 === 0 ? <tr></tr> : null }
                                 </>)
 
 
