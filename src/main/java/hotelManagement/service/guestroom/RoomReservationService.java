@@ -21,9 +21,7 @@ public class RoomReservationService {
         String keyword = roomSearchDto.getKeyword();
         // type엔 keyword가 이름, 호실, 전화번호 셋 중 하나가 들어있음
         String type = aboutType(keyword);
-        System.out.println(roomSearchDto.getRrstartdate().isEmpty()
-                && roomSearchDto.getGname().isEmpty()
-                && roomSearchDto.getKeyword().isEmpty());
+
         // 모든 검색조건이 없을 때
         if( roomSearchDto.getRrstartdate().isEmpty()
                 && roomSearchDto.getGname().equals("Nonselect")

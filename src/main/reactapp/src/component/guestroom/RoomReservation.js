@@ -7,6 +7,7 @@ export default function RoomReservation(){
     let[ info, setInfo ] = useState( {
         gname: "Nonselect",
         rrstartdate:'',
+        rrenddate:'',
         keyword: ''
     })
     /* date 오늘 날짜로 변경 */
@@ -38,6 +39,7 @@ export default function RoomReservation(){
                         <option value={"Suite"}>Suite</option>
                     </select>
                     <input type={"date"} className={"ReservationDate"} value={info.rrstartdate} onChange={(e)=>{setInfo({...info, rrstartdate: e.target.value}) }}/>
+                    <input type={"date"} className={"ReservationDate"} value={info.rrenddate} onChange={(e)=>{setInfo({...info, rrenddate: e.target.value}) }}/>
                     <input type={"text"} className={"ReservationSearch"} value={info.keyword} onChange={(e)=>{ setInfo( {...info, keyword: e.target.value })} } placeholder={"검색"}/>
                     <button type={"button"} className={"searchBtn"} onClick={ onSearch }>검색</button>
                 </div>

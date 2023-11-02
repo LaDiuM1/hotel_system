@@ -4,14 +4,14 @@
 .reservationWrap{margin: 50px 0 0 50px;}
 /*검색구역*/
 .reservationWrap .searchBox{
-    width: 50%;
+    width: 70%;
     display: flex;
     justify-content: space-around;
 }
 /* 인풋 박스 설정 */
-.ReservationGrade{width:20%;}
-.ReservationDate{width:30%;}
-.ReservationSearch{width:30%;}
+.ReservationGrade{width:10%;}
+.ReservationDate{width:23%;}
+.ReservationSearch{width:20%;}
 .searchBtn{
     width:10%;
     background-color: #282c34;
