@@ -35,7 +35,7 @@ public class MemberInfoEntity extends BaseTime {
     List<MemberEntity> MemberEntityList = new ArrayList<>();
     @Builder.Default
     @OneToMany( mappedBy = "memberInfoEntity" )
-    List<GuestEntity> GuestEntityList = new ArrayList<>();*/
+    List<GuestEntity> GuestEntityList = new ArrayList<>();
 
     /* BaseTime 상속 필드
     @CreatedDate

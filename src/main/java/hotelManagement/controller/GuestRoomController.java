@@ -1,6 +1,6 @@
 package hotelManagement.controller;
 
-import hotelManagement.model.dto.room.RoomReservationDto;
+import hotelManagement.model.dto.guestroom.RoomReservationDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
