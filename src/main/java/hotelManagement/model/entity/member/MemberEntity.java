@@ -1,12 +1,9 @@
 package hotelManagement.model.entity.member;
 
 import hotelManagement.model.dto.member.MemberDto;
-import hotelManagement.model.entity.guestroom.RoomReservationEntity;
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table( name = "member")
@@ -24,7 +21,7 @@ public class MemberEntity {
 
     @ToString.Exclude
     @OneToOne
-    @JoinColumn(name="mno_fk")
+    @JoinColumn(name = "mno_fk")
     private MemberInfoEntity memberInfoEntity;
 
 /*    @OneToMany( mappedBy = "memberEntity")

@@ -2,7 +2,6 @@ package hotelManagement.model.entity.guestroom;
 
 import hotelManagement.model.dto.guestroom.RoomReservationDto;
 import hotelManagement.model.entity.BaseTime;
-import hotelManagement.model.entity.member.MemberEntity;
 import hotelManagement.model.entity.member.MemberInfoEntity;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

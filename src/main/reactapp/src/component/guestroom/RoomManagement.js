@@ -1,47 +1,21 @@
 import styles from '../css/guestroom/roomManagement.css'
 import RoomStateComponent from "./RoomStateComponent";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 
 export default function RoomManagement(){
-    useEffect( () => {
-        axios
-            .get('/gestRoom')
-            .then( r => {
-                console.dir(r.data);
+    let [roomStateData, setRoomStateData] = useState([]);
 
+    useEffect(  () => {
+          axios
+            .get('/guestRoom')
+            .then(r => {
+
+                setRoomStateData(r.data);
             })
 
     }, [])
-
-
-    let i = 4
-    let j = 4
-    let k = 1
-    let component = [
-        { floor: i++, roomInfo : [
-            {state: 1, roomNumber: j + "" + k++},
-            {state: 1, roomNumber: j + "" + k++},
-            {state: 1, roomNumber: j + "" + k++},
-            {state: 0, roomNumber: j + "" + k++},
-            {state: 1, roomNumber: j + "" + k++},
-            {state: 0, roomNumber: j + "" + k++},
-            {state: 0, roomNumber: j + "" + k++},
-            {state: 2, roomNumber: j + "" + k++},
-            {state: 0, roomNumber: j + "" + k++},
-            {state: 0, roomNumber: j + "" + k++},
-            {state: 0, roomNumber: j + "" + k++},
-            {state: 1, roomNumber: j + "" + k++},
-            {state: 1, roomNumber: j + "" + k++},
-            {state: 0, roomNumber: j + "" + k++},
-            {state: 1, roomNumber: j + "" + k++}
-            ]
-        }
-    ]
-
-
-
 
 
     return(<>
@@ -92,17 +66,19 @@ export default function RoomManagement(){
                             </th>
                         </tr>
                         <tbody> {/* 객실 개별 컴포넌트 표시 구역*/}
+                        {
 
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
-                        <tr><RoomStateComponent component = {component}/></tr>
+                            roomStateData.map( p => {
+                                return(<>
+                                    {  <RoomStateComponent state = {p.rstate} rno = {p.rno} /> }
+
+
+                                </>)
+
+
+                            })
+
+                        }
 
                         </tbody>
 

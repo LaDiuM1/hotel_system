@@ -29,14 +29,13 @@ public class MemberInfoEntity extends BaseTime {
     private String mphone;             // 회원 전화번호 공통 필드
     @Column(nullable = false, length = 10)
     private String mbirth;             // 회원 생년월일 공통 필드
-    @OneToOne(mappedBy = "memberInfoEntity")
+
+    @OneToOne( mappedBy = "memberInfoEntity")
     private MemberEntity memberEntity;  // 회원 엔티티
-    @OneToMany( mappedBy = "memberInfoEntity")
+
+    @ToString.Exclude
+    @OneToMany( mappedBy = "memberInfoEntity" )
     @Builder.Default
     private List<RoomReservationEntity> roomReservationEntityList = new ArrayList<>();
-
-
-
-
 
 }
