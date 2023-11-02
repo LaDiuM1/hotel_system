@@ -38,9 +38,8 @@ public class RoomReservationEntity extends BaseTime { // 객실 예약 명단 �
     @JoinColumn( name = "mno_fk")
     private MemberEntity memberEntity;
 
-    @ManyToOne()
-    @JoinColumn( name ="rrno_fk")
+    @ManyToOne
+    @JoinColumn( name ="rno_fk")
     private RoomEntity roomEntity;
-
 
 }

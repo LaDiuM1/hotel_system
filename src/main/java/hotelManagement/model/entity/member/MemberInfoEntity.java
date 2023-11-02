@@ -1,6 +1,7 @@
 package hotelManagement.model.entity.member;
 
 import hotelManagement.model.entity.BaseTime;
+import hotelManagement.model.entity.guestroom.RoomReservationEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,9 +30,12 @@ public class MemberInfoEntity extends BaseTime {
     @Column(nullable = false, length = 10)
     private String mbirth;             // 회원 생년월일 공통 필드
     @OneToOne
-    @JoinColumn(name = "mno")
+    @JoinColumn(name = "mno_fk")
     private MemberEntity memberEntity;  // 회원 엔티티
-
+    // 14:11 memberEntity에서 여기로 옮겼습니다.
+    @OneToMany( mappedBy = "memberEntity")
+    @Builder.Default
+    private List<RoomReservationEntity> roomReservationEntityList = new ArrayList<>();
 
 
     /* BaseTime 상속 필드

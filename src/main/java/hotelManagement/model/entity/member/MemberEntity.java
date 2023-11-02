@@ -27,9 +27,9 @@ public class MemberEntity {
     @OneToOne(mappedBy = "memberEntity")
     private MemberInfoEntity memberInfoEntity;
 
-    @OneToMany( mappedBy = "roomresv")
+/*    @OneToMany( mappedBy = "memberEntity")
     @Builder.Default
-    private List<RoomReservationEntity> roomReservationEntityList = new ArrayList<>();
+    private List<RoomReservationEntity> roomReservationEntityList = new ArrayList<>();*/
 
 
 }
