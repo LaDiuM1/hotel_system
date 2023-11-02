@@ -1,5 +1,6 @@
 package hotelManagement.model.entity.guestroom;
 
+import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Builder
-public class RoomGradeEntity {
+public class RoomGradeEntity extends BaseTime {
 
     @Id
     @Column(length = 20)

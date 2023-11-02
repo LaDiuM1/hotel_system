@@ -1,5 +1,6 @@
 package hotelManagement.model.entity.guestroom;
 
+import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class RoomReservationEntity { // 객실 예약 명단 엔티티
+public class RoomReservationEntity extends BaseTime { // 객실 예약 명단 엔티티
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )

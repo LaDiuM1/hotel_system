@@ -1,6 +1,7 @@
 package hotelManagement.model.entity.guestroom;
 
 import hotelManagement.model.dto.guestroom.RoomDto;
+import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 @Setter
 @ToString
 @Builder
-public class RoomEntity {
+public class RoomEntity extends BaseTime {
 
     @Id
     private int rno;                    // 호실 번호 [ pk ]
