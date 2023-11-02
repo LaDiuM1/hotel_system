@@ -22,7 +22,7 @@ public class RoomService {
     @Autowired
     private RoomGradeEntityRepository roomGradeEntityRepository;
 
- /*   @Transactional // 객실 정보 반환 함수
+    @Transactional // 객실 정보 반환 함수
     public List<RoomDto> getGuestRoomList(){
         LocalDateTime nowDate = LocalDateTime.now();
         List<RoomEntity> RoomEntityList = roomEntityRepository.findAll();
@@ -30,10 +30,10 @@ public class RoomService {
         List<RoomDto> roomDtoList = new ArrayList<>();
         RoomEntityList.forEach( p -> {
             RoomDto roomDto = p.toDto();
-           // boolean enteringCheck = roomReservationEntityRepository
-             //       .existsByRnoAndRrcheckinGreaterThanAndRrcheckoutLessThan(p.getRno(), nowDate, nowDate);
+            boolean enteringCheck = roomReservationEntityRepository
+                    .existsByRoomEntity_RnoAndRrcheckinGreaterThanAndRrcheckoutLessThan(p.getRno(), nowDate, nowDate);
             int roomState = p.getRstate();
-            if(true && roomState == 1){
+            if(enteringCheck && roomState == 1){
                 roomDto.setRstate(1);
             }
             else if ( roomState == 0){
@@ -47,7 +47,7 @@ public class RoomService {
         });
 
         return roomDtoList;
-    }*/
+    }
 
 
 }
