@@ -4,6 +4,8 @@ import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table( name = "rgrade")
@@ -25,5 +27,8 @@ public class RoomGradeEntity extends BaseTime {
     @Column(columnDefinition = "tinyint", nullable = false)
     private int rgmaxcapa;          // 객실 최대 수용 인원
 
-
+    @ToString.Exclude
+    @Builder.Default
+    @OneToMany(mappedBy = "room")
+    private List<RoomEntity> RoomEntityList = new ArrayList<>();
 }

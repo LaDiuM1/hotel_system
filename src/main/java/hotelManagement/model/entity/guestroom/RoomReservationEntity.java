@@ -1,6 +1,7 @@
 package hotelManagement.model.entity.guestroom;
 
 import hotelManagement.model.entity.BaseTime;
+import hotelManagement.model.entity.member.MemberEntity;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -32,10 +33,14 @@ public class RoomReservationEntity extends BaseTime { // 객실 예약 명단 �
     private LocalDateTime rrcheckin;    // 체크인 시간
     @Column
     private LocalDateTime rrcheckout;   // 체크 아웃 시간
-    @Column
-    private int mno;                     // 회원 번호 fk
-    @Column
-    private int rno;                     // 객실 번호 fk
+
+    @ManyToOne
+    @JoinColumn( name = "mno_fk")
+    private MemberEntity memberEntity;
+
+    @ManyToOne()
+    @JoinColumn( name ="rrno_fk")
+    private RoomEntity roomEntity;
 
 
 }

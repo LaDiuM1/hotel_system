@@ -1,8 +1,21 @@
 import styles from '../css/guestroom/roomManagement.css'
 import RoomStateComponent from "./RoomStateComponent";
+import {useEffect} from "react";
+import axios from "axios";
 
 
 export default function RoomManagement(){
+    useEffect( () => {
+        axios
+            .get('/gestRoom')
+            .then( r => {
+                console.dir(r.data);
+
+            })
+
+    }, [])
+
+
     let i = 4
     let j = 4
     let k = 1

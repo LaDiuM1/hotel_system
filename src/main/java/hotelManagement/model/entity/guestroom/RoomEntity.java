@@ -4,10 +4,9 @@ import hotelManagement.model.dto.guestroom.RoomDto;
 import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table( name = "room")
@@ -25,8 +24,14 @@ public class RoomEntity extends BaseTime {
     private int rstate;              // 객실 상태
     @Column(length = 20, nullable = false)
 
-    // String 타입 One To One 선언 불가
-    private String rgname;              // 객실 등급 이름, rgrade 테이블 fk
+    @ManyToOne
+    @JoinColumn(name = "rgname_fk")
+    private RoomGradeEntity roomGradeEntity;
+
+    @ToString.Exclude
+    @Builder.Default
+    @OneToMany(mappedBy = "roomresv" )
+    private List<RoomReservationEntity> RoomReservationEntityList = new ArrayList<>();
 
     public RoomDto toDto(){
         return RoomDto.builder()

@@ -1,7 +1,6 @@
 
 
 export default function RoomStateComponent( props ){
-        console.dir(props)
         let prop = props.component[0];
         let roomInfo = prop.roomInfo;
     return(<>
