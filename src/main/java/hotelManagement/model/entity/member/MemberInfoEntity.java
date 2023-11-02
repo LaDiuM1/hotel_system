@@ -29,21 +29,14 @@ public class MemberInfoEntity extends BaseTime {
     private String mphone;             // 회원 전화번호 공통 필드
     @Column(nullable = false, length = 10)
     private String mbirth;             // 회원 생년월일 공통 필드
-    @OneToOne
-    @JoinColumn(name = "mno_fk")
+    @OneToOne(mappedBy = "memberInfoEntity")
     private MemberEntity memberEntity;  // 회원 엔티티
-    // 14:11 memberEntity에서 여기로 옮겼습니다.
-    @OneToMany( mappedBy = "memberEntity")
+    @OneToMany( mappedBy = "memberInfoEntity")
     @Builder.Default
     private List<RoomReservationEntity> roomReservationEntityList = new ArrayList<>();
 
 
-    /* BaseTime 상속 필드
-    @CreatedDate
-    protected LocalDateTime cdate;    // 레코드 생성 날짜
-    @LastModifiedDate
-    protected LocalDateTime udate;    // 레코드 수정 날짜
-    */
+
 
 
 }

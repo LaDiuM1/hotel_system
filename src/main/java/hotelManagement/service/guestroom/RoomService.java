@@ -22,7 +22,7 @@ public class RoomService {
     @Autowired
     private RoomGradeEntityRepository roomGradeEntityRepository;
 
-    @Transactional // 객실 정보 반환 함수
+ /*   @Transactional // 객실 정보 반환 함수
     public List<RoomDto> getGuestRoomList(){
         LocalDateTime nowDate = LocalDateTime.now();
         List<RoomEntity> RoomEntityList = roomEntityRepository.findAll();
@@ -47,7 +47,7 @@ public class RoomService {
         });
 
         return roomDtoList;
-    }
+    }*/
 
 
 }

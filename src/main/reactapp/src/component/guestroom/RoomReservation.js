@@ -17,11 +17,13 @@ export default function RoomReservation(){
         document.querySelector('.ReservationDate').value = today;
         onSearch();
     }, []);
+
     const onSearch = () => {
         axios
             .get("http://localhost:80/guestRoomReservation", {params:info})
             .then( response => {console.log(response)})
     }
+
     /* 객실 예약 컴포넌트 */
     return(<>
         <div className={"reservationContainer"}>

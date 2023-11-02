@@ -16,12 +16,12 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
-    @GetMapping("") // 객실 정보 반환 함수
+/*    @GetMapping("") // 객실 정보 반환 함수
     public List<RoomDto> getGuestRoomList(){
 
         return roomService.getGuestRoomList();
 
-    }
+    }*/
 
 
 }

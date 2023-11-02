@@ -1,4 +1,4 @@
-package hotelManagement.controller;
+package hotelManagement.controller.guestroom;
 
 import hotelManagement.model.dto.guestroom.RoomReservationDto;
 import hotelManagement.model.dto.member.RoomSearchDto;
@@ -21,8 +21,7 @@ public class GuestRoomController {
     // get 객실 예약 리스트
     public List<RoomReservationDto> getRoomReservation( RoomSearchDto roomSearchDto){
         System.out.println("roomSearchDto = " + roomSearchDto);
-
-        return null;
+        return roomService.getRoomReservation(roomSearchDto);
     }
 
 }

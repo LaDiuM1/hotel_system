@@ -1,7 +1,7 @@
 package hotelManagement.model.dto.guestroom;
 
+import hotelManagement.model.dto.member.MemberDto;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -20,8 +20,11 @@ public class RoomReservationDto {
     private LocalDate rrenddate;        // 예약 종료 날짜
     private LocalDateTime rrcheckin;    // 체크인 시간
     private LocalDateTime rrcheckout;   // 체크아웃 시간
-    private int mno;                     // 회원 번호 fk
+   // private int mno;                     // 회원 번호 fk
+    private String mname;                  // 회원 이름
+    private String mphone;                 // 회원 전화번호
     private int rno;                     // 객실 번호 fk
+
 
 }
 
