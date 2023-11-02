@@ -11,7 +11,7 @@ public class RoomReservationService {
 
     // get 객실 예약 리스트
     public List<RoomReservationDto> getRoomReservation(RoomSearchDto roomSearchDto){
-
+        return null;
     }
 
 }

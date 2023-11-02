@@ -1,11 +1,8 @@
 package hotelManagement.model.entity.member;
 
-import hotelManagement.model.entity.guestroom.RoomReservationEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table( name = "member")
@@ -18,13 +15,12 @@ public class MemberEntity {
     @Id
     @Column(length = 20, nullable = false)
     private String mid;
-    @Column( name = "mno")
-    private int mno;
     @Column(length = 100, nullable = false)
     private String mpwd;
 
     @ToString.Exclude
-    @OneToOne(mappedBy = "memberEntity")
+    @OneToOne
+    @JoinColumn(name = "mno_fk")
     private MemberInfoEntity memberInfoEntity;
 
 /*    @OneToMany( mappedBy = "memberEntity")

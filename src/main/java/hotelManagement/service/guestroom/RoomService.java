@@ -30,10 +30,10 @@ public class RoomService {
         List<RoomDto> roomDtoList = new ArrayList<>();
         RoomEntityList.forEach( p -> {
             RoomDto roomDto = p.toDto();
-            boolean enteringCheck = roomReservationEntityRepository
-                    .existsByRnoAndRrcheckinGreaterThanAndRrcheckoutLessThan(p.getRno(), nowDate, nowDate);
+           // boolean enteringCheck = roomReservationEntityRepository
+             //       .existsByRnoAndRrcheckinGreaterThanAndRrcheckoutLessThan(p.getRno(), nowDate, nowDate);
             int roomState = p.getRstate();
-            if(enteringCheck && roomState == 1){
+            if(true && roomState == 1){
                 roomDto.setRstate(1);
             }
             else if ( roomState == 0){

@@ -24,7 +24,7 @@ public class RoomEntity extends BaseTime {
     private int rstate;              // 객실 상태
 
     @ManyToOne
-    @JoinColumn(name = "rgname_fk")
+    @JoinColumn( name = "rgname_fk")
     private RoomGradeEntity roomGradeEntity;
 
     @ToString.Exclude
@@ -36,6 +36,7 @@ public class RoomEntity extends BaseTime {
         return RoomDto.builder()
                 .rno(this.rno)
                 .rstate(this.rstate)
+                .rgname(this.roomGradeEntity.getRgname())
                 .build();
     }
 }
