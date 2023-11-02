@@ -15,7 +15,6 @@ public class MemberDto {
 
     public MemberEntity toEntity() { // dto -> Entity
         return MemberEntity.builder()
-                .mgno(this.mgno)
                 .mid(this.mid)
                 .mpwd(this.mpwd)
                 .build();

@@ -12,12 +12,10 @@ import javax.persistence.*;
 // 회원 테이블
 public class MemberEntity {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int mgno;
-    @Column( name = "mno")
-    private int mno;
     @Column(length = 20, nullable = false)
     private String mid;
+    @Column( name = "mno")
+    private int mno;
     @Column(length = 100, nullable = false)
     private String mpwd;
     @ToString.Exclude
