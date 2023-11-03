@@ -18,12 +18,13 @@
     box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);
     padding: 10px;
 }
-
+/* ------------ 테이블 영역 ------------*/
 .roomStateTable{
     text-align: center;
     border-collapse: separate;
     border-spacing: 5px 5px;
     padding-top: 40px;
+    vertical-align: middle;
 
 }
 
