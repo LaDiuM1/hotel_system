@@ -25,15 +25,17 @@ public class RoomService {
     @Transactional // 객실 정보 반환 함수
     public List<RoomDto> getGuestRoomList(){
         LocalDateTime nowDate = LocalDateTime.now();
+        System.out.println("nowDate = " + nowDate);
         List<RoomEntity> RoomEntityList = roomEntityRepository.findAll();
-
+        
         List<RoomDto> roomDtoList = new ArrayList<>();
         RoomEntityList.forEach( p -> {
             RoomDto roomDto = p.toDto();
-            boolean enteringCheck = roomReservationEntityRepository
-                    .existsByRoomEntity_RnoAndRrcheckinGreaterThanAndRrcheckoutLessThan(p.getRno(), nowDate, nowDate);
+            Object enteringCheck = roomReservationEntityRepository.stateCheck(p.getRno(), nowDate);
             int roomState = p.getRstate();
-            if(enteringCheck && roomState == 1){
+
+            // 1 : 입실중 , 2 : 공실, 3 : 사용불가
+            if(enteringCheck != null && roomState == 1){
                 roomDto.setRstate(1);
             }
             else if ( roomState == 0){
