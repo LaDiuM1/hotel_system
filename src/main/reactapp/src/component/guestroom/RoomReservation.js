@@ -47,6 +47,8 @@ export default function RoomReservation(){
                         <span className={"guestRoomEnd"}>종료 날짜</span>
                         <span className={"guestRoomName"}>성함</span>
                         <span className={"guestRoomPhone"}>전화번호</span>
+                        <span className={"guestRoomCheckIn"}>체크인</span>
+                        <span className={"guestRoomCheckOut"}>체크아웃</span>
                     </div>
                     {/* 레코드 구역 */}
                     {

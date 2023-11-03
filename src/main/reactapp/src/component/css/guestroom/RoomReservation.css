@@ -43,6 +43,7 @@
 .tableColumn .guestRoomNum,.tableColumn .guestRoomGrade
  ,.tableColumn .guestRoomStart, .tableColumn .guestRoomEnd
  ,.tableColumn .guestRoomName,.tableColumn .guestRoomPhone
+    ,.tableColumn .guestRoomCheckIn , .tableColumn .guestRoomCheckOut
  {
     background-color: #4682A9;
     color:white;
@@ -54,14 +55,17 @@
 .tableRecord .guestRoomNum,.tableRecord .guestRoomGrade
 ,.tableRecord .guestRoomStart, .tableRecord .guestRoomEnd
 ,.tableRecord .guestRoomName,.tableRecord .guestRoomPhone
+,.tableRecord .guestRoomCheckIn , .tableRecord .guestRoomCheckOut
 {border:1px solid #e8e8e8; padding:5px; text-align: center;}
 /* 테이블 컬럼 크기 */
-.tableWrap .guestRoomNum{ width: 10% }
-.tableWrap .guestRoomGrade{ width:20%}
-.tableWrap .guestRoomStart{ width:20%}
-.tableWrap .guestRoomEnd{width:20% }
+.tableWrap .guestRoomNum{ width: 5% }
+.tableWrap .guestRoomGrade{ width:10%}
+.tableWrap .guestRoomStart{ width:15%}
+.tableWrap .guestRoomEnd{width:15% }
 .tableWrap .guestRoomName{ width:10% }
-.tableWrap .guestRoomPhone{width:20% }
+.tableWrap .guestRoomPhone{width:10% }
+.tableWrap .guestRoomCheckIn{width:15% }
+.tableWrap .guestRoomCheckOut{width:15% }
 
 .tablePage{
     text-align: center;

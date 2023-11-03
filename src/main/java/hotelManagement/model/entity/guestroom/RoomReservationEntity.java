@@ -53,6 +53,8 @@ public class RoomReservationEntity extends BaseTime { // 객실 예약 명단 �
                 // member name,phone 반환
                 .mname(this.memberInfoEntity.getMname())
                 .mphone(this.memberInfoEntity.getMphone())
+                .rrcheckin(this.rrcheckin)
+                .rrcheckout(this.rrcheckout)
                 // rno,gname 반환
                 .rno(this.roomEntity.getRno())
                 .gname(this.roomEntity.getRoomGradeEntity().getRgname())
