@@ -7,6 +7,8 @@ import Main from "./Main";
 import './css/Login.css'
 import RoomManagement from "./guestroom/RoomManagement";
 import Reservation from "./guestroom/RoomReservation"
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 let page = Index;
 
