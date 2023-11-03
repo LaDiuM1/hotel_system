@@ -12,5 +12,6 @@ import lombok.*;
 public class RoomSearchDto {
     private String gname;
     private String rrstartdate;
+    private String rrenddate;
     private String keyword;
 }

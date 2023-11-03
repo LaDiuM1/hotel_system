@@ -23,6 +23,7 @@ public class RoomReservationDto {
    // private int mno;                     // 회원 번호 fk
     private String mname;                  // 회원 이름
     private String mphone;                 // 회원 전화번호
+    private String gname;                  // 객실 등급
     private int rno;                     // 객실 번호 fk
 
 
