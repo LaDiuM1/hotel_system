@@ -33,7 +33,8 @@ public class RoomReservationService {
         // 그러므로 LocalDate로 파싱한 변수들을 상수에 담음.
         final LocalDate finalStartDate = startdate;
         final LocalDate finalEnddate = enddate;
-        /*  keyword의 전화번호, 이름, 호실 판단 로직
+        /*
+        *  keyword의 전화번호, 이름, 호실 판단 로직
         *   type엔 keyword가 이름, 호실, 전화번호, 공백 중 하나가 들어있음
         * */
         final String keyword = roomSearchDto.getKeyword();
