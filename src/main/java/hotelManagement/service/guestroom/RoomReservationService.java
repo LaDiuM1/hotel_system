@@ -1,7 +1,7 @@
 package hotelManagement.service.guestroom;
 
 import hotelManagement.model.dto.guestroom.RoomReservationDto;
-import hotelManagement.model.dto.member.RoomSearchDto;
+import hotelManagement.model.dto.guestroom.RoomSearchDto;
 import hotelManagement.model.entity.guestroom.RoomReservationEntity;
 import hotelManagement.model.repository.guestroom.RoomReservationEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +22,7 @@ public class RoomReservationService {
     @Autowired
     RoomReservationEntityRepository roomReservationEntityRepository;
     // get 객실 예약 리스트
-    public List<RoomReservationDto> getRoomReservation(RoomSearchDto roomSearchDto){
+    public Map<String,Object> getRoomReservation(RoomSearchDto roomSearchDto){
 
 
         // String으로 받은 날짜를 LocalDate로 파싱
@@ -63,8 +65,12 @@ public class RoomReservationService {
                     .filter(
                             entity ->
                                     finalStartDate != null && finalEnddate != null ?
-                                            entity.getRrstartdate().isAfter(finalStartDate) && entity.getRrenddate().isBefore(finalEnddate) :
+                                            // 입력받은 시작날짜가 엔티티 날짜보다 크거나 같고, 종료날짜가 엔티티 날짜보다 작거나 같으면 true
+                                            (entity.getRrstartdate().isEqual(finalStartDate) || entity.getRrstartdate().isAfter(finalStartDate))
+                                                    && (entity.getRrenddate().isEqual(finalEnddate) || entity.getRrenddate().isBefore(finalEnddate)) :
+                                            // 입력받은 시작날짜가 엔티티 날짜와 같으면 true
                                             finalStartDate != null ? entity.getRrstartdate().isEqual(finalStartDate) :
+                                                    // 입력받은 종료날짜가 엔티티 날짜와 같으면 true
                                                     entity.getRrenddate().isEqual(finalEnddate)).collect(Collectors.toList());
             entityStream = entities.stream();
         }
@@ -72,6 +78,7 @@ public class RoomReservationService {
         if( !"Nonselect".equals(roomSearchDto.getGname()) ) {
             entities = entityStream.filter(
                     entity ->
+                            // 입력받은 등급이 엔티티 등급과 같으면
                             entity.getRoomEntity().getRoomGradeEntity().getRgname().equals(
                                     roomSearchDto.getGname())).collect(Collectors.toList());
             entityStream = entities.stream();
@@ -80,32 +87,52 @@ public class RoomReservationService {
         if( type != null ) {
             entities = entityStream.filter(
                     entity -> {
+                        // 타입이 방번호일 때 검색 키워드가 엔티티 방번호와 같다면 true
                         if ("rno".equals(type)) {
                             final int keywordEqualRno = Integer.parseInt(keyword);
                             return entity.getRoomEntity().getRno() == keywordEqualRno;
+                            // 타입이 사용자 이름일 때 검색 키워드가 엔티티 사용자 이름과 같다면 true
                         } else if ("mname".equals(type)) return entity.getMemberInfoEntity().getMname().equals(keyword);
+                        // 키워드가 엔티티 전화번호와 같다면 true
                         else return entity.getMemberInfoEntity().getMphone().equals(keyword);
                     }).collect(Collectors.toList());
+            entityStream = entities.stream();
         }
-        // dto 변환 후 반환
+
+        // ------- 페이징 ----------- //
+        int page = roomSearchDto.getNowPage();
+        final int startRow = (page-1) * 10;
+        // 엔티티 총 사이즈
+        int totalSize = entities.size();
+        int totalPage = totalSize%10 == 0 ? totalSize/10 : totalSize/10+1 ;
+        int startBtn = ((page-1) / 5) * 5 + 1;
+        int endBtn = startBtn + 4;
+        // endBtn이 총 페이지 수보다 크거나 같으면 endBtn에 총 페이지 수 대입
+        if( endBtn >= totalPage ) endBtn = totalPage;
+        final int finalEndBtn = endBtn;
+        // 페이지에 따른 검색결과 축소 시작 행(startRow)만큼 skip하고 limit(10) 크기로 제한함
+        entities = entityStream.skip( startRow ).limit(10).collect(Collectors.toList());
+        // ------------------ //
+        // dto 변환
         List<RoomReservationDto> roomDtoList = new ArrayList<>();
         for( RoomReservationEntity entity : entities ) roomDtoList.add(entity.toDto());
-        return roomDtoList;
+        // HashMap 반환 ( 페이징에 필요한 필드와 더불어 내부에 roomDtoList 필드 존재 )
+        return new HashMap(){{
+            put("totalSize",totalSize);put("totalPage", totalPage);
+            put("startBtn", startBtn);put("endBtn",finalEndBtn);
+            put("roomDtoList",roomDtoList);
+        }};
     }
+    // 키워드의 타입 판별 메서드
     public String aboutType(String keyword){
-        char[] charKeyword = keyword.toCharArray();
-        if (charKeyword.length == 0) return null;
+        if(keyword.isEmpty()) return null;
         // 이름 판단
-        for (char i : charKeyword) {
-            if ( '힣' > i && i > '가') {
-                return "mname";
-            }
-        }
+        if(!keyword.matches("^[0-9]*$")) return "mname";
+
         //  호실,전화번호 판단
-        if(  4 > charKeyword.length  ) return "rno";
+        else if(  keyword.matches("\\d{0,5}")  ) return "rno";
         else return "rphone";
     }
-
 }
 //임시저장
 /*
@@ -138,3 +165,11 @@ final int keywordEqualRno = Integer.parseInt(keyword);
         else if( "rphone".equals(type) )
         entityStream.filter( entity -> entity.getMemberInfoEntity().getMphone().equals(keyword));
         }*/
+
+        /*return AddPagging.builder()
+                .startBtn(startBtn)
+                .endBtn(endBtn)
+                .totalSize(totalSize)
+                .totalPage(totalPage)
+                .roomDtoList(roomDtoList)
+                .build();*/

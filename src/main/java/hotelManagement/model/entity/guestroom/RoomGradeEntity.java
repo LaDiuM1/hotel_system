@@ -30,5 +30,5 @@ public class RoomGradeEntity extends BaseTime {
     @ToString.Exclude
     @Builder.Default
     @OneToMany(mappedBy = "roomGradeEntity")
-    private List<RoomEntity> RoomEntityList = new ArrayList<>();
+    private List<RoomEntity> RoomEntityList = new ArrayList<>();    // 양방향 객실 엔티티 리스트
 }

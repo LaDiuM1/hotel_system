@@ -1,12 +1,11 @@
 package hotelManagement.controller.guestroom;
 
-import hotelManagement.model.dto.guestroom.RoomReservationDto;
-import hotelManagement.model.dto.member.RoomSearchDto;
+import hotelManagement.model.dto.guestroom.RoomSearchDto;
 import hotelManagement.service.guestroom.RoomReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/guestRoomReservation")
@@ -19,7 +18,7 @@ public class RoomReservationController {
 
     @GetMapping("")
     // get 객실 예약 리스트
-    public List<RoomReservationDto> getRoomReservation( RoomSearchDto roomSearchDto){
+    public Map<String,Object> getRoomReservation(RoomSearchDto roomSearchDto){
         System.out.println("roomSearchDto = " + roomSearchDto);
         return roomService.getRoomReservation(roomSearchDto);
     }

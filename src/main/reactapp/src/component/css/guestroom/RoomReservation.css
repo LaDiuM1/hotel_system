@@ -8,6 +8,8 @@
     display: flex;
     justify-content: space-around;
 }
+.reservationWrap .searchWrap{display: flex; align-items: center;}
+.searchWrap .totalRecordWrap{ margin-left: 280px;font-weight: bold;}
 /* 인풋 박스 설정 */
 .ReservationGrade{width:10%;}
 .ReservationDate{width:23%;}
@@ -63,7 +65,7 @@
 .tableWrap .guestRoomStart{ width:15%}
 .tableWrap .guestRoomEnd{width:15% }
 .tableWrap .guestRoomName{ width:10% }
-.tableWrap .guestRoomPhone{width:10% }
+.tableWrap .guestRoomPhone{width:15% }
 .tableWrap .guestRoomCheckIn{width:15% }
 .tableWrap .guestRoomCheckOut{width:15% }
 
@@ -75,12 +77,18 @@
     margin-right: 7px;
     width:20px;
     padding:2px;
-    background-color: transparent;
     border: 1px solid #4682A9;
     border-radius: 3px;
     color:black;
     box-shadow: 2px 0 8px 2px rgba(0, 0, 0, 0.2);
 }
+.tablePage button:hover{
+    background-color: #91C8E4;
+}
+.pageActive{
+    background-color: #91C8E4;
+}
+
 
 
 

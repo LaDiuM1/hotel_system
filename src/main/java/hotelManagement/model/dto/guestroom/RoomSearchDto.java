@@ -1,4 +1,4 @@
-package hotelManagement.model.dto.member;
+package hotelManagement.model.dto.guestroom;
 
 import lombok.*;
 
@@ -14,4 +14,5 @@ public class RoomSearchDto {
     private String rrstartdate;
     private String rrenddate;
     private String keyword;
+    private int nowPage;
 }

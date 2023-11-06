@@ -2,6 +2,7 @@ package hotelManagement.model.entity.member;
 
 import hotelManagement.model.entity.BaseTime;
 import hotelManagement.model.entity.guestroom.RoomReservationEntity;
+import hotelManagement.model.entity.locationEntity.LocationReservationEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,11 @@ public class MemberInfoEntity extends BaseTime {
     @ToString.Exclude
     @OneToMany( mappedBy = "memberInfoEntity" )
     @Builder.Default
-    private List<RoomReservationEntity> roomReservationEntityList = new ArrayList<>();
+    private List<RoomReservationEntity> roomReservationEntityList = new ArrayList<>(); // 양방향 객실 예약 리스트
+
+    @ToString.Exclude
+    @Builder.Default
+    @OneToMany( mappedBy = "memberInfoEntity")
+    private List<LocationReservationEntity> lresvList = new ArrayList<>(); // 양방향 시설 예약 리스트
 
 }
