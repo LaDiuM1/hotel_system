@@ -1,7 +1,7 @@
 package hotelManagement.model.dto.guestroom;
 
-import hotelManagement.model.dto.member.MemberDto;
 import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
