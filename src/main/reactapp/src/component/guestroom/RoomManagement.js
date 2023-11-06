@@ -75,7 +75,7 @@ export default function RoomManagement(){
                                         </th>
                                     </tr> : null }
                                     { i %15 === 0 ? <td className={"floor"}>{Math.floor(p.rno / 100)}F</td> : null }
-                                    { <RoomStateComponent state = {p.rstate} rno = {p.rno} />  }
+                                    { <RoomStateComponent state = {p.rstate} rno = {p.rno} rgname = {p.rgname} reservInfo = {p.roomReservationDtoList[0]} />  }
                                     { i % 15 === 4 || i % 15 === 8 || i % 15 === 11 || i % 15 === 13 ?
                                         <td className={"roomComponentSpacing"}></td> : null }
                                     { (i + 1) % 15 === 0 ? <tr></tr> : null }

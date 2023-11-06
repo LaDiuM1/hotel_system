@@ -140,11 +140,11 @@
 }
 
 .modalContent{
-    width: 90%;
     display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
     font-size: 20px;
+    justify-content: center;
+    margin: 0 auto;
+    width: 90%;
 }
 .modalContent h3{
     margin-top: 10px;
@@ -154,6 +154,7 @@
 
 .modalText{
     margin: 20px 0;
+    margin-left: 20%;
 
 }
 .modalTitle {
@@ -173,11 +174,11 @@
     margin-right: 10px;
 }
 
-.stateInfo, .memberInfo{
+.memberInfo{
     background-color: #e8e8e891;
     border-radius: 20px;
     height: 400px;
     padding: 30px;
-    width: 330px;
+    width: 500px;
 
 }

@@ -3,11 +3,11 @@ package hotelManagement.service.guestroom;
 import hotelManagement.model.dto.guestroom.RoomDto;
 import hotelManagement.model.dto.guestroom.RoomReservationDto;
 import hotelManagement.model.entity.guestroom.RoomEntity;
-import hotelManagement.model.entity.member.MemberEntity;
+import hotelManagement.model.entity.member.MemberInfoEntity;
 import hotelManagement.model.repository.guestroom.RoomEntityRepository;
 import hotelManagement.model.repository.guestroom.RoomGradeEntityRepository;
 import hotelManagement.model.repository.guestroom.RoomReservationEntityRepository;
-import hotelManagement.model.repository.member.MemberEntityRepository;
+import hotelManagement.model.repository.member.MemberInfoEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,45 +26,47 @@ public class RoomService {
     @Autowired
     private RoomGradeEntityRepository roomGradeEntityRepository;
     @Autowired
-    MemberEntityRepository memberEntityRepository;
+    MemberInfoEntityRepository memberInfoEntityRepository;
 
     @Transactional // 객실 정보 반환 함수
     public List<RoomDto> getGuestRoomList(){
         LocalDateTime nowDate = LocalDateTime.now();
         List<RoomEntity> RoomEntityList = roomEntityRepository.findAll();
-        
+
         List<RoomDto> roomDtoList = new ArrayList<>();
         RoomEntityList.forEach( p -> {
             RoomDto roomDto = p.toDto();
             // 네이티브 쿼리 결과를 인터페이스로 저장
             RoomReservationEntityRepository.RoomReservationDto roomReservationDto =  roomReservationEntityRepository.stateCheck(p.getRno(), nowDate);
 
-            Optional<MemberEntity> memberEntity = memberEntityRepository.findById(roomReservationDto.getMno_fk());
-
-            if(memberEntity.isPresent()){
-
-            }
-
             int roomState = p.getRstate();
             // 1 : 입실중 , 2 : 공실, 3 : 사용불가
-            if(roomReservationDto != null && roomState == 1){
+            if (roomReservationDto != null && roomState == 1) {
                 roomDto.setRstate(1);
 
-                // dto 객체 builder 후 인터페이스로 필드 값 호출 후 저장
+                // 예약 정보가 있을 시 객실 예약테이블 회원번호 참조키로 회원 정보 호출
+                Optional<MemberInfoEntity> memberInfoEntity = memberInfoEntityRepository.findById(roomReservationDto.getMno_fk());
+                MemberInfoEntity entity = new MemberInfoEntity();
+
+                if (memberInfoEntity.isPresent()) { entity = memberInfoEntity.get(); }
+
+                // RoomDto 객체 생성하여 예약정보, 회원정보 빌더 메서드로 대입
                 roomDto.getRoomReservationDtoList().add(
                         RoomReservationDto.builder()
                                 .rrno(roomReservationDto.getRrno())
                                 .rrstartdate(roomReservationDto.getRrstartdate())
                                 .rrenddate(roomReservationDto.getRrenddate())
                                 .rrcheckin(roomReservationDto.getRrcheckin())
+                                .mname(entity.getMname())
+                                .mphone(entity.getMphone())
                                 .build()
                 );
             }
-            else if ( roomState == 0){
+            else if (roomState == 0) { // 객실 상태가 0 일때 사용불가 설정
                 roomDto.setRstate(3);
             }
             else {
-                roomDto.setRstate(2);
+                roomDto.setRstate(2); // 그 외에는 공실로 설정
             }
 
             roomDtoList.add(roomDto);
