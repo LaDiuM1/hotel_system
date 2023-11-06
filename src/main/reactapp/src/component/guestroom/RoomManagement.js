@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import RoomStateComponent from "./RoomStateComponent";
 
 
 export default function RoomManagement(){
@@ -100,50 +101,7 @@ export default function RoomManagement(){
 
 }
 
-function RoomStateComponent( props ){
-    const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-
-    return(<>
-
-        <td onClick={handleShow}
-            className={`roomComponent ${ props.state === 1 ? "state1" : props.state === 2 ? "state2" : "state3"}`}>
-            { props.rno }
-        </td>
-
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-            </Modal.Footer>
-        </Modal>
-
-    </>)
-
-}
-
-function RoomComponentModal() {
-
-
-    return (
-        <>
-
-
-
-        </>
-    );
-}
 
 
 

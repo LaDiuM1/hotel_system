@@ -3,9 +3,7 @@ package hotelManagement.controller.guestroom;
 import hotelManagement.model.dto.guestroom.RoomDto;
 import hotelManagement.service.guestroom.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,10 @@ public class RoomController {
 
     }
 
+    @PutMapping("") // 객실 상태 변경 함수
+    public boolean updateRoomState(@RequestBody RoomDto roomDto){
+        return roomService.updateRoomState(roomDto);
+
+    }
 
 }
