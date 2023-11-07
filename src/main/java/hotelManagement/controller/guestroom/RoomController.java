@@ -17,8 +17,13 @@ public class RoomController {
 
     @GetMapping("") // 객실 정보 반환 함수
     public List<RoomDto> getGuestRoomList(){
-
         return roomService.getGuestRoomList();
+
+    }
+
+    @GetMapping("/checkout") // 퇴실 처리 함수
+    public boolean checkout(@RequestParam int rrno){
+        return roomService.checkout(rrno);
 
     }
 

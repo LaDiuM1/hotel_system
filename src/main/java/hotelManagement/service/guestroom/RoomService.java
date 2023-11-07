@@ -4,6 +4,7 @@ import hotelManagement.model.dto.room.RoomDto;
 import hotelManagement.model.dto.room.RoomReservationDto;
 import hotelManagement.model.entity.room.RoomEntity;
 import hotelManagement.model.entity.member.MemberInfoEntity;
+import hotelManagement.model.entity.room.RoomReservationEntity;
 import hotelManagement.model.repository.room.RoomEntityRepository;
 import hotelManagement.model.repository.room.RoomGradeEntityRepository;
 import hotelManagement.model.repository.room.RoomReservationEntityRepository;
@@ -88,4 +89,14 @@ public class RoomService {
 
     }
 
+    @Transactional // 퇴실 처리 함수
+    public boolean checkout(int rrno){
+        Optional<RoomReservationEntity> OpRoomResvEntity = roomReservationEntityRepository.findById(rrno);
+
+        if(OpRoomResvEntity.isPresent()){
+            OpRoomResvEntity.get().setRrcheckout(LocalDateTime.now());
+            return true;
+        }
+        return false;
+    }
 }

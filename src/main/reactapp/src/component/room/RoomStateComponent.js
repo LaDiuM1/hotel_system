@@ -18,21 +18,37 @@ export default function RoomStateComponent( props ){
         let isState = state === 2;
         let alarm = isState ? "사용 불가로 바꾸시겠습니까?" : "사용 가능으로 바꾸시겠습니까?";
 
-        let data = { rno : rno, rstate : isState ? 0 : 1 }
+        let data = {rno: rno, rstate: isState ? 0 : 1}
 
-        if(window.confirm(alarm)){
+        if (window.confirm(alarm)) {
             axios
                 .put('http://localhost:80/guestRoom', data)
                 .then(r => {
-                    if(r) { alert("객실 상태를 변경하였습니다.") }
+                    if (r) {
+                        alert("객실 상태를 변경하였습니다.")
+                    }
                     setState(isState ? 3 : 2);
                 })
 
         }
+    }
 
-
+    function checkout(rrno) {
+        if (window.confirm("퇴실 처리하시겠습니까?")) {
+            axios
+                .get('http://localhost:80/guestRoom/checkout', {params: {rrno}})
+                .then(r => {
+                    if (r) {
+                        alert("퇴실 처리하였습니다.")
+                    }
+                    setState(2);
+                })
+        }
 
     }
+
+
+
 
 
     return(<>
@@ -46,16 +62,12 @@ export default function RoomStateComponent( props ){
         <Modal
             show={show}
             onHide={handleClose}
-            size="lg"
         >
-            <Modal.Header closeButton>
-                <Modal.Title><div className={"modalTitle"}><h3>{rno}호 객실 정보</h3></div></Modal.Title>
-            </Modal.Header>
 
             <Modal.Body className={"modalBody"}>
                 <div className={"modalContent"}>
                     <div className={"memberInfo"}>
-                        <h3>객실 이용자 정보</h3>
+                        <h3>{rno}호 객실 이용자 정보</h3>
                         <div className={"modalText"}> 성함 : {reservInfo.mname} </div>
                         <div className={"modalText"}> 전화번호 : {reservInfo.mphone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')} </div>
                         <div className={"modalText"}> 예약 시작 날짜 : {reservInfo.rrstartdate} </div>
@@ -64,13 +76,19 @@ export default function RoomStateComponent( props ){
                     </div>
                 </div>
 
-            </Modal.Body>
 
+            </Modal.Body>
             <Modal.Footer>
+                <button className={"modalButton checkoutBtn"} onClick={handleClose}>
+                    퇴실
+                </button>
                 <button className={"modalButton"} onClick={handleClose}>
                     닫기
                 </button>
+
+
             </Modal.Footer>
+
         </Modal> : null
     }
     </>)

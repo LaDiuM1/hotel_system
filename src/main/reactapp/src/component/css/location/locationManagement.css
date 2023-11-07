@@ -1,0 +1,88 @@
+.webConteiner{
+    width: 95%;
+    margin: 0 auto;
+
+}
+.locationContent{
+    width: 1230px;
+    height: 680px;
+    background-color: white;
+    margin: 50px auto;
+    box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+.componentArea{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.locationComponent{
+    border-radius: 15px;
+    margin: 20px;
+    width: 480px;
+    height: 280px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.locationHeader{
+    padding: 13px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    border-bottom: 1px dashed #bdbcbc;
+    color: #494949;
+    text-shadow: 0 1px 1px rgb(128, 128, 128);
+
+}
+.locationInfoArea{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px auto;
+
+
+}
+
+.locationInfoComponent{
+    width: 210px;
+    height: 180px;
+    border-radius: 15px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.infoText{
+    width: 80%;
+}
+
+.stateText{
+    font-weight: bold;
+
+}
+
+.stateBox{ /*혼잡도 영역 블록*/
+    display: inline-block;
+    width:15px;
+    height: 15px;
+    vertical-align: middle;
+    margin: 0 0 2px 5px;
+}
+
+.stateColor1{ /* 혼잡도 원활 */
+    background-color: green;
+
+}
+.stateColor2{ /* 혼잡도 보통 */
+    background-color: orange;
+
+}
+.stateColor3{ /* 혼잡도 혼잡 */
+    background-color: red;
+
+}

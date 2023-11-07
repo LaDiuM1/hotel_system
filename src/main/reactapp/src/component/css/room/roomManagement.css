@@ -138,9 +138,9 @@
 /* 모달 표시 영역 */
 
 .modalBody{
-    height:450px;
-
+    height:420px;
 }
+
 .modalButton{
     border: 1px solid #9d9d9d;
     background-color: #efefef;
@@ -148,6 +148,13 @@
     width: 120px;
     outline: none;
     font-weight: bold;
+    margin: 10px 5px;
+
+}
+.checkoutBtn{
+    background-color: #393939;
+    color: white;
+    font-weight: 400;
 }
 
 .modalContent{
@@ -164,8 +171,7 @@
 }
 
 .modalText{
-    margin: 20px 0;
-    margin-left: 20%;
+    margin: 20px 0 20px 10%;
 
 }
 .modalTitle {
@@ -186,10 +192,10 @@
 }
 
 .memberInfo{
-    background-color: #e8e8e891;
     border-radius: 20px;
-    height: 400px;
+    height: 380px;
     padding: 30px;
-    width: 500px;
+    width: 100%;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
 
 }
