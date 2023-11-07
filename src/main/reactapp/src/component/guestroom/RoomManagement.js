@@ -12,7 +12,7 @@ export default function RoomManagement(){
 
     useEffect(  () => {
           axios
-            .get('/guestRoom')
+            .get('http://localhost:80/guestRoom')
             .then(r => {
                 console.dir(r.data)
                 setRoomStateData(r.data);
@@ -21,15 +21,29 @@ export default function RoomManagement(){
 
     }, [])
 
+    const now = new Date();
+    let year = now.getFullYear();
+    const month = ('0' + (now.getMonth() + 1)).slice(-2);
+    const day = ('0' + now.getDate()).slice(-2);
+    const hours = ('0' + now.getHours()).slice(-2);
+    const minutes = ('0' + now.getMinutes()).slice(-2);
+    const seconds = ('0' + now.getSeconds()).slice(-2);
+
+    const nowTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
     return(<>
             <div className={"webConteiner"}>
 
                 <div className={"contentArea"}>
-                    <div className={"guide"}>
-                        <div className={"color1"}></div>입실
-                        <div className={"color2"}></div>공실
-                        <div className={"color3"}></div>사용불가
+                    <div className={"contentHeader"}>
+                        <div className={"nowTimePrint"}>
+                            기준 시간 : { nowTime }
+                        </div>
+                        <div className={"guide"}>
+                            <div className={"color1"}></div>입실
+                            <div className={"color2"}></div>공실
+                            <div className={"color3"}></div>사용불가
+                        </div>
                     </div>
                     <table className={"roomStateTable"}>
 

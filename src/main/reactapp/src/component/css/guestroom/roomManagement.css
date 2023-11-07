@@ -16,7 +16,7 @@
     background-color: white;
     margin: 50px auto;
     box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+    padding: 20px;
 }
 /* ------------ 테이블 영역 ------------*/
 .roomStateTable{
@@ -92,11 +92,22 @@
 
 }
 
+ .contentHeader{
+     display:flex;
+     justify-content:space-between;
+
+ }
  .guide{
      display: flex;
      justify-content: end;
 
  }
+ .nowTimePrint{
+     font-weight: bold;
+     font-size: 17px;
+     margin-left: 30px;
+ }
+
  .color1{
      width:15px;
      height: 15px;

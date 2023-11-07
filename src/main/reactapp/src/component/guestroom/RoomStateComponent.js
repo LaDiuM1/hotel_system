@@ -22,7 +22,7 @@ export default function RoomStateComponent( props ){
 
         if(window.confirm(alarm)){
             axios
-                .put('/guestRoom', data)
+                .put('http://localhost:80/guestRoom', data)
                 .then(r => {
                     if(r) { alert("객실 상태를 변경하였습니다.") }
                     setState(isState ? 3 : 2);
@@ -47,8 +47,6 @@ export default function RoomStateComponent( props ){
             show={show}
             onHide={handleClose}
             size="lg"
-            backdrop={false}
-            keyboard={false}
         >
             <Modal.Header closeButton>
                 <Modal.Title><div className={"modalTitle"}><h3>{rno}호 객실 정보</h3></div></Modal.Title>
@@ -59,7 +57,7 @@ export default function RoomStateComponent( props ){
                     <div className={"memberInfo"}>
                         <h3>객실 이용자 정보</h3>
                         <div className={"modalText"}> 성함 : {reservInfo.mname} </div>
-                        <div className={"modalText"}> 전화번호 : {reservInfo.mphone} </div>
+                        <div className={"modalText"}> 전화번호 : {reservInfo.mphone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')} </div>
                         <div className={"modalText"}> 예약 시작 날짜 : {reservInfo.rrstartdate} </div>
                         <div className={"modalText"}> 예약 종료 날짜 : {reservInfo.rrenddate} </div>
                         <div className={"modalText"}> 체크인 시간 :  {reservInfo.rrcheckin.replace("T"," ")} </div>
