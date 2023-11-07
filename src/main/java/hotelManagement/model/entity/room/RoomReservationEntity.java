@@ -1,6 +1,6 @@
-package hotelManagement.model.entity.guestroom;
+package hotelManagement.model.entity.room;
 
-import hotelManagement.model.dto.guestroom.RoomReservationDto;
+import hotelManagement.model.dto.room.RoomReservationDto;
 import hotelManagement.model.entity.BaseTime;
 import hotelManagement.model.entity.member.MemberInfoEntity;
 import lombok.*;

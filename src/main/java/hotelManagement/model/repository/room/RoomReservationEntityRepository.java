@@ -1,6 +1,6 @@
-package hotelManagement.model.repository.guestroom;
+package hotelManagement.model.repository.room;
 
-import hotelManagement.model.entity.guestroom.RoomReservationEntity;
+import hotelManagement.model.entity.room.RoomReservationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-import styles from '../css/guestroom/roomManagement.css'
+import styles from '../css/room/roomManagement.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";

@@ -1,9 +1,9 @@
 package hotelManagement.service.guestroom;
 
-import hotelManagement.model.dto.guestroom.RoomReservationDto;
-import hotelManagement.model.dto.guestroom.RoomSearchDto;
-import hotelManagement.model.entity.guestroom.RoomReservationEntity;
-import hotelManagement.model.repository.guestroom.RoomReservationEntityRepository;
+import hotelManagement.model.dto.room.RoomReservationDto;
+import hotelManagement.model.dto.room.RoomSearchDto;
+import hotelManagement.model.entity.room.RoomReservationEntity;
+import hotelManagement.model.repository.room.RoomReservationEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

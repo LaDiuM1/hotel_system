@@ -24,8 +24,6 @@ public class LocationReservationEntity extends BaseTime {
     private int lrno;           // 기본키
     @Column(columnDefinition = "tinyint", nullable = false)
     private int lrstate;         // 시설 예약 상태 1, 2, 3
-    @Column(length = 20, nullable = false)
-    private String lrtype;      // 예약 구분
     @Column(nullable = false)
     private LocalDateTime lrtime;   // 시설 예약 시간
 

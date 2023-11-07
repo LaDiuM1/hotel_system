@@ -11,7 +11,7 @@
 .reservationWrap .searchWrap{display: flex; align-items: center;}
 .searchWrap .totalRecordWrap{ margin-left: 280px;font-weight: bold;}
 /* 인풋 박스 설정 */
-.ReservationGrade{width:10%;}
+.ReservationGrade{width:12%;}
 .ReservationDate{width:23%;}
 .ReservationSearch{width:20%;}
 .searchBtn{

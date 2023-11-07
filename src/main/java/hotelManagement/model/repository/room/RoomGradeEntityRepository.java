@@ -1,6 +1,6 @@
-package hotelManagement.model.repository.guestroom;
+package hotelManagement.model.repository.room;
 
-import hotelManagement.model.entity.guestroom.RoomGradeEntity;
+import hotelManagement.model.entity.room.RoomGradeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

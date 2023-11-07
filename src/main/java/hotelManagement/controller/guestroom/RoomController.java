@@ -1,6 +1,6 @@
 package hotelManagement.controller.guestroom;
 
-import hotelManagement.model.dto.guestroom.RoomDto;
+import hotelManagement.model.dto.room.RoomDto;
 import hotelManagement.service.guestroom.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

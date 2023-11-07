@@ -1,4 +1,4 @@
-package hotelManagement.model.entity.locationEntity;
+package hotelManagement.model.entity.discount;
 
 import hotelManagement.model.entity.BaseTime;
 import lombok.*;
