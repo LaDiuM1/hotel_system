@@ -9,7 +9,8 @@ export default function RoomReservation(){
         rrstartdate: new Date().toISOString().slice(0, 10),
         rrenddate:'',
         keyword: '',
-        nowPage: 1
+        nowPage: 1,
+        limitPage: 10
     })
     // 검색 시 페이지와 레코드 배열이 담겨있음.
     let[ reservationRecord, setReservationRecord ] = useState( [] )

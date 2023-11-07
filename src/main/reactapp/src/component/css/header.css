@@ -8,6 +8,7 @@ a{
     text-decoration: none!important;
     color:inherit!important;
 }
+html{background-color: rgba(250, 250, 250, 0.54);}
 .notosanskr * {
     font-family: 'Noto Sans KR', sans-serif;
 }

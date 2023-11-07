@@ -1,0 +1,29 @@
+
+/* 컬럼 설정 */
+.tableColumn .lname,.tableColumn .lrstate
+,.tableColumn .lrmname, .tableColumn .lrmphone
+,.tableColumn .lrtime
+{
+    background-color: #4682A9;
+    color:white;
+    text-align: center;
+    padding:6px;
+    border: 1px solid #4b8dbd;
+}
+/* 테이블 컬럼 크기 */
+.tableWrap .lname{ width: 20% }
+.tableWrap .lrstate{ width:20%}
+.tableWrap .lrmname{ width:20%}
+.tableWrap .lrmphone{width:20% }
+.tableWrap .lrtime{ width:20% }
+/* 레코드 설정 */
+.tableRecord .lname,.tableRecord .lrstate
+,.tableRecord .lrmname, .tableRecord .lrmphone
+,.tableRecord .lrtime
+{border:1px solid #e8e8e8; padding:5px; text-align: center;}
+
+.diningWrap{
+    height: 20px;
+    margin: 10px 3px;
+}
+.diningWrap select{padding: 3px 5px 3px 5px; width:120px;}
