@@ -1,4 +1,4 @@
-package hotelManagement.controller.guestroom;
+package hotelManagement.controller.room;
 
 import hotelManagement.model.dto.room.RoomSearchDto;
 import hotelManagement.service.guestroom.RoomReservationService;

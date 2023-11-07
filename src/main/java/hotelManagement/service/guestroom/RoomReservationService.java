@@ -58,23 +58,38 @@ public class RoomReservationService {
         *   1. 키워드 type이 어떤 것인지
         * 페이지 필터링
         * */
-        // 시작 날짜, 종료 날짜 둘 다 null이 아니면
+        // 시작 날짜, 종료 날짜 둘 다 null이 아니면 실행
         if( finalStartDate != null || finalEnddate != null ) {
             entities = entityStream
                     //날짜 필터
                     .filter(
                             entity ->
                                     finalStartDate != null && finalEnddate != null ?
-                                            // 입력받은 시작날짜가 엔티티 날짜보다 크거나 같고, 종료날짜가 엔티티 날짜보다 작거나 같으면 true
-                                            (entity.getRrstartdate().isEqual(finalStartDate) || entity.getRrstartdate().isAfter(finalStartDate))
-                                                    && (entity.getRrenddate().isEqual(finalEnddate) || entity.getRrenddate().isBefore(finalEnddate)) :
+                                            // 1. 입력받은 날짜가 엔티티 시작날짜 종료날짜 사이에 있다면 true
+                                            (entity.getRrstartdate().isBefore(finalStartDate) && entity.getRrenddate().isAfter(finalEnddate)
+
+                                            ||
+
+                                            // 2.
+                                            // 입력받은 시작날짜가 엔티티 시작날짜와 종료날짜 사이에 있거나
+                                            // 입력받은 종료날짜가 엔티티 시작 날짜와 종료날짜 사이에 있다면 true
+                                            ((entity.getRrstartdate().isAfter(finalStartDate) && entity.getRrstartdate().isBefore(finalEnddate))
+                                                    ||  (entity.getRrenddate().isAfter(finalStartDate) && entity.getRrenddate().isBefore(finalEnddate)))
+
+                                            ||
+
+                                            //3.
+                                                    // 입력받은 시작날짜가 엔티티 날짜보다 크거나 같고, 종료날짜가 엔티티 날짜보다 작거나 같으면 true
+                                            ((entity.getRrstartdate().isEqual(finalStartDate) || entity.getRrstartdate().isAfter(finalStartDate))
+                                                    && (entity.getRrenddate().isEqual(finalEnddate) || entity.getRrenddate().isBefore(finalEnddate))))
+
                                             // 입력받은 시작날짜가 엔티티 날짜와 같으면 true
-                                            finalStartDate != null ? entity.getRrstartdate().isEqual(finalStartDate) :
-                                                    // 입력받은 종료날짜가 엔티티 날짜와 같으면 true
-                                                    entity.getRrenddate().isEqual(finalEnddate)).collect(Collectors.toList());
+                                           : finalStartDate != null ? entity.getRrstartdate().isEqual(finalStartDate)
+                                            // 입력받은 종료날짜가 엔티티 날짜와 같으면 true
+                                            : entity.getRrenddate().isEqual(finalEnddate)).collect(Collectors.toList());
             entityStream = entities.stream();
         }
-        // 등급 필터
+        // 등급 필터 ( 선택 등급이 Nonselect가 아니라면 실행  )
         if( !"Nonselect".equals(roomSearchDto.getGname()) ) {
             entities = entityStream.filter(
                     entity ->
@@ -83,7 +98,7 @@ public class RoomReservationService {
                                     roomSearchDto.getGname())).collect(Collectors.toList());
             entityStream = entities.stream();
         }
-        // 키워드 필터
+        // 키워드 필터 ( 키워드 type이 null이 아니라면 실행 )
         if( type != null ) {
             entities = entityStream.filter(
                     entity -> {
