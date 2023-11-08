@@ -1,7 +1,6 @@
 package hotelManagement.model.entity.locationEntity;
 
 import hotelManagement.model.entity.BaseTime;
-import hotelManagement.model.entity.member.MemberEntity;
 import hotelManagement.model.entity.member.MemberInfoEntity;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
