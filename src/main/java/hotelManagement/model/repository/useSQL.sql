@@ -419,6 +419,53 @@ VALUES
     ('모닝_다이닝', '07:00:00', '09:30:00', 60000, 30000, 100);
 
 
+DELIMITER //
+CREATE PROCEDURE GenerateRandomReservations()
+BEGIN
+    DECLARE i INT;
+    DECLARE mno INT;
+    DECLARE lname VARCHAR(255);
+    DECLARE lstarttime TIME;
+    DECLARE lendtime TIME;
+    DECLARE lmaxcapa INT;
+    DECLARE udate DATE;
+    DECLARE lrtime TIME;
+    DECLARE lrstate VARCHAR(255);
+
+    SET i = 1;
+
+    WHILE i <= 100 DO
+            -- 랜덤 회원번호 (1에서 100까지)
+            SET mno = FLOOR(RAND() * 100) + 1;
+
+            -- 랜덤 날짜 (+2일 기준)
+            SET udate = DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY);
+
+            -- 랜덤 시설 선택
+            SELECT lname, lstarttime, lendtime, lmaxcapa
+            INTO lname, lstarttime, lendtime, lmaxcapa
+            FROM location
+            ORDER BY RAND()
+            LIMIT 1;
+
+            -- 랜덤 시설 내 예약 시간 생성
+            SET lrtime = ADDTIME(lstarttime, SEC_TO_TIME(FLOOR(RAND() * TIME_TO_SEC(TIMEDIFF(lendtime, lstarttime)))));
+
+            -- 예약 상태 (임의로 '예약'으로 설정)
+            SET lrstate = '예약';
+
+            -- 예약 추가
+            INSERT INTO lresv (lrstate, lrtime, lname, mno, udate)
+            VALUES (lrstate, lrtime, lname, mno, udate);
+
+            SET i = i + 1;
+        END WHILE;
+END//
+DELIMITER ;
+
+-- 저장 프로시저 실행
+CALL GenerateRandomReservations();
+
 # discount (할인율) 샘플코드
 INSERT INTO discount (dtype, drate, cdate, udate)
 VALUES
@@ -436,7 +483,7 @@ VALUES
 
 
 # locationresv (시설 예약 명단)
-
+drop table lresv;
 INSERT INTO lresv ( lrstate, lrtime, lname, mno, udate)
 VALUES
     ( 0, '2023-10-30 11:00:00', '실내수영장', 1, '2023-10-28 9:00:00'),
@@ -451,23 +498,32 @@ VALUES
     ( 0, '2023-11-01 19:00:00', '디너_다이닝', 10, '2023-10-28 8:45:00');
 # 무작위로 생성해주는 sql
 # 많은 데이터 원할 시 반복해서 실행
+# lrstate 0 : 예약중 1 : 예약 완료 2 : 예약 취소
+
 INSERT INTO lresv (lrstate, lrtime, lname, mno, udate)
 SELECT
     0,
-    NOW() + INTERVAL FLOOR(RAND() * 30) DAY + INTERVAL FLOOR(RAND() * 24) HOUR + INTERVAL FLOOR(RAND() * 60) MINUTE,
-    CASE FLOOR(RAND() * 5)
-        WHEN 0 THEN '실내수영장'
-        WHEN 1 THEN '디너_다이닝'
-        WHEN 2 THEN '피트니스'
-        WHEN 3 THEN '실내골프장'
-        WHEN 4 THEN '런치_다이닝'
-        WHEN 5 THEN '모닝_다이닝'
-    END,
-    FLOOR(RAND() * 100) + 1,
-    NOW() - INTERVAL FLOOR(RAND() * 30) DAY - INTERVAL FLOOR(RAND() * 24) HOUR - INTERVAL FLOOR(RAND() * 60) MINUTE
-FROM
-    (SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10) AS n
-LIMIT 100;
+    CONCAT(
+            DATE_ADD(CURDATE(), INTERVAL FLOOR(RAND() * 3) DAY),
+            ' ',
+            SEC_TO_TIME(
+                        TIME_TO_SEC(lstarttime) + FLOOR(RAND() * (TIME_TO_SEC(lendtime) - TIME_TO_SEC(lstarttime) + 1))
+            )
+    ) AS reservation_time,
+    lname,
+    FLOOR(RAND() * 100) + 1 AS member_number,
+    NOW() AS creation_time
+FROM location
+         JOIN (
+    SELECT n1.n * 1 + n2.n * 10 AS num
+    FROM (
+             SELECT 0 AS n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4
+         ) AS n1
+             CROSS JOIN (
+        SELECT 0 AS n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4
+    ) AS n2
+) AS nums
+WHERE FLOOR(RAND() * lmaxcapa) > 0;
 
 # ticket 샘플코드 (회원권)
 INSERT INTO ticket (tstartdate, tenddate, mno)

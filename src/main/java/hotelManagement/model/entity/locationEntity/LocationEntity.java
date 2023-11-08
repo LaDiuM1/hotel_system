@@ -1,5 +1,6 @@
 package hotelManagement.model.entity.locationEntity;
 
+import hotelManagement.model.dto.location.LocationDto;
 import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -33,7 +34,23 @@ public class LocationEntity extends BaseTime {
     @Column(columnDefinition = "smallint", nullable = false)
     private int lmaxcapa;               // 최대 수용 인원
 
+    @ToString.Exclude
     @Builder.Default
     @OneToMany(mappedBy = "locationEntity")
-    List<LocationReservationEntity> lresvList = new ArrayList<>(); // 양방향 시설 예약 엔티티 리스트
+    private List<LocationReservationEntity> lresvList = new ArrayList<>(); // 양방향 시설 예약 엔티티 리스트
+
+    // Entity -> toDto
+    public LocationDto toDto(){
+        return LocationDto.builder()
+                .lname(this.lname)
+                .lstarttime(this.lstarttime)
+                .lendtime(this.lendtime)
+                .lprice(this.lprice)
+                .lchildprice(this.lprice)
+                .lmaxcapa(this.lmaxcapa)
+                .build();
+    }
+
+
+
 }

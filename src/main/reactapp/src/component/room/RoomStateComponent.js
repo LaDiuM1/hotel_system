@@ -33,10 +33,11 @@ export default function RoomStateComponent( props ){
         }
     }
 
-    function checkout(rrno) {
+    const checkout = (rrno) => {
+        console.log('rrno : '+rrno)
         if (window.confirm("퇴실 처리하시겠습니까?")) {
             axios
-                .get('http://localhost:80/guestRoom/checkout', {params: {rrno}})
+                .get('http://localhost:80/guestRoom/checkout', {params: { 'rrno' : rrno }})
                 .then(r => {
                     if (r) {
                         alert("퇴실 처리하였습니다.")
@@ -79,7 +80,7 @@ export default function RoomStateComponent( props ){
 
             </Modal.Body>
             <Modal.Footer>
-                <button className={"modalButton checkoutBtn"} onClick={handleClose}>
+                <button className={"modalButton checkoutBtn"} onClick={() => checkout(reservInfo.rrno)}>
                     퇴실
                 </button>
                 <button className={"modalButton"} onClick={handleClose}>

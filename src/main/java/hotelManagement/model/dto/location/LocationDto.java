@@ -4,6 +4,8 @@ import hotelManagement.model.entity.locationEntity.LocationEntity;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +20,10 @@ public class LocationDto {
     private int lprice;                 // 일반 요금
     private int lchildprice;            // 아동 요금
     private int lmaxcapa;               // 최대 수용 인원
+
+    @ToString.Exclude
+    @Builder.Default
+    private List<LocationReservationDto> lresvList = new ArrayList<>();
     // 엔티티 변환 메서드
     public LocationEntity toEntity(){
         return LocationEntity.builder()
