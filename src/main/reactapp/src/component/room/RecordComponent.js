@@ -2,10 +2,6 @@
 
 export default function Record(props){
 
-    const whatDateTime22 = () => {
-        let data = props.props.rrcheckout.split("T");
-        return (data[0] + " " + data[1]);
-    }
     // 체크아웃 시간 포맷함수
     function rrcheckoutDateTime(){
         let data = props.props.rrcheckout.split("T");

@@ -10,22 +10,33 @@ export default function RoomReservation(){
         rrenddate:'',
         keyword: '',
         nowPage: 1,
-        limitPage: 10
+        limitPage: 10,
+        /* 정렬 관련 */
+        cname:"",
+        isSorted: false
+
     })
-    // 검색 시 페이지와 레코드 배열이 담겨있음.
+    // 검색 시 결과 리스트 저장
     let[ reservationRecord, setReservationRecord ] = useState( [] )
+    // 검색 시 페이징 처리를 위한 데이터 저장
     let[ recordPage , setRecordPage ] = useState(null)
+    // 정렬을 위한 객체 저장
+    //let[ isSorted, setIsSorted ] = useState({  });
     /* 최초 검색 실행 */
     useEffect(() => {onSearch();}, []);
     /* info 수정 시 실행 */
-    useEffect(() => {onSearch()}, [info])
+    useEffect(() => {onSearch();console.log(info); }, [info])
     // 검색 함수
     const onSearch = () => {
         axios
-            .get("http://localhost:80/guestRoomReservation", {params:info})
+            .post("http://localhost:80/guestRoomReservation", info)
             .then( response => {
+                // 페이징 처리를 위한 데이터
                 setRecordPage(response.data);
+                // 검색 결과 리스트 배열
                 setReservationRecord( response.data.roomDtoList );
+
+                console.log(reservationRecord)
             })
     }
     // 페이징 관련 함수 =========================
@@ -40,8 +51,29 @@ export default function RoomReservation(){
                                      setInfo({...info, nowPage: i});
                                  }}>{i}</button>)
         }
-
         if( htmlArr.length === 0 ) htmlArr.push( <button type={"button"} key={1}>{1}</button> )
+        return htmlArr;
+    }
+    // 컬럼 관련 함수 ===========================
+    function reservationColumn(){
+        let tableColumn = [
+            {className:"guestRoomNum" ,ctitle:"호실",cname:"rrno"},
+            {className:"guestRoomGrade" ,ctitle:"등급",cname:"rgrade"},
+            {className:"guestRoomStart" ,ctitle:"시작 날짜",cname:"sdate"},
+            {className:"guestRoomEnd" ,ctitle:"종료 날짜",cname:"edate"},
+            {className:"guestRoomName" ,ctitle:"성함",cname:"rname"},
+            {className:"guestRoomPhone" ,ctitle:"전화번호",cname:"rphone"},
+            {className:"guestRoomCheckIn" ,ctitle:"체크인",cname:"rcin"},
+            {className:"guestRoomCheckOut" ,ctitle:"체크아웃",cname:"rcout"}
+        ]
+        let htmlArr = [];
+        //
+        for(let i = 0; i < tableColumn.length; i++){
+            htmlArr.push( <span className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
+                setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.isSorted } )}}
+            >↑↓</span></span> )
+        }
+
         return htmlArr;
     }
     // 검색 결과 총 사이즈 가져오는 함수
@@ -50,7 +82,6 @@ export default function RoomReservation(){
         return recordPage.totalSize;
     }
     // ========================================
-
     /* 객실 예약 컴포넌트 */
     return(<>
         <div className={"reservationContainer"}>
@@ -73,18 +104,38 @@ export default function RoomReservation(){
                     <div className={"totalRecordWrap"}>
                         총 검색 게시물 수 : <span>{getTotalSize()}</span>
                     </div>
+                    {/* 출력할 레코드 수 select*/}
+                    <select onChange={(e)=>{setInfo({...info,limitPage: e.target.value})}}>
+                        <option value={10}>10</option>
+                        <option value={15}>15</option>
+                        <option value={20}>20</option>
+                    </select>
                 </div>
                 <div className={"tableWrap"}>
                     {/* 테이블 컬럼 명 */}
                     <div className={"tableColumn"}>
-                        <span className={"guestRoomNum"}>호실</span>
-                        <span className={"guestRoomGrade"}>등급</span>
-                        <span className={"guestRoomStart"}>시작 날짜</span>
-                        <span className={"guestRoomEnd"}>종료 날짜</span>
-                        <span className={"guestRoomName"}>성함</span>
-                        <span className={"guestRoomPhone"}>전화번호</span>
-                        <span className={"guestRoomCheckIn"}>체크인</span>
-                        <span className={"guestRoomCheckOut"}>체크아웃</span>
+                        {
+                            (()=>{
+                                let tableColumn = [
+                                    {className:"guestRoomNum" ,ctitle:"호실",cname:"rrno"},
+                                    {className:"guestRoomGrade" ,ctitle:"등급",cname:"rgrade"},
+                                    {className:"guestRoomStart" ,ctitle:"시작 날짜",cname:"sdate"},
+                                    {className:"guestRoomEnd" ,ctitle:"종료 날짜",cname:"edate"},
+                                    {className:"guestRoomName" ,ctitle:"성함",cname:"rname"},
+                                    {className:"guestRoomPhone" ,ctitle:"전화번호",cname:"rphone"},
+                                    {className:"guestRoomCheckIn" ,ctitle:"체크인",cname:"rcin"},
+                                    {className:"guestRoomCheckOut" ,ctitle:"체크아웃",cname:"rcout"}
+                                ]
+                                let htmlArr = [];
+                                //
+                                for(let i = 0; i < tableColumn.length; i++){
+                                    htmlArr.push( <span className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
+                                        setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.isSorted } )}}
+                                    >↑↓</span></span> )
+                                }
+                                return htmlArr;
+                            })()
+                        }
                     </div>
                     {/* 레코드 구역 */}
                     {

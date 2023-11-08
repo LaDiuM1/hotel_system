@@ -1,12 +1,13 @@
 
 import '../css/location/LocationReservation.css'
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function LocationReservation(){
 
     let[ info, setInfo ] = useState({
         lname: "Nonselect",
-        lrstate: "wholeReservation",
+        lrstate: 3,
         startDate: new Date().toISOString().slice(0, 10),
         endDate: "",
         keyword: "",
@@ -15,7 +16,8 @@ export default function LocationReservation(){
     /* 최초 검색 실행 */
     useEffect(() => {onSearch();}, []);
     const onSearch = () => {
-
+        axios.get("http://localhost:80/locationReservation",{params:info})
+            .then(response=>{console.log(response)})
     }
     console.log(info)
 
@@ -31,7 +33,7 @@ export default function LocationReservation(){
                                 <option value={"실내골프장"}>실내골프장</option>
                                 <option value={"wholeDining"}>다이닝</option>
                             </select>
-                            <select onChange={(e)=>{setInfo( {...info, lname:e.target.value})}}>
+                            <select onChange={(e)=>{setInfo( {...info, lrstate:e.target.value})}}>
                                 <option value={3} >전체</option>
                                 <option value={0}>예약 중</option>
                                 <option value={1}>예약 만료</option>
@@ -54,7 +56,7 @@ export default function LocationReservation(){
 
                                 if (!(info.lname === "wholeDining" || info.lname === "모닝_다이닝" || info.lname === "런치_다이닝" || info.lname === "디너_다이닝")) return(<></>)
                                 else return(<>
-                                    <select onChange={(e)=>{setInfo( {...info, lname:e.target.value})}}>
+                                    <select key={0} onChange={(e)=>{setInfo( {...info, lname:e.target.value})}}>
                                         <option value={"wholeDining"}>전체</option>
                                         <option value={"모닝_다이닝"}>모닝다이닝</option>
                                         <option value={"런치_다이닝"}>런치다이닝</option>

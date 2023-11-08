@@ -61,11 +61,11 @@
 ,.tableRecord .guestRoomCheckIn , .tableRecord .guestRoomCheckOut
 {border:1px solid #e8e8e8; padding:5px; text-align: center;}
 /* 테이블 컬럼 크기 */
-.tableWrap .guestRoomNum{ width: 5% }
+.tableWrap .guestRoomNum{ width: 7% }
 .tableWrap .guestRoomGrade{ width:10%}
 .tableWrap .guestRoomStart{ width:15%}
 .tableWrap .guestRoomEnd{width:15% }
-.tableWrap .guestRoomName{ width:10% }
+.tableWrap .guestRoomName{ width:8% }
 .tableWrap .guestRoomPhone{width:15% }
 .tableWrap .guestRoomCheckIn{width:15% }
 .tableWrap .guestRoomCheckOut{width:15% }
@@ -91,7 +91,8 @@
 .pageActive{
     background-color: #91C8E4;
 }
-
+.tableColumn .sortPointer{font-size: 9px;padding-left: 5px;}
+.tableColumn .sortPointer:hover{ color:black; font-size: 10px; }
 
 
 
