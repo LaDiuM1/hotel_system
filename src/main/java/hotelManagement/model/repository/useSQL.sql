@@ -412,59 +412,13 @@ VALUES
 INSERT INTO location (lname, lstarttime, lendtime, lprice, lchildprice, lmaxcapa)
 VALUES
     ('실내수영장', '09:00:00', '18:00:00', 35000, 20000, 100),
-    ('디너_다이닝', '17:00:00', '21:00:00', 180000, 90000, 100),
     ('피트니스', '09:00:00', '18:00:00', 15000, 15000, 50),
     ('실내골프장', '09:00:00', '18:00:00', 80000, 80000, 20),
     ('런치_다이닝', '11:00:00', '14:00:00', 100000, 50000, 100),
-    ('모닝_다이닝', '07:00:00', '09:30:00', 60000, 30000, 100);
+    ('모닝_다이닝', '07:00:00', '09:30:00', 60000, 30000, 100),
+    ('디너_다이닝', '17:00:00', '21:00:00', 180000, 90000, 100);
 
 
-DELIMITER //
-CREATE PROCEDURE GenerateRandomReservations()
-BEGIN
-    DECLARE i INT;
-    DECLARE mno INT;
-    DECLARE lname VARCHAR(255);
-    DECLARE lstarttime TIME;
-    DECLARE lendtime TIME;
-    DECLARE lmaxcapa INT;
-    DECLARE udate DATE;
-    DECLARE lrtime TIME;
-    DECLARE lrstate VARCHAR(255);
-
-    SET i = 1;
-
-    WHILE i <= 100 DO
-            -- 랜덤 회원번호 (1에서 100까지)
-            SET mno = FLOOR(RAND() * 100) + 1;
-
-            -- 랜덤 날짜 (+2일 기준)
-            SET udate = DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY);
-
-            -- 랜덤 시설 선택
-            SELECT lname, lstarttime, lendtime, lmaxcapa
-            INTO lname, lstarttime, lendtime, lmaxcapa
-            FROM location
-            ORDER BY RAND()
-            LIMIT 1;
-
-            -- 랜덤 시설 내 예약 시간 생성
-            SET lrtime = ADDTIME(lstarttime, SEC_TO_TIME(FLOOR(RAND() * TIME_TO_SEC(TIMEDIFF(lendtime, lstarttime)))));
-
-            -- 예약 상태 (임의로 '예약'으로 설정)
-            SET lrstate = '예약';
-
-            -- 예약 추가
-            INSERT INTO lresv (lrstate, lrtime, lname, mno, udate)
-            VALUES (lrstate, lrtime, lname, mno, udate);
-
-            SET i = i + 1;
-        END WHILE;
-END//
-DELIMITER ;
-
--- 저장 프로시저 실행
-CALL GenerateRandomReservations();
 
 # discount (할인율) 샘플코드
 INSERT INTO discount (dtype, drate, cdate, udate)
@@ -483,7 +437,6 @@ VALUES
 
 
 # locationresv (시설 예약 명단)
-drop table lresv;
 INSERT INTO lresv ( lrstate, lrtime, lname, mno, udate)
 VALUES
     ( 0, '2023-10-30 11:00:00', '실내수영장', 1, '2023-10-28 9:00:00'),

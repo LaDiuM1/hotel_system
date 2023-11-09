@@ -46,7 +46,7 @@ public class LocationEntity extends BaseTime {
                 .lstarttime(this.lstarttime)
                 .lendtime(this.lendtime)
                 .lprice(this.lprice)
-                .lchildprice(this.lprice)
+                .lchildprice(this.lchildprice)
                 .lmaxcapa(this.lmaxcapa)
                 .build();
     }
