@@ -16,7 +16,7 @@ public class RoomReservationController {
     // 객실 예약 서비스
     private RoomReservationService roomService;
 
-    @PostMapping("")
+    @GetMapping("")
     // get 객실 예약 리스트
     public Map<String,Object> getRoomReservation( RoomSearchDto roomSearchDto){
         System.out.println("roomSearchDto = " + roomSearchDto);

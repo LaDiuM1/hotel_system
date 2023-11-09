@@ -20,28 +20,33 @@ public class RoomReservationService {
 
     @Autowired
     RoomReservationEntityRepository roomReservationEntityRepository;
-    // get 객실 예약 리스트
+    /*
+    * 객실 예약 리스트 정보 호출 메서드
+    * */
     public Map<String,Object> getRoomReservation( RoomSearchDto roomSearchDto){
 
         // 모든 예약 정보 호출
         List<RoomReservationEntity> entities= roomReservationEntityRepository.findAll();
         // 검색에 따른 스트림 메서드 호출
-        // 호출 결과 entityStream에 저장
+        // onSearch() 호출 결과(stream 객체 반환됨) 리스트화 시켜서 entities에 저장
         entities = onSearch( roomSearchDto , entities ).collect(Collectors.toList());
+        // stream 생성
         Stream<RoomReservationEntity> entityStream = entities.stream();
 
         // 정렬 요청 시 정렬 메서드 호출 결과 반환
         if( !roomSearchDto.getCname().isEmpty() ) {
+            // onSort() <- 정렬된 스트림 객체 반환, collect()로 리스트화 시켜서 entities에 저장
             entities = onSort(entityStream, roomSearchDto.getCname(), roomSearchDto.getIsSorted()).collect(Collectors.toList());
+            // 저장 후 다시 스트림 변환, entityStream에 저장
             entityStream = entities.stream();
         }
 
         // 페이징 메서드 호출
-        // 결과 값 : 프론트단에서 사용할 페이지 데이터, 페이징 처리 된 스트림 객체
+        // 결과 값 : 프론트단에서 사용할 페이지 데이터, 페이징 처리 된 해시 맵 객체
         Map<String,Object> resultMap = onPagging(roomSearchDto, entities.size(), entityStream);
-        // 페이징 처리 결과 entityStream에 저장
+        // 페이징 처리 된 스트림 객체 entityStream에 저장
         entityStream = (Stream<RoomReservationEntity>) resultMap.get("paggingResult");
-        // 저장된 스트림 리스트로 변환
+        // 저장된 스트림 리스트로 변환, entities에 다시 저장
         entities = entityStream.collect(Collectors.toList());
 
         // entity List<>를 dto로 변환 후 roomDtoList에 저장
@@ -49,10 +54,10 @@ public class RoomReservationService {
         for( RoomReservationEntity entity : entities ) roomDtoList.add(entity.toDto());
         // 맵에서 페이징 결과 스트림 remove 후 결과 값 들어있는 dto 삽입
         resultMap.remove("paggingResult"); resultMap.put( "roomDtoList", roomDtoList );
-        // HashMap 반환
+        // 페이지 데이터/검색,정렬 완료 된 데이터 담겨있는 HashMap 반환
         return resultMap;
     }// end
-
+//----------------------------------------------------------------------------------------------------------------------//
     /*
     * 키워드의 타입 판별 메서드
     * */
@@ -117,7 +122,6 @@ public class RoomReservationService {
             // 체크아웃 정렬
         else if("rcout".equals(cname) )
             return entityStream.sorted( (a,b) -> {
-                // 양수면 a 음수면 b
                 final LocalDateTime aTime = a.getRrcheckout();
                 final LocalDateTime bTime = b.getRrcheckout();
                 // 오름차순

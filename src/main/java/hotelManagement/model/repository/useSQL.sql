@@ -455,7 +455,7 @@ VALUES
 
 INSERT INTO lresv (lrstate, lrtime, lname, mno, udate)
 SELECT
-    0,
+    CASE WHEN RAND() < 0.5 THEN 0 ELSE 2 END AS lrstate,
     CONCAT(
             DATE_ADD(CURDATE(), INTERVAL FLOOR(RAND() * 3) DAY),
             ' ',
@@ -477,7 +477,11 @@ FROM location
     ) AS n2
 ) AS nums
 WHERE FLOOR(RAND() * lmaxcapa) > 0;
-
+# 삽입한 시설 예약 샘플 코드가
+# 오늘 날짜 기준으로 이전이면 예약 만료(1)로 변경
+UPDATE lresv
+SET lrstate = 1
+WHERE DATE(lrtime) < CURDATE();
 # ticket 샘플코드 (회원권)
 INSERT INTO ticket (tstartdate, tenddate, mno)
 VALUES
