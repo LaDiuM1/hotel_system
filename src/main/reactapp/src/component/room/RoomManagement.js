@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../css/room/roomManagement.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -7,15 +8,29 @@ import RoomStateComponent from "./RoomStateComponent";
 
 
 export default function RoomManagement(){
+    const [roomStateData, setRoomStateData] = useState([]); // 객실 데이터 상태 관리 함수
+    const [isVisible, setIsVisible] = useState(false);  // 데이터 호출 후 동시 출력을 위한 상태 관리 함수
 
-    let [roomStateData, setRoomStateData] = useState([]);
 
     useEffect(  () => {
           axios
             .get('http://localhost:80/guestRoom')
             .then(r => {
-                console.dir(r.data)
-                setRoomStateData(r.data);
+
+                let floor = 15; // 각층 마다 호실 수 설정
+
+                /* 객체 배열의 요소(호실)을 층으로 구분하기 위해 각층의 호실 개수만큼 인덱스를 슬라이스 후 배열에 push*/
+                const slicedData = [];
+                for (let i = 0; i < r.data.length; i += floor) {
+                    const slice = r.data.slice(i, i + floor);
+                    slicedData.push(slice);
+                }
+
+                console.dir(slicedData)
+                setRoomStateData(slicedData);
+
+                // 데이터 호출 이후 div 속성을 none에서 block으로 변경하여 일시에 출력
+                setIsVisible(true);
 
             })
 
@@ -33,7 +48,7 @@ export default function RoomManagement(){
     const nowTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
     return(<>
-            <div className={"webConteiner"}> {/* 웹페이지 전체 영역 */}
+            <div className={`${isVisible ? 'webContainer' : 'hidden'}`}> {/* 웹페이지 전체 영역 */}
 
                 <div className={"contentArea"}> {/* 콘텐츠 표기 영역 */}
 
@@ -51,64 +66,74 @@ export default function RoomManagement(){
                     <table className={"roomStateTable"}>{/* 객실 상태 표현 테이블 */}
 
                         <colgroup>
+                            {/* 테이블 1열 공통 사이즈 조절 */}
                             <col style={{ width: '80px' }} />
                         </colgroup>
-                        {/* 테이블 1열 공통 사이즈 조절 */}
 
+                        <thead>
+                        <tr>
+                            <th> </th>
+                            <th colSpan={5}>
+                                <div className="contentName">
+                                    Standard
+                                </div>
+                            </th>
+                            <th></th>
+                            <th colSpan={4}>
+                                <div className="contentName">
+                                    Deluxe
+                                </div>
+                            </th>
+                            <th></th>
+                            <th colSpan={3}>
+                                <div className="contentName">
+                                    Suite
+                                </div>
+                            </th>
+                            <th></th>
+                            <th colSpan={2}>
+                                <div className="contentName4">
+                                    Premier
+                                </div>
+                            </th>
+                            <th></th>
+                            <th>
+                                <div className="contentName5">
+                                    Royal
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         {
-                            roomStateData.map( (p, i) => {
-                                return(<>
-                                    { i === 0 ?  <thead>
-                                        <tr>
-                                            {/* 테이블 헤더와 테이블 데이터 렌더링 시간 일치화를 위해 Map 내부에서 표현 */}
-                                            <th> </th>
-                                            <th colSpan={5}>
-                                                <div className="contentName">
-                                                    Standard
-                                                </div>
-                                            </th>
-                                            <th></th>
-                                            <th colSpan={4}>
-                                                <div className="contentName">
-                                                    Deluxe
-                                                </div>
-                                            </th>
-                                            <th></th>
-                                            <th colSpan={3}>
-                                                <div className="contentName">
-                                                    Suite
-                                                </div>
-                                            </th>
-                                            <th></th>
-                                            <th colSpan={2}>
-                                                <div className="contentName4">
-                                                    Premier
-                                                </div>
-                                            </th>
-                                            <th></th>
-                                            <th>
-                                                <div className="contentName5">
-                                                    Royal
-                                                </div>
-                                            </th>
-                                        </tr>
-                                        </thead> : null }
 
-                                    {/* 층마다 15개의 객실로 이루어져 있어 15의 배수마다 층 출력 */}
-                                    { i %15 === 0 ? <td key={p.id} className={"floor"}>{Math.floor(p.rno / 100)}F</td> : null }
-                                    {/* 개별 객실을 출력하는 컴포넌트에 개별 객실 상태값 전달 후 출력 */}
-                                    { <RoomStateComponent  key={p.id} state = {p.rstate} rno = {p.rno} rgname = {p.rgname} reservInfo = {p.roomReservationDtoList[0]} />  }
-                                    {/* 객실 등급 구분을 위해 테이블 데이터 사이에 간격을 넣어줌 */}
-                                    { i % 15 === 4 || i % 15 === 8 || i % 15 === 11 || i % 15 === 13 ?
-                                    <td key={p.id} className={"roomComponentSpacing"}></td> : null }
-                                    {/* 15의 배수마다 줄바꿈 [ 층 구분 ] */}
-                                    { (i+1) % 15 === 0 ? <tr/> : null }
+                            roomStateData.map( (floor, i) => { // 층으로 구분된 객체 배열 순회
+                                return(<React.Fragment key={"floor : "+i+4}>
+                                    <tr>
+                                    {
 
-                                </>)
+                                        floor.map((p, i) => { // 각 층마다 개별 객실 출력
+                                            return (<React.Fragment key={p.rno}>
+
+                                                {/* 각 층마다 최초 인덱스에 층수 출력*/}
+                                                {i === 0 &&
+                                                    <td className={"floor"}>{Math.floor(p.rno / 100)}F</td>}
+                                                {/* 개별 객실을 출력하는 컴포넌트에 개별 객실 상태값 전달 후 출력*/}
+                                                {<RoomStateComponent state={p.rstate} rno={p.rno}
+                                                                     rgname={p.rgname}
+                                                                     reservInfo={p.roomReservationDtoList[0]}/>}
+                                                 {/*객실 등급 구분을 위해 테이블 데이터 사이에 간격을 넣어줌*/}
+                                                {(i === 4 || i === 8 || i === 11 || i === 13) &&
+                                                    <td className={"roomComponentSpacing"}></td>}
+                                           </React.Fragment>)
+                                        })
+
+                                    }
+                                    </tr>
+                                </React.Fragment>)
                             })
                         }
-                        <tbody />
-
+                        </tbody>
                     </table>
                 </div>
             </div>

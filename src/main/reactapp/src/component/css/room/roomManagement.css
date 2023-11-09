@@ -1,9 +1,11 @@
 .webConteiner{
+    display: block;
     width: 95%;
     margin: 0 auto;
 
-
-
+}
+.hidden{
+    display: none;
 }
 
 .mainNameText{
@@ -28,7 +30,9 @@
 
 }
 
+
 .roomComponent{
+    border-radius: 10px;
     width: 40px;
     height: 40px;
     max-width: 40px!important;

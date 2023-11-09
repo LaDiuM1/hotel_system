@@ -1,6 +1,7 @@
+import React from "react";
 
 export default function LocationComponent(props){
-    let nowHour = 16;    // 현재의 시간(hour)을 변수에 저장
+    let nowHour = new Date().getHours();    // 현재의 시간(hour)을 변수에 저장
     let data = props.data;  // 매개변수의 데이터를 저장
     let diningCheck = typeof(data.lname) === "object";  // 통합되어 저장된 다이닝 객체를 식별하여 논리값으로 반환
     let timeCheck = false;  // 각 시설의 운영 시간 종료 여부를 체크하기 위한 논리 변수
@@ -37,9 +38,9 @@ export default function LocationComponent(props){
                 <h6>운영 시간</h6>
                 {
                      diningCheck ? data.map( p => { /* 다이닝 객체라면 운영 시간을 모닝,런치,디너로 나누어 출력 */
-                        return(<>
+                        return(<React.Fragment key={p.lname}>
                            <h6>{p.lname.slice(0,2)} : {p.lstarttime.slice(0,5)} ~ {p.lendtime.slice(0,5)}</h6>
-                        </>)
+                        </React.Fragment>)
                      }) : <h6>{data.lstarttime.slice(0,5)} ~ {data.lendtime.slice(0,5)}</h6> /* 아니라면 운영 시간 출력*/
 
                 }

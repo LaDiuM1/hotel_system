@@ -1,5 +1,5 @@
 import styles from '../css/location/locationManagement.css'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import LocationComponent from "./LocationComponent";
 
@@ -50,10 +50,10 @@ export default function LocationManagement() {
                     {
 
                         data.map( p => {
-                            return(<>
-                                {/* 배열 크기가 0이 아닐때만 컴포넌트 호출 / 리렌더링 이전 데이터 사용으로 인한 오류 방지 */}
-                                { data.length !== 0 ? <LocationComponent key={ p.id } data={ p } /> : null }
-                            </>)
+                            return(<React.Fragment key={p.lname} >
+                                {/* 배열 크기가 0이 아닐때만 컴포넌트 호출 / 리랜더링 이전 데이터 사용으로 인한 오류 방지 */}
+                                { data.length !== 0 ? <LocationComponent data={ p } /> : null }
+                            </React.Fragment>)
                         })
 
                     }

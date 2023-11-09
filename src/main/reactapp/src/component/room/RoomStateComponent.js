@@ -68,7 +68,7 @@ export default function RoomStateComponent( props ){
             className={`roomComponent ${ state === 1 ? "state1" : state === 2 ? "state2" : "state3"}`}>
             { rno }
         </td>
-        {state === 1 ?
+        {state === 1 &&
         <Modal /* 모달창 상태 변경 구역 */
             show={show}
             onHide={handleClose}
@@ -99,7 +99,7 @@ export default function RoomStateComponent( props ){
 
             </Modal.Footer>
 
-        </Modal> : null
+        </Modal>
     }
     </>)
 
