@@ -22,14 +22,13 @@ export default function RoomReservation(){
     let[ recordPage , setRecordPage ] = useState(null)
     // 정렬을 위한 객체 저장
     //let[ isSorted, setIsSorted ] = useState({  });
-    /* 최초 검색 실행 */
-    useEffect(() => {onSearch();}, []);
+
     /* info 수정 시 실행 */
     useEffect(() => {onSearch();console.log(info); }, [info])
     // 검색 함수
     const onSearch = () => {
         axios
-            .post("http://localhost:80/guestRoomReservation", info)
+            .get("http://localhost:80/guestRoomReservation", {params:info})
             .then( response => {
                 // 페이징 처리를 위한 데이터
                 setRecordPage(response.data);
@@ -54,28 +53,7 @@ export default function RoomReservation(){
         if( htmlArr.length === 0 ) htmlArr.push( <button type={"button"} key={1}>{1}</button> )
         return htmlArr;
     }
-    // 컬럼 관련 함수 ===========================
-    function reservationColumn(){
-        let tableColumn = [
-            {className:"guestRoomNum" ,ctitle:"호실",cname:"rrno"},
-            {className:"guestRoomGrade" ,ctitle:"등급",cname:"rgrade"},
-            {className:"guestRoomStart" ,ctitle:"시작 날짜",cname:"sdate"},
-            {className:"guestRoomEnd" ,ctitle:"종료 날짜",cname:"edate"},
-            {className:"guestRoomName" ,ctitle:"성함",cname:"rname"},
-            {className:"guestRoomPhone" ,ctitle:"전화번호",cname:"rphone"},
-            {className:"guestRoomCheckIn" ,ctitle:"체크인",cname:"rcin"},
-            {className:"guestRoomCheckOut" ,ctitle:"체크아웃",cname:"rcout"}
-        ]
-        let htmlArr = [];
-        //
-        for(let i = 0; i < tableColumn.length; i++){
-            htmlArr.push( <span className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
-                setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.isSorted } )}}
-            >↑↓</span></span> )
-        }
 
-        return htmlArr;
-    }
     // 검색 결과 총 사이즈 가져오는 함수
     function getTotalSize(){
         if(recordPage === null) return 0;
@@ -129,7 +107,7 @@ export default function RoomReservation(){
                                 let htmlArr = [];
                                 //
                                 for(let i = 0; i < tableColumn.length; i++){
-                                    htmlArr.push( <span className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
+                                    htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
                                         setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.isSorted } )}}
                                     >↑↓</span></span> )
                                 }

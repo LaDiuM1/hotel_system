@@ -11,13 +11,25 @@ export default function LocationReservation(){
         startDate: new Date().toISOString().slice(0, 10),
         endDate: "",
         keyword: "",
-        nowPage: 1
+        // 페이지 관련
+        limitPage: 10,
+        nowPage: 1,
+        // 정렬 관련
+        cname: "",
+        isSorted: false
     });
+    // 검색 시 결과 리스트 저장
+    let[ reservationRecord, setReservationRecord ] = useState( [] )
+    // 검색 시 페이징 처리를 위한 데이터 저장
+    let[ recordPage , setRecordPage ] = useState(null)
     /* 최초 검색 실행 */
-    useEffect(() => {onSearch();}, []);
+    useEffect(() => {onSearch();}, [info]);
     const onSearch = () => {
         axios.get("http://localhost:80/locationReservation",{params:info})
-            .then(response=>{console.log(response)})
+            .then(response=>{
+                console.log(response)
+
+            })
     }
     console.log(info)
 
@@ -47,6 +59,12 @@ export default function LocationReservation(){
                         <div className={"totalRecordWrap"}>
                             총 검색 게시물 수 : <span>{}</span>
                         </div>
+                        {/* 출력할 레코드 수 select*/}
+                        <select onChange={(e)=>{setInfo({...info,limitPage: e.target.value})}}>
+                            <option value={10}>10</option>
+                            <option value={15}>15</option>
+                            <option value={20}>20</option>
+                        </select>
                     </div>
                     <div className={"diningWrap"}>
                         {
@@ -69,11 +87,25 @@ export default function LocationReservation(){
                     <div className={"tableWrap"}>
                         {/* 테이블 컬럼 명 */}
                         <div className={"tableColumn"}>
-                            <span className={"lname"}>시설이름</span>
-                            <span className={"lrstate"}>시설예약상태</span>
-                            <span className={"lrmname"}>예약자명</span>
-                            <span className={"lrmphone"}>전화번호</span>
-                            <span className={"lrtime"}>시설예약시간</span>
+                            {
+                                (()=>{
+                                    let tableColumn = [
+                                        {className:"lname" ,ctitle:"시설이름",cname:"lrname"},
+                                        {className:"lrstate" ,ctitle:"시설예약상태",cname:"lrstate"},
+                                        {className:"lrmname" ,ctitle:"예약자명",cname:"lrmname"},
+                                        {className:"lrmphone" ,ctitle:"전화번호",cname:"lrmphone"},
+                                        {className:"lrtime" ,ctitle:"시설예약시간",cname:"lrtime"},
+                                    ]
+                                    let htmlArr = [];
+
+                                    for(let i = 0; i < tableColumn.length; i++){
+                                        htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
+                                            setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.isSorted } )}}
+                                        >↑↓</span></span> )
+                                    }
+                                    return htmlArr;
+                                })()
+                            }
                         </div>
                         {/* 레코드 구역 */}
                         <div className={"tableRecord"}>
