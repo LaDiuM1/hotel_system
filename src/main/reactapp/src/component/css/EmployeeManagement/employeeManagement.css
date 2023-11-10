@@ -1,0 +1,26 @@
+/* 컬럼 설정 */
+.tableColumn .eno,.tableColumn .mname
+,.tableColumn .msex, .tableColumn .mphone
+,.tableColumn .mbirth,.tableColumn .rname
+,.tableColumn .rphone , .tableColumn .eaddress
+,.tableColumn .erank , .tableColumn .pname
+,.tableColumn .dcode , .tableColumn .mregiste
+{
+    background-color: #4682A9;
+    color:white;
+    text-align: center;
+    padding:6px;
+    border: 1px solid #4b8dbd;
+}
+/* 테이블 컬럼 크기 */
+.tableWrap .eno{ width: 10% }
+.tableWrap .mname{ width:10%}
+.tableWrap .msex{ width:10%}
+.tableWrap .mphone{width:10% }
+.tableWrap .mbirth{ width:10% }
+.tableWrap .rphone{width:5% }
+.tableWrap .eaddress{width:15% }
+.tableWrap .erank{width:5% }
+.tableWrap .pname{width:5% }
+.tableWrap .dcode{width:5% }
+.tableWrap .mregiste{width:15% }

@@ -42,7 +42,7 @@ public class RoomReservationService {
         }
 
         // 페이징 메서드 호출
-        // 결과 값 : 프론트단에서 사용할 페이지 데이터, 페이징 처리 된 해시 맵 객체
+        // 결과 값 : 프론트단에서 사용할 페이지 데이터 및 페이징 처리 된 데이터 리스트를 담은 해시 맵 객체
         Map<String,Object> resultMap = onPagging(roomSearchDto, entities.size(), entityStream);
         // 페이징 처리 된 스트림 객체 entityStream에 저장
         entityStream = (Stream<RoomReservationEntity>) resultMap.get("paggingResult");
@@ -154,11 +154,15 @@ public class RoomReservationService {
             startdate = LocalDate.parse( roomSearchDto.getRrstartdate() , DateTimeFormatter.ISO_DATE );
         if( !roomSearchDto.getRrenddate().isEmpty() )
             enddate = LocalDate.parse( roomSearchDto.getRrenddate() , DateTimeFormatter.ISO_DATE );
-
+        // 검색 시작 날짜
         final LocalDate finalStartDate = startdate;
+        // 검색 끝 날짜
         final LocalDate finalEnddate = enddate;
+        // 검색 키워드
         final String keyword = roomSearchDto.getKeyword();
+        // 검색 타입( 전화번호/회원이름/호실 )
         final String type = aboutType(keyword);
+        // 리스트 스트림 변환 후 저장
         Stream<RoomReservationEntity> entityStream = entities.stream();
         /*
          * 날짜 필터링

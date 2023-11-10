@@ -2,7 +2,7 @@
 import '../css/location/LocationReservation.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
-
+import LocationReservationComponent from './LocationReservationComponent'
 export default function LocationReservation(){
 
     let[ info, setInfo ] = useState({
@@ -27,11 +27,33 @@ export default function LocationReservation(){
     const onSearch = () => {
         axios.get("http://localhost:80/locationReservation",{params:info})
             .then(response=>{
-                console.log(response)
-
+                // 페이징 처리를 위한 데이터
+                setRecordPage(response.data);
+                // 검색 결과 리스트 배열
+                setReservationRecord( response.data.locationReservationList );
+                console.log(reservationRecord)
             })
     }
-    console.log(info)
+    // 페이징 관련 함수 =========================
+    function pageBtn(){
+        if( recordPage === null ) return;
+
+        let htmlArr = [];
+
+        for(let i = recordPage.startBtn; i <= recordPage.endBtn; i++ ) {
+            htmlArr.push(<button className={i === info.nowPage ? "pageActive" : ""} type={"button"} key={i}
+                                 onClick={() => {
+                                     setInfo({...info, nowPage: i});
+                                 }}>{i}</button>)
+        }
+        if( htmlArr.length === 0 ) htmlArr.push( <button type={"button"} key={1}>{1}</button> )
+        return htmlArr;
+    }
+    // 검색 결과 총 사이즈 가져오는 함수
+    function getTotalSize(){
+        if(recordPage === null) return 0;
+        return recordPage.totalSize;
+    }
 
     return(<>
             <div className={"reservationContainer"}>
@@ -57,7 +79,7 @@ export default function LocationReservation(){
                             <button type={"button"} className={"searchBtn"}>검색</button>
                         </div>
                         <div className={"totalRecordWrap"}>
-                            총 검색 게시물 수 : <span>{}</span>
+                            총 검색 게시물 수 : <span>{getTotalSize()}</span>
                         </div>
                         {/* 출력할 레코드 수 select*/}
                         <select onChange={(e)=>{setInfo({...info,limitPage: e.target.value})}}>
@@ -90,10 +112,10 @@ export default function LocationReservation(){
                             {
                                 (()=>{
                                     let tableColumn = [
-                                        {className:"lname" ,ctitle:"시설이름",cname:"lrname"},
+                                        {className:"lname" ,ctitle:"시설이름",cname:"lname"},
                                         {className:"lrstate" ,ctitle:"시설예약상태",cname:"lrstate"},
-                                        {className:"lrmname" ,ctitle:"예약자명",cname:"lrmname"},
-                                        {className:"lrmphone" ,ctitle:"전화번호",cname:"lrmphone"},
+                                        {className:"lrmname" ,ctitle:"예약자명",cname:"mname"},
+                                        {className:"lrmphone" ,ctitle:"전화번호",cname:"mphone"},
                                         {className:"lrtime" ,ctitle:"시설예약시간",cname:"lrtime"},
                                     ]
                                     let htmlArr = [];
@@ -108,19 +130,27 @@ export default function LocationReservation(){
                             }
                         </div>
                         {/* 레코드 구역 */}
-                        <div className={"tableRecord"}>
-                            <span className={"lname"}>실내수영장</span>
-                            <span className={"lrstate"}>예약 중</span>
-                            <span className={"lrmname"}>홍길동</span>
-                            <span className={"lrmphone"}>01011112222</span>
-                            <span className={"lrtime"}>2023-11-23 11:00:00</span>
-                        </div>
+                        {
+                            reservationRecord.map( (r,i) => <LocationReservationComponent key={i} props={r}/> )
+                        }
                     </div>
 
                     {/* 페이지 공간 */}
                     <div className={"tablePage"}>
-                        <button type={"button"}>&lt;</button>
-                        <button type={"button"}>&gt;</button>
+                        <button type={"button"} onClick={ () => {
+                            let page = info.nowPage;
+                            setInfo({...info, nowPage: page <= 1 ? page : page - 1 });
+
+                        } }> &lt; </button>
+                        {/* 페이지 버튼*/}
+                        {
+                            pageBtn()
+                        }
+
+                        <button type={"button"} onClick={ () => {
+                            let page = info.nowPage;
+                            setInfo({...info, nowPage: page >= recordPage.totalPage ? page : page + 1 });
+                        } }> &gt; </button>
                     </div>
                 </div>
             </div>

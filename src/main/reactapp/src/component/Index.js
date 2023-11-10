@@ -11,6 +11,7 @@ import Reservation from "./room/RoomReservation"
 import 'bootstrap/dist/css/bootstrap.css';
 import LocationReservation from './location/LocationReservation'
 import LocationManagement from "./location/LocationManagement";
+import EmployeeManagement from "./employee/EmployeeManagement";
 
 let page = Index;
 
@@ -32,9 +33,9 @@ function Index(props){
                             <Route path={"/roomManagement"} element={<RoomManagement/>}></Route>
                             <Route path={"/locationReservation"} element={<LocationReservation/>}></Route>
                             <Route path={"/locationManagement"} element={<LocationManagement/>}></Route>
+                            <Route path={"/EmployeeManagement"} element={<EmployeeManagement/>}></Route>
                         </Routes>
                     </div>
-
                 </div>
             </BrowserRouter>
         </div>
