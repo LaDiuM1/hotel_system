@@ -10,7 +10,8 @@ export default function LocationManagement() {
     // 최초 실행 시 호출되는 useEffect
     useEffect( () => {
         // 컴포넌트 상태 표기용 데이터 호출
-        axios
+        const fetchData = () =>{
+            axios
             .get('http://localhost:80/location')
             .then( r => {
                 /*데이터가 모닝 다이닝, 런치, 디너, 피트니스, 실내수영장, 실내골프장으로 분리되어 있어
@@ -38,7 +39,13 @@ export default function LocationManagement() {
                 // 상태 저장용 함수에 객체 대입
                 setData(dataArr)
             })
+        }
+        fetchData(); // 초기 렌더링 시 출력을 위한 함수 호출
+        // 이후 10초 간격으로 반복 랜더링
+        const intervalId = setInterval(fetchData, 10000);
 
+        // 컴포넌트가 언마운트될 때 타이머 해제
+        return () => clearInterval(intervalId);
     }, [])
 
     return(<>

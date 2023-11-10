@@ -1,14 +1,13 @@
 package hotelManagement.model.repository.location;
 
-import hotelManagement.model.dto.location.LocationReservationDto;
-import hotelManagement.model.dto.location.LocationSearchDto;
 import hotelManagement.model.entity.locationEntity.LocationReservationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public interface LocationReservationEntityRepository extends JpaRepository<LocationReservationEntity,Integer> {
     // 시설명, 상태, 시작날짜, 종료날짜
     @Query( value = " select l.lrstate,l.lrtime,l.lname,m.mname,m.mphone from lresv l, memberinfo m where l.mno = m.mno " +
