@@ -1,5 +1,5 @@
 import axios from 'axios'
-import '../css/room/RoomReservation.css'
+import '../css/room/roomReservation.css'
 import {useEffect, useState} from 'react'
 import Record from './RecordComponent'
 export default function RoomReservation(){

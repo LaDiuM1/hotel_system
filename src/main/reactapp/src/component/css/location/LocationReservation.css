@@ -16,11 +16,13 @@
 .tableWrap .lrmname{ width:20%}
 .tableWrap .lrmphone{width:20% }
 .tableWrap .lrtime{ width:20% }
+
 /* 레코드 설정 */
 .tableRecord .lname,.tableRecord .lrstate
 ,.tableRecord .lrmname, .tableRecord .lrmphone
 ,.tableRecord .lrtime
 {border:1px solid #e8e8e8; padding:5px; text-align: center;}
+
 
 .diningWrap{
     height: 20px;

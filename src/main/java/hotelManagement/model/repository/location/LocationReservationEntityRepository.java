@@ -1,14 +1,14 @@
 package hotelManagement.model.repository.location;
 
-import hotelManagement.model.dto.location.LocationReservationDto;
-import hotelManagement.model.dto.location.LocationSearchDto;
 import hotelManagement.model.entity.locationEntity.LocationReservationEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public interface LocationReservationEntityRepository extends JpaRepository<LocationReservationEntity,Integer> {
     // 시설명, 상태, 시작날짜, 종료날짜
     @Query( value = " select l.lrstate,l.lrtime,l.lname,m.mname,m.mphone from lresv l, memberinfo m where l.mno = m.mno " +
@@ -18,9 +18,9 @@ public interface LocationReservationEntityRepository extends JpaRepository<Locat
             " AND IF( :lrstate = 3, true, l.lrstate = :lrstate ) " +
             " AND IF( :lrtime = '', true, " +
                     "IF( :endDate = '', date_format(lrtime, '%Y-%m-%d') = :lrtime, date_format(lrtime, '%Y-%m-%d') between :lrtime and :endDate)) " +
-            " AND IF( :keyword = '', true, (m.mname like %:keyword% or m.mphone like %:keyword%)) " +
-            " IF( :cname = '', true, true ) ", nativeQuery = true )
-    List<Map<String,Object>> findByLocationReservation( String lname, int lrstate, String lrtime, String endDate, String keyword, String cname );
+            " AND IF( :keyword = '', true, m.mname like %:keyword% or m.mphone like %:keyword% ) " , nativeQuery = true )
+    List<Map<String,Object>> findByLocationReservation(String lname, int lrstate, String lrtime, String endDate, String keyword ) ;
+
 
 
 

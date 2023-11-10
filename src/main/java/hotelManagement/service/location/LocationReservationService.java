@@ -1,12 +1,15 @@
 package hotelManagement.service.location;
 
-import hotelManagement.model.dto.location.LocationReservationDto;
+
 import hotelManagement.model.dto.location.LocationSearchDto;
 import hotelManagement.model.repository.location.LocationReservationEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,18 +22,18 @@ public class LocationReservationService {
     LocationReservationEntityRepository locationReservationEntityRepository;
 
     public Map<String,Object> getLocationReservation(LocationSearchDto locationSearchDto){
-        System.out.println( locationSearchDto.getCname().isEmpty() );
-        System.out.println( locationSearchDto.getCname() + "결과");
-        System.out.println( locationSearchDto.getCname() == null);
+
         // 검색 조건에 따른 예약 정보 Map객체 하나당 레코드 한개
         List<Map<String,Object>> totalList = locationReservationEntityRepository.findByLocationReservation(
                 locationSearchDto.getLname(), locationSearchDto.getLrstate()
                 , locationSearchDto.getStartDate(), locationSearchDto.getEndDate()
-                , locationSearchDto.getKeyword(), locationSearchDto.getCname() );
+                , locationSearchDto.getKeyword()  );
 
         // 페이징 처리 후 반환
         return purposePagging(locationSearchDto.getNowPage(), locationSearchDto.getLimitPage(), totalList.size() , totalList);
     }
+
+    // 페이징 처리 위한 메서드
     public HashMap<String,Object> purposePagging( int page, int limitPage, int totalSize, List<Map<String,Object>> totalList ){
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
