@@ -11,12 +11,15 @@ export default function LocationReservation(){
         startDate: new Date().toISOString().slice(0, 10),
         endDate: "",
         keyword: "",
-        // 페이지 관련
-        limitPage: 10,
-        nowPage: 1,
-        // 정렬 관련
-        cname: "",
-        isSorted: false
+        // 페이징과 정렬 객체
+        pageAndSort: {
+            //페이징 관련
+            nowPage: 1,
+            limitPage: 10,
+            /* 정렬 관련 */
+            cname:"",
+            isSorted: false
+        }
     });
     // 검색 시 결과 리스트 저장
     let[ reservationRecord, setReservationRecord ] = useState( [] )
@@ -25,7 +28,7 @@ export default function LocationReservation(){
     /* 최초 검색 실행 */
     useEffect(() => {onSearch();}, [info]);
     const onSearch = () => {
-        axios.get("http://localhost:80/locationReservation",{params:info})
+        axios.post("http://localhost:80/locationReservation",info)
             .then(response=>{
                 // 페이징 처리를 위한 데이터
                 setRecordPage(response.data);
@@ -43,7 +46,10 @@ export default function LocationReservation(){
         for(let i = recordPage.startBtn; i <= recordPage.endBtn; i++ ) {
             htmlArr.push(<button className={i === info.nowPage ? "pageActive" : ""} type={"button"} key={i}
                                  onClick={() => {
-                                     setInfo({...info, nowPage: i});
+                                     setInfo({
+                                         ...info,
+                                         pageAndSort: { ...info.pageAndSort, nowPage: i}
+                                     });
                                  }}>{i}</button>)
         }
         if( htmlArr.length === 0 ) htmlArr.push( <button type={"button"} key={1}>{1}</button> )
@@ -82,7 +88,12 @@ export default function LocationReservation(){
                             총 검색 게시물 수 : <span>{getTotalSize()}</span>
                         </div>
                         {/* 출력할 레코드 수 select*/}
-                        <select onChange={(e)=>{setInfo({...info,limitPage: e.target.value})}}>
+                        <select onChange={(e)=>{setInfo({
+                            ...info,
+                            pageAndSort:{
+                                ...info.pageAndSort
+                                ,limitPage: e.target.value }
+                        })}}>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
                             <option value={20}>20</option>
@@ -122,7 +133,7 @@ export default function LocationReservation(){
 
                                     for(let i = 0; i < tableColumn.length; i++){
                                         htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
-                                            setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.isSorted } )}}
+                                            setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.pageAndSort.isSorted } )}}
                                         >↑↓</span></span> )
                                     }
                                     return htmlArr;
@@ -138,9 +149,14 @@ export default function LocationReservation(){
                     {/* 페이지 공간 */}
                     <div className={"tablePage"}>
                         <button type={"button"} onClick={ () => {
-                            let page = info.nowPage;
-                            setInfo({...info, nowPage: page <= 1 ? page : page - 1 });
-
+                            let page = info.pageAndSort.nowPage;
+                            setInfo({
+                                ...info,
+                                pageAndSort: {
+                                    ...info.pageAndSort,
+                                    nowPage: page <= 1 ? page : page - 1
+                                }
+                            });
                         } }> &lt; </button>
                         {/* 페이지 버튼*/}
                         {
@@ -148,8 +164,14 @@ export default function LocationReservation(){
                         }
 
                         <button type={"button"} onClick={ () => {
-                            let page = info.nowPage;
-                            setInfo({...info, nowPage: page >= recordPage.totalPage ? page : page + 1 });
+                            let page = info.pageAndSort.nowPage;
+                            setInfo({
+                                ...info,
+                                pageAndSort: {
+                                    ...info.pageAndSort,
+                                    nowPage: page >= recordPage.totalPage ? page : page + 1
+                                }
+                            });
                         } }> &gt; </button>
                     </div>
                 </div>

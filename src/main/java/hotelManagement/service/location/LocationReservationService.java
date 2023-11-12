@@ -30,7 +30,7 @@ public class LocationReservationService {
                 , locationSearchDto.getKeyword()  );
 
         // 페이징 처리 후 반환
-        return purposePagging(locationSearchDto.getNowPage(), locationSearchDto.getLimitPage(), totalList.size() , totalList);
+        return purposePagging(locationSearchDto.getPageAndSort().getNowPage(), locationSearchDto.getPageAndSort().getLimitPage(), totalList.size() , totalList);
     }
 
     // 페이징 처리 위한 메서드
