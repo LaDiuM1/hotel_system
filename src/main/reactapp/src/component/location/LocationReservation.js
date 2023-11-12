@@ -133,7 +133,12 @@ export default function LocationReservation(){
 
                                     for(let i = 0; i < tableColumn.length; i++){
                                         htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
-                                            setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.pageAndSort.isSorted } )}}
+                                            setInfo({...info,
+                                                pageAndSort:{
+                                                    ...info.pageAndSort,
+                                                    cname:tableColumn[i].cname,
+                                                    isSorted: !info.pageAndSort.isSorted
+                                                } } )}}
                                         >↑↓</span></span> )
                                     }
                                     return htmlArr;

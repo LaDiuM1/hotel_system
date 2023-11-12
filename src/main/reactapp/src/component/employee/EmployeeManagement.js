@@ -1,24 +1,49 @@
 import Record from "../room/RecordComponent";
 import style from '../css/EmployeeManagement/employeeManagement.css'
+import axios from "axios";
 
 export default function EmployeeManagement(){
+
+    const onSearch = ()=>{
+        axios
+            .post("http://localhost:80/locationReservation")
+            .then( response => {console.log(response)})
+    }
+
+
     return(<>
         <div className={"reservationContainer"}>
             <div className={"reservationWrap"}>
                 <div className={"searchWrap"}>
-                    <div className={"searchBox"}>
-                        <select className={"ReservationGrade"}>
-                            <option value={"Nonselect"}>전체</option>
-                            <option value={"Standard"}>Standard</option>
-                            <option value={"Deluxe"}>Deluxe</option>
-                            <option value={"Premier"}>Premier</option>
-                            <option value={"Royal"}>Royal</option>
-                            <option value={"Suite"}>Suite</option>
+                    <div className={"search_Box"}>
+                        <input type={"text"} placeholder={"사원번호"}/>
+                        <input type={"text"} placeholder={"사원명"}/>
+                        <input type={"text"} placeholder={"성별"}/>
+                        <input type={"text"} placeholder={"생년월일"}/>
+                        <input type={"text"} placeholder={"전화번호"}/>
+                        <input type={"text"} placeholder={"주소"}/>
+                        <input type={"text"} placeholder={"권한"}/>
+                        <select>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
                         </select>
-                        <input type={"date"} className={"ReservationDate"} />
-                        <input type={"date"} className={"ReservationDate"} />
-                        <input type={"text"} className={"ReservationSearch"} placeholder={"검색"}/>
-                        <button type={"button"} className={"searchBtn"} >검색</button>
+                        <select>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                        <select>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                        <input type={"text"} placeholder={"직책"}/>
+                        <input type={"text"} placeholder={"부서"}/>
+
                     </div>
                     <div className={"totalRecordWrap"}>
                         총 검색 게시물 수 : <span>{}</span>

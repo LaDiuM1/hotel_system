@@ -16,7 +16,7 @@ public class LocationReservationController {
     @Autowired
     LocationReservationService locationReservationService;
 
-    @GetMapping("")
+    @PostMapping("")
     // 시설 예약 리스트 호출 메서드
     public Map<String,Object> getLocationReservation(@RequestBody LocationSearchDto locationSearchDto){
         System.out.println("locationSearchDto = " + locationSearchDto);
