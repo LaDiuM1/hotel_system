@@ -4,23 +4,6 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.webConteiner{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 0 auto;
-
-}
-.registerContent{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: 480px;
-    background-color: white;
-    margin: 50px 0 auto;
-    box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px 20px  20px;
-}
 
 .registerArea{
     display: flex;
@@ -33,12 +16,6 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .registerArea h5{
     margin-left: 5px;
-
-}
-
-.memberInfoArea, .employeeArea{
-    width: 49%;
-    height: 95%;
 
 }
 
@@ -87,7 +64,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 }
 
-.inputArea input:focus{
+.inputArea input:focus, .mname:focus{
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.8);
 
 }
@@ -97,15 +74,16 @@ input[type="number"]::-webkit-inner-spin-button {
 
 }
 .phoneNoArea h4{
+    margin-top: 4px;
     font-weight: 300;
     font-size: 15px;
 }
 
 .radioArea{
-    margin-left: 20px;
+    margin-left: 10px;
     width: 45%;
 }
-.radioBox{
+.msex{
     margin: 0 10px;
 }
 .nameInputArea{
@@ -128,12 +106,12 @@ input[type="number"]::-webkit-inner-spin-button {
 .buttonArea{
     display:flex;
     justify-content: center;
-    width:50%;
+    width:100%;
     margin: 0 auto;
 }
 
 .buttonArea button{
-    margin: 40px;
+    margin: 0 20px;
     border: 1px solid #9d9d9d;
     background-color: #efefef;
     height: 40px;
