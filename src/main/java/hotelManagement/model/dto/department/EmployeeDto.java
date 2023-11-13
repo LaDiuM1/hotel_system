@@ -4,6 +4,8 @@ import hotelManagement.model.dto.member.MemberInfoDto;
 import hotelManagement.model.entity.employee.EmployeeEntity;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,6 +17,7 @@ public class EmployeeDto {
     private String eno;         // 직원 사번 8자리 숫자 코드 [ 연도 2자리 + 부서 2자리 + 순서 레코드 번호 ]
     private String epwd;        // 직원 비밀번호
     private String eaddress;    // 직원 집주소
+    private LocalDate ejoin;    // 직원 입사일
 
     private DepartmentDto departmentDto;  // 부서 참조 연관 관계 필드
 
@@ -27,6 +30,7 @@ public class EmployeeDto {
         return EmployeeEntity.builder()
                 .eno(this.eno)
                 .eaddress(this.eaddress)
+                .ejoin(this.ejoin)
                 .build();
     }
 

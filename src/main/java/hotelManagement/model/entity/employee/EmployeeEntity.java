@@ -4,6 +4,7 @@ import hotelManagement.model.dto.department.EmployeeDto;
 import hotelManagement.model.entity.member.MemberInfoEntity;
 import lombok.*;
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "employee")
@@ -22,6 +23,7 @@ public class EmployeeEntity {
     private String epwd;        // 직원 비밀번호
     @Column(length = 50)
     private String eaddress;    // 직원 집주소
+    private LocalDate ejoin;    // 직원 입사일
 
     @ManyToOne
     @JoinColumn(name = "dcode_fk")
@@ -40,6 +42,7 @@ public class EmployeeEntity {
         return EmployeeDto.builder()
                 .eno(this.eno)
                 .eaddress(this.eaddress)
+                .ejoin(this.ejoin)
                 .build();
 
     }

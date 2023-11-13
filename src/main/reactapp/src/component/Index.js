@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import LocationReservation from './location/LocationReservation'
 import LocationManagement from "./location/LocationManagement";
 import EmployeeManagement from "./employee/EmployeeManagement";
+import EmployeeRegister from "./employee/EmployeeRegister";
 
 let page = Index;
 
@@ -33,6 +34,7 @@ function Index(props){
                             <Route path={"/locationReservation"} element={<LocationReservation/>}></Route>
                             <Route path={"/locationManagement"} element={<LocationManagement/>}></Route>
                             <Route path={"/EmployeeManagement"} element={<EmployeeManagement/>}></Route>
+                            <Route path={"/EmployeeRegister"} element={<EmployeeRegister/>}></Route>
                         </Routes>
                     </div>
                 </div>
