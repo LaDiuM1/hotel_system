@@ -1,5 +1,4 @@
 // 리액트 라우터 라이브러리
-import React from 'react';
 import{ BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './css/index.css'
 import Header from './Header'

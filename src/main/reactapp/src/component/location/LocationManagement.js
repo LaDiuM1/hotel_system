@@ -1,4 +1,5 @@
 import styles from '../css/location/locationManagement.css'
+import refrashBtn from '../img/refresh_btn.png'
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import LocationComponent from "./LocationComponent";
@@ -6,12 +7,11 @@ import LocationComponent from "./LocationComponent";
 export default function LocationManagement() {
     // 데이터 상태 저장용 객체
     const [data, setData] = useState([]);
+    const [timer, setTimer] = useState(10);
 
-    // 최초 실행 시 호출되는 useEffect
-    useEffect( () => {
-        // 컴포넌트 상태 표기용 데이터 호출
-        const fetchData = () =>{
-            axios
+    // 컴포넌트 상태 표기용 데이터 호출
+    const fetchData = () =>{
+        axios
             .get('http://localhost:80/location')
             .then( r => {
                 /*데이터가 모닝 다이닝, 런치, 디너, 피트니스, 실내수영장, 실내골프장으로 분리되어 있어
@@ -38,15 +38,33 @@ export default function LocationManagement() {
                 console.dir(dataArr)
                 // 상태 저장용 함수에 객체 대입
                 setData(dataArr)
-            })
-        }
-        fetchData(); // 초기 렌더링 시 출력을 위한 함수 호출
-        // 이후 10초 간격으로 반복 랜더링
-        const intervalId = setInterval(fetchData, 10000);
+                setTimer(10);
 
-        // 컴포넌트가 언마운트될 때 타이머 해제
-        return () => clearInterval(intervalId);
-    }, [])
+            })
+    }
+    // 최초 실행 시 호출되는 useEffect
+    useEffect( () => {
+
+        // 최초 랜더링 시 데이터 호출
+        fetchData();
+        // 이후 10초 간격으로 반복 랜더링
+        const interval = setInterval(() => {
+            setTimer((prevTimer) => {
+                if (prevTimer === 0) {
+                    fetchData();
+                    return 10;
+                } else {
+                    return prevTimer - 1;
+                }
+            });
+        }, 1000);
+
+        // 컴포넌트 해제 시 때 타이머 해제
+        return () => clearInterval(interval);
+
+        }, [])
+
+
 
     return(<>
 
@@ -64,6 +82,13 @@ export default function LocationManagement() {
                         })
 
                     }
+                </div>
+                <div className={"refrashArea"}>
+                    {/* 숫자 10의 자리 1의 자리 가운데 정렬을 위한 삼항 연산자 */}
+                    <div onClick={fetchData} className={"refrashBtn"}>
+                        <div className={`${timer === 10 ? "timer1" : "timer"}`}>{timer}</div>
+                        <img src={refrashBtn} alt={"null"} width={"50px"} height={"50px"}/>
+                    </div>
                 </div>
             </div>
         </div>
