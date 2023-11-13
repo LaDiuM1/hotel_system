@@ -34,9 +34,9 @@ public class RoomReservationService {
         Stream<RoomReservationEntity> entityStream = entities.stream();
 
         // 정렬 요청 시 정렬 메서드 호출 결과 반환
-        if( !roomSearchDto.getCname().isEmpty() ) {
+        if( !roomSearchDto.getPageAndSort().getCname().isEmpty() ) {
             // onSort() <- 정렬된 스트림 객체 반환, collect()로 리스트화 시켜서 entities에 저장
-            entities = onSort(entityStream, roomSearchDto.getCname(), roomSearchDto.getIsSorted()).collect(Collectors.toList());
+            entities = onSort(entityStream, roomSearchDto.getPageAndSort().getCname(), roomSearchDto.getPageAndSort().getIsSorted()).collect(Collectors.toList());
             // 저장 후 다시 스트림 변환, entityStream에 저장
             entityStream = entities.stream();
         }
@@ -237,9 +237,9 @@ public class RoomReservationService {
     * 페이징 메서드
     * */
     public Map<String,Object> onPagging( RoomSearchDto roomSearchDto, int entitiesSize, Stream<RoomReservationEntity> entityStream  ){
-        int page = roomSearchDto.getNowPage();
+        int page = roomSearchDto.getPageAndSort().getNowPage();
         // 출력할 레코드 개수
-        final int limitPage = roomSearchDto.getLimitPage();
+        final int limitPage = roomSearchDto.getPageAndSort().getLimitPage();
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
         // 엔티티 총 사이즈

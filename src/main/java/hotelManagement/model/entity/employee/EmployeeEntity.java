@@ -1,13 +1,24 @@
 package hotelManagement.model.entity.employee;
 
+<<<<<<< HEAD
 import hotelManagement.model.dto.department.EmployeeDto;
 import hotelManagement.model.entity.member.MemberInfoEntity;
 import lombok.*;
+=======
+import hotelManagement.model.entity.BaseTime;
+import hotelManagement.model.entity.member.MemberInfoEntity;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+>>>>>>> b6e5c4540f68f6e1ce2df02838af0815d52a41bc
 
 import javax.persistence.*;
 
 @Entity
+<<<<<<< HEAD
 @Table(name = "employee")
+=======
+@Table( name = "employee")
+>>>>>>> b6e5c4540f68f6e1ce2df02838af0815d52a41bc
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

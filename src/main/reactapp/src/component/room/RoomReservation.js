@@ -9,12 +9,15 @@ export default function RoomReservation(){
         rrstartdate: new Date().toISOString().slice(0, 10),
         rrenddate:'',
         keyword: '',
-        nowPage: 1,
-        limitPage: 10,
-        /* 정렬 관련 */
-        cname:"",
-        isSorted: false
-
+        // 페이징과 정렬 객체
+        pageAndSort: {
+            //페이징 관련
+            nowPage: 1,
+            limitPage: 10,
+            /* 정렬 관련 */
+            cname:"",
+            isSorted: false
+        }
     })
     // 검색 시 결과 리스트 저장
     let[ reservationRecord, setReservationRecord ] = useState( [] )
@@ -28,7 +31,7 @@ export default function RoomReservation(){
     // 검색 함수
     const onSearch = () => {
         axios
-            .get("http://localhost:80/guestRoomReservation", {params:info})
+            .post("http://localhost:80/guestRoomReservation", info)
             .then( response => {
                 // 페이징 처리를 위한 데이터
                 setRecordPage(response.data);
@@ -45,9 +48,12 @@ export default function RoomReservation(){
         let htmlArr = [];
 
         for(let i = recordPage.startBtn; i <= recordPage.endBtn; i++ ) {
-            htmlArr.push(<button className={i === info.nowPage ? "pageActive" : ""} type={"button"} key={i}
+            htmlArr.push(<button className={i === info.pageAndSort.nowPage ? "pageActive" : ""} type={"button"} key={i}
                                  onClick={() => {
-                                     setInfo({...info, nowPage: i});
+                                     setInfo({
+                                         ...info,
+                                         pageAndSort: { ...info.pageAndSort, nowPage: i}
+                                     });
                                  }}>{i}</button>)
         }
         if( htmlArr.length === 0 ) htmlArr.push( <button type={"button"} key={1}>{1}</button> )
@@ -83,7 +89,12 @@ export default function RoomReservation(){
                         총 검색 게시물 수 : <span>{getTotalSize()}</span>
                     </div>
                     {/* 출력할 레코드 수 select*/}
-                    <select onChange={(e)=>{setInfo({...info,limitPage: e.target.value})}}>
+                    <select onChange={(e)=>{setInfo({
+                        ...info,
+                        pageAndSort:{
+                            ...info.pageAndSort
+                            ,limitPage: e.target.value }
+                    })}}>
                         <option value={10}>10</option>
                         <option value={15}>15</option>
                         <option value={20}>20</option>
@@ -107,9 +118,17 @@ export default function RoomReservation(){
                                 let htmlArr = [];
                                 //
                                 for(let i = 0; i < tableColumn.length; i++){
-                                    htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"} onClick={()=>{
-                                        setInfo({...info, cname:tableColumn[i].cname, isSorted: !info.isSorted } )}}
-                                    >↑↓</span></span> )
+                                    htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"}
+                                        onClick={()=>{
+                                            setInfo({
+                                                ...info,
+                                                pageAndSort:{
+                                                    ...info.pageAndSort,
+                                                    cname:tableColumn[i].cname,
+                                                    isSorted: !info.pageAndSort.isSorted
+                                                }
+                                            })}}
+                                        >↑↓</span></span> )
                                 }
                                 return htmlArr;
                             })()
@@ -123,9 +142,14 @@ export default function RoomReservation(){
                 {/* 페이지 공간 */}
                 <div className={"tablePage"}>
                     <button type={"button"} onClick={ () => {
-                        let page = info.nowPage;
-                        setInfo({...info, nowPage: page <= 1 ? page : page - 1 });
-
+                        let page = info.pageAndSort.nowPage;
+                        setInfo({
+                            ...info,
+                            pageAndSort: {
+                                ...info.pageAndSort,
+                                nowPage: page <= 1 ? page : page - 1
+                            }
+                        });
                     } }> &lt; </button>
                     {/* 페이지 버튼*/}
                     {
@@ -133,8 +157,14 @@ export default function RoomReservation(){
                     }
 
                     <button type={"button"} onClick={ () => {
-                        let page = info.nowPage;
-                        setInfo({...info, nowPage: page >= recordPage.totalPage ? page : page + 1 });
+                        let page = info.pageAndSort.nowPage;
+                        setInfo({
+                            ...info,
+                            pageAndSort: {
+                                ...info.pageAndSort,
+                                nowPage: page >= recordPage.totalPage ? page : page + 1
+                            }
+                        });
                     } }> &gt; </button>
                 </div>
             </div>

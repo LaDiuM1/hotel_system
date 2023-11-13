@@ -1,8 +1,8 @@
 package hotelManagement.model.dto.location;
 
+import hotelManagement.model.dto.forPageAndSort.PageAndSort;
 import lombok.*;
 
-import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,10 +15,6 @@ public class LocationSearchDto {
     private String startDate;// 검색 시작 날짜
     private String endDate;  // 검색 끝 날짜
     private String keyword;     // 검색 키워드
-    // 페이징에 필요한 필드
-    private int nowPage;        // 현재 페이지
-    private int limitPage;      // 제한 페이지
-    // 정렬에 필요한 필드
-    private String cname;       // 컬럼명
-    private String isSorted;   // 정렬 기준
+    // 페이징 처리와 정렬에 관련한 필드 선언되어있음
+    private PageAndSort pageAndSort;
 }

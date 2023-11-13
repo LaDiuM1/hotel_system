@@ -1,15 +1,25 @@
 package hotelManagement.model.entity.employee;
 
+<<<<<<< HEAD
 import hotelManagement.model.dto.department.PositionDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+=======
+import hotelManagement.model.entity.BaseTime;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+>>>>>>> b6e5c4540f68f6e1ce2df02838af0815d52a41bc
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+<<<<<<< HEAD
 @Table(name = "position")
+=======
+@Table( name = "position")
+>>>>>>> b6e5c4540f68f6e1ce2df02838af0815d52a41bc
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,7 +29,7 @@ import java.util.List;
 public class PositionEntity {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 10,nullable = false)
     private String pname;   // 직책 이름
     @Column(nullable = false)
     @ColumnDefault("0")

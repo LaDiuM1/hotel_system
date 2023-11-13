@@ -1,8 +1,7 @@
 package hotelManagement.model.dto.room;
 
+import hotelManagement.model.dto.forPageAndSort.PageAndSort;
 import lombok.*;
-
-import java.util.HashMap;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,13 +10,11 @@ import java.util.HashMap;
 @ToString
 @Builder
 // 방 검색 시 사용하는 Dto
-public class RoomSearchDto {
+public class RoomSearchDto  {
     private String gname;       // 등급 명
     private String rrstartdate; // 시작 날짜
     private String rrenddate;   // 종료 날짜
     private String keyword;     // 키워드
-    private int nowPage;        // 현재 페이지
-    private int limitPage;      // 제한 페이지
-    private String cname;       // 정렬 할 컬럼 이름
-    private String isSorted;   // 정렬 기준
+    // 페이징 처리와 정렬에 관련한 필드 선언되어있음
+    PageAndSort pageAndSort;
 }
