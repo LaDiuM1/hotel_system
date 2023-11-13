@@ -1,5 +1,5 @@
 import Record from "../room/RecordComponent";
-import style from '../css/EmployeeManagement/employeeManagement.css'
+import style from '../css/employee/employeeManagement.css'
 import axios from "axios";
 
 export default function EmployeeManagement(){
