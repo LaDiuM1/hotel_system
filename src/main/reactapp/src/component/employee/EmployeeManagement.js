@@ -16,34 +16,34 @@ export default function EmployeeManagement(){
             <div className={"reservationWrap"}>
                 <div className={"searchWrap"}>
                     <div className={"search_Box"}>
-                        <input type={"text"} placeholder={"사원번호"}/>
-                        <input type={"text"} placeholder={"사원명"}/>
-                        <input type={"text"} placeholder={"성별"}/>
-                        <input type={"text"} placeholder={"생년월일"}/>
-                        <input type={"text"} placeholder={"전화번호"}/>
-                        <input type={"text"} placeholder={"주소"}/>
-                        <input type={"text"} placeholder={"권한"}/>
-                        <select>
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                            <option></option>
+                        <select className={""}>
+                            <option>부서</option>
+                            <option>서비스</option>
+                            <option>시설관리</option>
+                            <option>호텔조리</option>
+                            <option>마케팅</option>
+                            <option>총무</option>
+                            <option>인사</option>
+                            <option>운영</option>
                         </select>
                         <select>
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                            <option></option>
+                            <option>직책</option>
+                            <option>사원</option>
+                            <option>주임</option>
+                            <option>대리</option>
+                            <option>과장</option>
+                            <option>차장</option>
+                            <option>부장</option>
+                            <option>이사</option>
+                            <option>사장</option>
                         </select>
+                        <input type={"text"} placeholder={"검색"}/>
                         <select>
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                            <option></option>
+                            <option>전체</option>
+                            <option>사원번호</option>
+                            <option>사원명</option>
+                            <option>전화번호</option>
                         </select>
-                        <input type={"text"} placeholder={"직책"}/>
-                        <input type={"text"} placeholder={"부서"}/>
-
                     </div>
                     <div className={"totalRecordWrap"}>
                         총 검색 게시물 수 : <span>{}</span>
@@ -67,7 +67,6 @@ export default function EmployeeManagement(){
                                     {className:"mbirth" ,ctitle:"생년월일",cname:"mbirth"},
                                     {className:"rphone" ,ctitle:"전화번호",cname:"rphone"},
                                     {className:"eaddress" ,ctitle:"주소",cname:"eaddress"},
-                                    {className:"erank" ,ctitle:"접근권한",cname:"erank"},
                                     {className:"pname" ,ctitle:"직책",cname:"pname"},
                                     {className:"dcode" ,ctitle:"부서",cname:"dcode"},
                                     {className:"mregiste" ,ctitle:"등록날짜",cname:"mregiste"}
