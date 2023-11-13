@@ -4,6 +4,7 @@ import hotelManagement.model.dto.room.RoomReservationDto;
 import hotelManagement.model.dto.room.RoomSearchDto;
 import hotelManagement.model.entity.room.RoomReservationEntity;
 import hotelManagement.model.repository.room.RoomReservationEntityRepository;
+import hotelManagement.service.getListInterface.GetListInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,14 +17,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class RoomReservationService {
+public class RoomReservationService implements GetListInterface {
 
     @Autowired
     RoomReservationEntityRepository roomReservationEntityRepository;
     /*
     * 객실 예약 리스트 정보 호출 메서드
     * */
-    public Map<String,Object> getRoomReservation( RoomSearchDto roomSearchDto){
+    @Override
+    public Map<String,Object> getList( Object roomSearchObject ){
+
+        RoomSearchDto roomSearchDto = (RoomSearchDto) roomSearchObject;
 
         // 모든 예약 정보 호출
         List<RoomReservationEntity> entities= roomReservationEntityRepository.findAll();
@@ -43,7 +47,7 @@ public class RoomReservationService {
 
         // 페이징 메서드 호출
         // 결과 값 : 프론트단에서 사용할 페이지 데이터 및 페이징 처리 된 데이터 리스트를 담은 해시 맵 객체
-        Map<String,Object> resultMap = onPagging(roomSearchDto, entities.size(), entityStream);
+        Map<String,Object> resultMap = onPagging(roomSearchDto.getPageAndSort().getNowPage(), roomSearchDto.getPageAndSort().getLimitPage(), entities.size(), entityStream);
         // 페이징 처리 된 스트림 객체 entityStream에 저장
         entityStream = (Stream<RoomReservationEntity>) resultMap.get("paggingResult");
         // 저장된 스트림 리스트로 변환, entities에 다시 저장
@@ -234,17 +238,15 @@ public class RoomReservationService {
         return entityStream;
     }// onSearch() end
     /*
-    * 페이징 메서드
+    * 페이징 추상 메서드 구현
     * */
-    public Map<String,Object> onPagging( RoomSearchDto roomSearchDto, int entitiesSize, Stream<RoomReservationEntity> entityStream  ){
-        int page = roomSearchDto.getPageAndSort().getNowPage();
-        // 출력할 레코드 개수
-        final int limitPage = roomSearchDto.getPageAndSort().getLimitPage();
+    @Override
+    public Map<String,Object> onPagging( int page, int limitPage, int entitiesSize, Object recordList  ){
+        Stream<RoomReservationEntity> entityStream = (Stream<RoomReservationEntity>) recordList;
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
-        // 엔티티 총 사이즈
-        int totalSize = entitiesSize;
-        int totalPage = totalSize%limitPage == 0 ? totalSize/limitPage : totalSize/limitPage+1 ;
+        // 총페이지 수
+        int totalPage = entitiesSize%limitPage == 0 ? entitiesSize/limitPage : entitiesSize/limitPage+1 ;
         int startBtn = ((page-1) / 5) * 5 + 1;
         int endBtn = startBtn + 4;
         // endBtn이 총 페이지 수보다 크거나 같으면 endBtn에 총 페이지 수 대입
@@ -253,7 +255,7 @@ public class RoomReservationService {
 
         // 결과 반환
         return new HashMap(){{
-            put("totalSize",totalSize);put("totalPage", totalPage);
+            put("totalSize",entitiesSize);put("totalPage", totalPage);
             put("startBtn", startBtn);put("endBtn",finalEndBtn);
             // 페이지에 따른 검색결과 축소 skip( startRow )만큼 skip하고 limit( limitPage ) 크기로 제한함
             put("paggingResult" , entityStream.skip( startRow ).limit( limitPage ));

@@ -20,7 +20,7 @@ public class LocationReservationController {
     // 시설 예약 리스트 호출 메서드
     public Map<String,Object> getLocationReservation(@RequestBody LocationSearchDto locationSearchDto){
         System.out.println("locationSearchDto = " + locationSearchDto);
-        locationReservationService.getLocationReservation(locationSearchDto);
-        return locationReservationService.getLocationReservation(locationSearchDto);
+        locationReservationService.getList(locationSearchDto);
+        return locationReservationService.getList(locationSearchDto);
     }
 }

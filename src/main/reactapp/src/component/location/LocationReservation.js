@@ -44,7 +44,7 @@ export default function LocationReservation(){
         let htmlArr = [];
 
         for(let i = recordPage.startBtn; i <= recordPage.endBtn; i++ ) {
-            htmlArr.push(<button className={i === info.nowPage ? "pageActive" : ""} type={"button"} key={i}
+            htmlArr.push(<button className={i === info.pageAndSort.nowPage ? "pageActive" : ""} type={"button"} key={i}
                                  onClick={() => {
                                      setInfo({
                                          ...info,

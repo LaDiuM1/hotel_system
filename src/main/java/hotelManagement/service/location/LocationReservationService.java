@@ -3,6 +3,7 @@ package hotelManagement.service.location;
 
 import hotelManagement.model.dto.location.LocationSearchDto;
 import hotelManagement.model.repository.location.LocationReservationEntityRepository;
+import hotelManagement.service.getListInterface.GetListInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
@@ -16,12 +17,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class LocationReservationService {
+public class LocationReservationService implements GetListInterface {
 
     @Autowired
     LocationReservationEntityRepository locationReservationEntityRepository;
-
-    public Map<String,Object> getLocationReservation(LocationSearchDto locationSearchDto){
+    @Override
+    // 시설 예약 리스트 getList
+    public Map<String,Object> getList(Object locationSearchObject){
+        LocationSearchDto locationSearchDto = (LocationSearchDto) locationSearchObject;
 
         // 검색 조건에 따른 예약 정보 Map객체 하나당 레코드 한개
         List<Map<String,Object>> totalList = locationReservationEntityRepository.findByLocationReservation(
@@ -30,11 +33,13 @@ public class LocationReservationService {
                 , locationSearchDto.getKeyword()  );
 
         // 페이징 처리 후 반환
-        return purposePagging(locationSearchDto.getPageAndSort().getNowPage(), locationSearchDto.getPageAndSort().getLimitPage(), totalList.size() , totalList);
+        return onPagging(locationSearchDto.getPageAndSort().getNowPage(), locationSearchDto.getPageAndSort().getLimitPage(), totalList.size() , totalList);
     }
 
-    // 페이징 처리 위한 메서드
-    public HashMap<String,Object> purposePagging( int page, int limitPage, int totalSize, List<Map<String,Object>> totalList ){
+    @Override
+    // 페이징 추상 메서드 구현
+    public Map<String,Object> onPagging( int page, int limitPage, int totalSize, Object recordList ){
+        List<Map<String,Object>> totalList = (List<Map<String,Object>>)recordList;
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
         // 검색 결과에 따른 총 페이지 수

@@ -20,7 +20,7 @@ public class RoomReservationController {
     // get 객실 예약 리스트
     public Map<String,Object> getRoomReservation(@RequestBody RoomSearchDto roomSearchDto){
         System.out.println("roomSearchDto = " + roomSearchDto);
-        return roomService.getRoomReservation(roomSearchDto);
+        return roomService.getList(roomSearchDto);
     }
 
 }
