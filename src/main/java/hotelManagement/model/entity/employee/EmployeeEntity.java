@@ -22,8 +22,6 @@ public class EmployeeEntity {
     private String epwd;        // 직원 비밀번호
     @Column(length = 50)
     private String eaddress;    // 직원 집주소
-    @Column(columnDefinition = "tinyint", nullable = false)
-    private int erank;          // 접근 권한 등급
 
     @ManyToOne
     @JoinColumn(name = "dcode_fk")
@@ -42,7 +40,6 @@ public class EmployeeEntity {
         return EmployeeDto.builder()
                 .eno(this.eno)
                 .eaddress(this.eaddress)
-                .erank(this.erank)
                 .build();
 
     }
