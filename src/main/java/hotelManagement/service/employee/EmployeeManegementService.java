@@ -78,7 +78,7 @@ public class EmployeeManegementService implements GetListInterface {
     @Transactional
     public boolean putEmployee( EmployeeDto employeeDto ){
         // 입력받은 사원번호 데이터로 사원 엔티티 find
-        Optional<EmployeeEntity> employeeEntityOptional = employeeManegementRepository.findById( employeeDto.getEno() );
+        Optional<EmployeeEntity> employeeEntityOptional = employeeManegementRepository.findByEno( employeeDto.getEno() );
         // 수정할 부서 엔티티와 직책 엔티티 find
 
         if( employeeEntityOptional.isPresent() ){

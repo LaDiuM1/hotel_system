@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
-public interface EmployeeManegementRepository extends JpaRepository<EmployeeEntity, String> {
+public interface EmployeeManegementRepository extends JpaRepository<EmployeeEntity, Integer> {
 
     // employee, depart, memberinfo 테이블 join
     @Query(value = " select e.eno,e.ejoin,e.eaddress,m.mname,m.msex,m.mbirth,m.mphone,e.pname_fk,d.dname " +
@@ -26,4 +27,7 @@ public interface EmployeeManegementRepository extends JpaRepository<EmployeeEnti
             ", IF( :searchType = 'mname', m.mname like %:keyword%, m.mphone like %:keyword% )))" , nativeQuery = true)
     // 검색, 페이지 조건에 따른 네이티브 쿼리
     List<Map<String,Object>> findByCondition(String depart, String position, String keyword, String searchType );
+
+    // 사번을 통해 사원 정보 가져오는 추상메서드
+    Optional<EmployeeEntity> findByEno(String eno );
 }
