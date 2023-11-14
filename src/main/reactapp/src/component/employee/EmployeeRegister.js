@@ -3,8 +3,8 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import LocationComponent from "../location/LocationComponent";
 import refrashBtn from "../img/refresh_btn.png";
+import axios from "axios";
 
-// 직원 등록 컴포넌트
 export default function EmployeeRegister(){
     // 모달창 상태 관리 함수
     const [show, setShow] = useState(false);
@@ -17,20 +17,22 @@ export default function EmployeeRegister(){
     // 3개로 나뉘어져 있는 전화번호 값 관리용 상태 함수
     const [phoneValue, setPhoneValue] = useState([ '', '', '' ] )
 
-    /* input data 관리용 함수 */
-    const [ inputData, setInputData] = useState(
-        {
-            mname: '',
-            msex: '남',  /* 초기값 지정 */
-            mbirth: '',
-            mphone: '',
-            eaddress: '',
-            ejoin: '',
-            ecode: '01' /* 초기값 지정 */
-        }
-    )
+    // 초기화용 객체
+    const initialValue = {
+        mname: '',
+        msex: '남성',  /* 성별 초기값 지정 */
+        mbirth: '',
+        mphone: '',
+        ejoin: '',
+        eaddress: '',
+        dcode: '01' /* 부서 코드 초기값 지정 */
+    };
 
-    const registerEmployee = () => {
+    /* input data 관리용 함수 */
+    const [ inputData, setInputData] = useState(initialValue);
+
+
+    const employeeRegister = () => {
         // 객체에 공백 문자가 있으면 종료
         for( let p of Object.values(inputData)){
             if(p.length === 0){
@@ -38,13 +40,31 @@ export default function EmployeeRegister(){
                 return;
             }
         }
+        // 전화번호 유효성 검사
+        if(phoneValue[0] < 2 || phoneValue[1] < 3 || phoneValue[2] < 3 )
+        { alert('항목을 모두 입력해 주세요'); return; }
 
-        if(phoneValue[0] < 2) { alert('항목을 모두 입력해 주세요'); return; }
-        else if (phoneValue[1] < 3) { alert('항목을 모두 입력해 주세요'); return; }
-        else if (phoneValue[2] < 3) { alert('항목을 모두 입력해 주세요'); return; }
+        // dto 연관 관계 필드 구조에 맞게 inputData 변경
+        const updateTransData = {
+                ejoin : inputData.ejoin,
+                eaddress : inputData.eaddress,
+                memberInfoDto: {
+                    mname : inputData.mname,
+                    msex : inputData.msex,
+                    mbirth : inputData.mbirth,
+                    mphone : inputData.mphone },
+                departmentDto: {
+                    dcode : inputData.dcode }
+                }
 
+        // 입력 데이터 초기화
+        setInputData(initialValue);
 
-
+        axios
+            .post('http://localhost:80/employeeRegister', updateTransData )
+            .then( r => {
+                if(r) { alert('회원 등록을 완료하였습니다.'); handleClose() }
+            })
 
     }
 
@@ -52,7 +72,6 @@ export default function EmployeeRegister(){
     const inputValueChange = e =>{
         let className = e.target.className;
         let value = e.target.value;
-        console.log(e)
 
         // 입력 값이 전화번호일 경우
         if (className.includes('mphone')) {
@@ -70,12 +89,10 @@ export default function EmployeeRegister(){
             updateInputData.mphone = phoneValue[0]+phoneValue[1]+phoneValue[2]
             setInputData(updateInputData);
 
-            console.log(inputData);
         }else{
             // 그 외에는 일치하는 속성에 입력된 값 저장
             let updateInputData = { ...inputData, [className]: value };
             setInputData(updateInputData);
-            console.log(inputData);
 
         }
 
@@ -90,18 +107,18 @@ export default function EmployeeRegister(){
             keyboard={false}
         >
 
-        <Modal.Body className={"modalArea"}>
+            <Modal.Body className={"modalArea"}>
                 <div className={"registerArea"}> {/* 직원 등록 입력 구역 */}
                     <div className={"memberInfoArea"}> {/* 회원 공통 정보 입력 구역*/}
                         <h5>직원 등록</h5>
                         <div className={"itemBlock"}>
                             <div className={"textArea"}>성명</div> {/* 이름, 성별 구역 */}
                             <div className={"nameInputArea"}>
-                                <div><input onChange={inputValueChange} className={"mname"} maxlength={20} type={"text"}></input></div>
+                                <div><input onChange={inputValueChange} className={"mname"} maxLength={20} type={"text"}></input></div>
                                 <div className={"textArea"} style={{marginLeft:"15px", width:"30%"}}>성별</div>
                                 <div className={"radioArea"}>
-                                    남<input onChange={inputValueChange} className={"msex"} type={"radio"} name={"msex"} value={"남"} defaultChecked={"defaultChecked"}></input>
-                                    여<input onChange={inputValueChange} className={"msex"} type={"radio"} name={"msex"} value={"여"}></input>
+                                    남<input onChange={inputValueChange} className={"msex"} type={"radio"} name={"msex"} value={"남성"} defaultChecked={"defaultChecked"}></input>
+                                    여<input onChange={inputValueChange} className={"msex"} type={"radio"} name={"msex"} value={"여성"}></input>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +137,7 @@ export default function EmployeeRegister(){
                                         if (e.target.value.length > e.target.maxLength)
                                             e.target.value = e.target.value.slice(0, e.target.maxLength);
                                     }}
-                                    maxlength={3}
+                                    maxLength={3}
                                     onChange={inputValueChange} className={"mphone part1"} type={"number"}></input>
                                 <h4>-</h4>
                                 <input
@@ -128,7 +145,7 @@ export default function EmployeeRegister(){
                                         if (e.target.value.length > e.target.maxLength)
                                             e.target.value = e.target.value.slice(0, e.target.maxLength);
                                     }}
-                                    maxlength={4}
+                                    maxLength={4}
                                     onChange={inputValueChange} className={"mphone part2"} type={"number"}></input>
                                 <h4>-</h4>
                                 <input
@@ -136,13 +153,13 @@ export default function EmployeeRegister(){
                                         if (e.target.value.length > e.target.maxLength)
                                             e.target.value = e.target.value.slice(0, e.target.maxLength);
                                     }}
-                                    maxlength={4}
+                                    maxLength={4}
                                     onChange={inputValueChange} className={"mphone part3"} type={"number"}></input>
                             </div>
                         </div>
                         <div className={"itemBlock"}>
                             <div className={"textArea"}>주소</div>
-                            <div className={"inputArea"}><input onChange={inputValueChange} className={"eaddress"} maxlength={50} type={"text"}></input></div>
+                            <div className={"inputArea"}><input onChange={inputValueChange} className={"eaddress"} maxLength={50} type={"text"}></input></div>
                         </div>
                         <div className={"itemBlock"}>
                             <div className={"textArea"}>입사일</div>
@@ -153,7 +170,7 @@ export default function EmployeeRegister(){
                         <div className={"itemBlock"}>
                             <div className={"textArea"}>부서</div>
                             <div className={"inputArea"}>
-                                <select onChange={inputValueChange} className={"department"} defaultValue='01'>
+                                <select onChange={inputValueChange} className={"dcode"} defaultValue='01'>
                                     <option value={'01'}>서비스</option>
                                     <option value={'02'}>시설관리</option>
                                     <option value={'03'}>호텔조리</option>
@@ -168,13 +185,14 @@ export default function EmployeeRegister(){
                     </div>
 
                 </div>
-        </Modal.Body>
+            </Modal.Body>
             <Modal.Footer>
                 <div className={"buttonArea"}>
-                    <button onClick={registerEmployee} className={"regiSubmitBtn"} type={"button"}>등록</button>
+                    <button onClick={employeeRegister} className={"regiSubmitBtn"} type={"button"}>등록</button>
                     <button onClick={handleClose} type={"button"}>취소</button>
                 </div>
             </Modal.Footer>
         </Modal>
-            </>)
+    </>)
 }
+// 직원 등록 컴포넌트

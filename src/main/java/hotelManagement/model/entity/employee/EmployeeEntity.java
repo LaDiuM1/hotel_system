@@ -1,6 +1,6 @@
 package hotelManagement.model.entity.employee;
 
-import hotelManagement.model.dto.department.EmployeeDto;
+import hotelManagement.model.dto.employee.EmployeeDto;
 import hotelManagement.model.entity.member.MemberInfoEntity;
 import lombok.*;
 import javax.persistence.*;

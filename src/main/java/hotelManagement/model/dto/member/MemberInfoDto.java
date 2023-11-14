@@ -15,9 +15,9 @@ public class MemberInfoDto {
     private String mphone;             // 회원 전화번호 공통 필드
     private String mbirth;             // 회원 생년월일 공통 필드
 
+
     public MemberInfoEntity toEntity() { // dto -> Entity
         return MemberInfoEntity.builder()
-                .mno(this.mno)
                 .mtype(this.mtype)
                 .mname(this.mname)
                 .msex(this.msex)

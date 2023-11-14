@@ -15,9 +15,11 @@ input[type="number"]::-webkit-inner-spin-button {
 
 }
 .registerArea h5{
-    margin-left: 5px;
-
+    font-weight: bold;
+    TEXT-ALIGN: center;
+    margin-bottom: 12px;
 }
+
 
 .itemBlock{
     display: flex;
@@ -44,7 +46,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 
 }
-.inputArea input, select{
+.inputArea input, .inputArea select{
     width: 90%;
     outline: none;
     border-radius: 5px;
