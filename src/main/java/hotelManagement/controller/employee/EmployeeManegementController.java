@@ -20,6 +20,7 @@ public class EmployeeManegementController {
     // 직원 리스트 담겨있는 Map 데이터 return
     public Map<String, Object> getEmployeeList(@RequestBody EmployeeManegementDto employeeManegementDto){
         System.out.println("employeeManegementDto = " + employeeManegementDto);
+
         return employeeManegementService.getList(employeeManegementDto);
     }
 }
