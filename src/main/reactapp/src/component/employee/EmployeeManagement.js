@@ -61,8 +61,19 @@ export default function EmployeeManagement(){
     }
     // 모달창 상태 관리
     const [show, setShow] = useState(false);
+
     //모달창 닫는 함수
     const handleClose = () => setShow(false);
+
+    /* --------------직원 등록 모달창 구역 start--------------*/
+    // 직원 등록 모달창 상태 관리
+    const [show2, setShow2] = useState(false);
+    // 직원 등록 모달창 클로즈
+    const handleClose2 = () => setShow(false);
+    // 직원 등록 모달창 오픈
+    const handleShow2 = () => setShow(true);
+    /* --------------직원 등록 모달창 구역 end--------------*/
+
     //모당창 여는 함수
     const handleShow = (i) => {
         // 모달창 상태 변경
@@ -145,7 +156,9 @@ export default function EmployeeManagement(){
                             <option value={"mname"}>사원명</option>
                             <option value={"mphone"}>전화번호</option>
                         </select>
+                        <button className={"registerBtn"} type={"button"}>직원 등록</button>
                     </div>
+
                     <div className={"totalRecordBox"}>
                         <div className={"totalRecordWrap"}>
                             총 검색 게시물 수 : <span>{getTotalSize()}</span>
