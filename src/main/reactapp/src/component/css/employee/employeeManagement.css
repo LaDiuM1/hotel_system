@@ -1,6 +1,6 @@
 /* 컬럼 설정 */
-.tableColumn .eno,.tableColumn .mname
-,.tableColumn .msex, .tableColumn .mphone
+.tableColumn .eno,.tableColumn .emname
+,.tableColumn .emsex, .tableColumn .mphone
 ,.tableColumn .mbirth,.tableColumn .rname
 ,.tableColumn .rphone , .tableColumn .eaddress
 ,.tableColumn .erank , .tableColumn .pname
@@ -13,23 +13,22 @@
     border: 1px solid #4b8dbd;
 }
 /* 레코드 설정 */
-.tableRecord .eno,.tableRecord .mname
-,.tableRecord .msex, .tableRecord .mbirth
+.tableRecord .eno,.tableRecord .emname
+,.tableRecord .emsex, .tableRecord .mbirth
 ,.tableRecord .rphone,.tableRecord .pname
 ,.tableRecord .dcode , .tableRecord .eaddress
     ,.tableRecord .ejoin
 {border:1px solid #e8e8e8; padding:5px; text-align: center;}
 /* 테이블 컬럼 크기 */
 .tableWrap .eno{ width: 10% }
-.tableWrap .mname{ width:10%}
-.tableWrap .msex{ width:10%}
-.tableWrap .mphone{width:10% }
+.tableWrap .emname{ width:10%}
+.tableWrap .emsex{ width:10%}
 .tableWrap .mbirth{ width:10% }
-.tableWrap .rphone{width:14% }
+.tableWrap .rphone{width:15% }
 .tableWrap .eaddress{width:15% }
-.tableWrap .pname{width:8% }
-.tableWrap .dcode{width:8% }
-.tableWrap .ejoin{width:15% }
+.tableWrap .pname{width:10% }
+.tableWrap .dcode{width:10% }
+.tableWrap .ejoin{width:10% }
 
 .employeeSearchWrap{display:flex; justify-content: space-between}
 /* 검색 구역 */
@@ -39,3 +38,42 @@
 /* 총 검색 수 */
 .totalRecordBox{display:flex; margin-right:15px;align-items: center;}
 .totalRecordBox .totalRecordWrap{margin-right:10px; font-weight: bold;}
+/* 모달 구역 */
+.employeeModal{
+    display: flex;
+    padding:100px 30px 50px 30px;
+    font-size: 20px;
+    justify-content: space-around;
+    border: 1px solid #e8e8e8;
+}
+/* 변경 전 구역 */
+.employeeModal .employeeBeforeInfo{ width:20%;}
+.employeeModal .employeeBeforeInfo div{  padding:3px; }
+/* 직원 정보 텍스트 */
+.employeeModal .employeeBeforeInfo h4 , .employeeModal .employeeAfterInfo h4{
+    text-align: center;
+    padding-bottom: 15px;
+}
+/* 화살표 */
+.employeeModal .pointerWrap{ margin: auto 0; }
+.employeeModal .pointerWrap p{ font-size:100px; }
+/* 변경 후 구역 */
+.employeeModal .employeeAfterInfo{ display:flex;flex-direction:column;     }
+/* 변경 후 구역의 select */
+.employeeAfterInfo select:nth-of-type(1){margin: 10px 0 10px 0; width:100%;}
+.employeeAfterInfo select:nth-of-type(2){width:100%;}
+
+/* 변경 전 직원 정보 */
+.employeeInfoWrap span{display:inline-block;}
+.employeeInfoWrap span:nth-of-type(1){
+    width:35%;
+    padding:3px 5px 3px 3px;
+    background-color:#4b8dbd;
+    color:white;
+    text-align:center
+}
+.employeeInfoWrap span:nth-of-type(2){
+    width:65%;
+    background-color: #e8e8e8;
+    padding:3px 5px 3px 8px;
+}

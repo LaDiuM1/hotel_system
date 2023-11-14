@@ -10,7 +10,7 @@
 }
 .reservationWrap .searchWrap{display: flex; align-items: center;}
 /* 총 페이지 수 구역*/
-.searchWrap .totalRecordWrap{ margin-left: 280px;font-weight: bold;width: 160px;}
+.searchWrap .totalRecordWrap{ margin-left: 280px;font-weight: bold;width: 170px;}
 /* 인풋 박스 설정 */
 .ReservationGrade{width:12%;}
 .ReservationDate{width:23%;}
@@ -60,6 +60,7 @@
 ,.tableRecord .guestRoomName,.tableRecord .guestRoomPhone
 ,.tableRecord .guestRoomCheckIn , .tableRecord .guestRoomCheckOut
 {border:1px solid #e8e8e8; padding:5px; text-align: center;}
+.tableRecord:hover{ background-color:#e8e8e8; }
 /* 테이블 컬럼 크기 */
 .tableWrap .guestRoomNum{ width: 7% }
 .tableWrap .guestRoomGrade{ width:10%}

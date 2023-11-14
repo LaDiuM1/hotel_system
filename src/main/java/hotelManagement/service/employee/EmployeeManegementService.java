@@ -1,22 +1,38 @@
 package hotelManagement.service.employee;
 
+import hotelManagement.model.dto.employee.EmployeeDto;
 import hotelManagement.model.dto.employee.EmployeeManegementDto;
+import hotelManagement.model.entity.employee.EmployeeEntity;
+import hotelManagement.model.repository.employee.DepartmentEntityRepository;
 import hotelManagement.model.repository.employee.EmployeeManegementRepository;
+import hotelManagement.model.repository.employee.PositionEntityRepository;
 import hotelManagement.service.getListInterface.GetListInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class EmployeeManegementService implements GetListInterface {
+
     @Autowired
+    // 직원 레포지토리
     private EmployeeManegementRepository employeeManegementRepository;
 
+    @Autowired
+    // 부서 레포지토리
+    private DepartmentEntityRepository departmentEntityRepository;
+
+    @Autowired
+    // 직책 레포지토리
+    private PositionEntityRepository positionEntityRepository;
+
     @Override
-    // 직원 리스트 getList
+    // getList 추상메서드 구현 직원 리스트 가져옴
     public Map<String, Object> getList( Object employeeManegementObject ){
 
         EmployeeManegementDto employeeManegementDto = (EmployeeManegementDto) employeeManegementObject;
@@ -56,5 +72,27 @@ public class EmployeeManegementService implements GetListInterface {
             put("paggingResult" , employeeList.stream().skip( startRow ).limit( limitPage ));
         }};
     }
+    /*
+    * 사원 정보 수정 메서드
+    * */
+    @Transactional
+    public boolean putEmployee( EmployeeDto employeeDto ){
+        // 입력받은 사원번호 데이터로 사원 엔티티 find
+        Optional<EmployeeEntity> employeeEntityOptional = employeeManegementRepository.findByEno( employeeDto.getEno() );
+        // 수정할 부서 엔티티와 직책 엔티티 find
 
+        if( employeeEntityOptional.isPresent() ){
+            EmployeeEntity employeeEntity = employeeEntityOptional.get();
+            // 부서 엔티티 수정
+            employeeEntity.setDepartmentEntity(
+                    departmentEntityRepository.findByDname( employeeDto.getDepartmentDto().getDname() )
+            );
+            // 직책 엔티티 수정
+            employeeEntity.setPositionEntity(
+                    positionEntityRepository.findById( employeeDto.getPositionDto().getPname() ).get()
+            );
+            return true;
+        }
+        return false;
+    }
 }

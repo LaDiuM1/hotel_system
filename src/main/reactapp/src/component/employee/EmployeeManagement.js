@@ -4,6 +4,7 @@ import axios from "axios";
 import EmployeeManagementComponent from "./EmployeeManagementComponent";
 import {useEffect, useState} from "react";
 import Modal from "react-bootstrap/Modal";
+import modal from "bootstrap/js/src/modal";
 
 export default function EmployeeManagement(){
 
@@ -60,22 +61,38 @@ export default function EmployeeManagement(){
     }
     // 모달창 상태 관리
     const [show, setShow] = useState(false);
-    // 모달창 데이터 관리
-    const [modalData, setModalData ] = useState( {
-        eno: "",
-        ename: "",
-        depart: "",
-        position: ""
-    })
     //모달창 닫는 함수
     const handleClose = () => setShow(false);
     //모당창 여는 함수
     const handleShow = (i) => {
+        // 모달창 상태 변경
         setShow(true);
-        console.log(  document.querySelector('.select'+i+' .mname').innerHTML   );
 
+        // 직원 정보 갱신, 모달에 직원 정보 랜더링 위함
+        const pname = document.querySelector(`.select${i} .pname`).innerHTML;
+        const dcode = document.querySelector(`.select${i} .dcode`).innerHTML;
+        // setState
+        setModalEmployeeInfo(
+            {
+                ...modalEmployeeInfo,
+                    eno: document.querySelector(`.select${i} .eno`).innerHTML,
+                    mname: document.querySelector(`.select${i} .emname`).innerHTML,
+                    depart: dcode,
+                    position: pname,
+                    afterDepart: dcode,
+                    afterPosition: pname
+                });
     }
-
+    // 모달 내부에 사용할 데이터( 클릭한 직원 정보 )
+    let[ modalEmployeeInfo, setModalEmployeeInfo ] = useState( {
+        eno:"",
+        mname:"",
+        depart: "",
+        position: "",
+        afterDepart:"",
+        afterPosition:""
+    })
+    console.log( modalEmployeeInfo.afterDepart === "")
     return(<>
         <div className={"reservationContainer"}>
             <div className={"reservationWrap"}>
@@ -154,8 +171,8 @@ export default function EmployeeManagement(){
                             (()=>{
                                 let tableColumn = [
                                     {className:"eno" ,ctitle:"사원번호",cname:"eno"},
-                                    {className:"mname" ,ctitle:"사원명",cname:"mname"},
-                                    {className:"msex" ,ctitle:"성별",cname:"msex"},
+                                    {className:"emname" ,ctitle:"사원명",cname:"mname"},
+                                    {className:"emsex" ,ctitle:"성별",cname:"msex"},
                                     {className:"mbirth" ,ctitle:"생년월일",cname:"mbirth"},
                                     {className:"rphone" ,ctitle:"전화번호",cname:"rphone"},
                                     {className:"pname" ,ctitle:"직책",cname:"pname"},
@@ -179,21 +196,22 @@ export default function EmployeeManagement(){
                         (() => {
 
                             let htmlArr = []
+                            // 검색 결과 리스트 반복문
                             let data = resultData.paggingResult
                                 for( let i = 0; i < data.length; i++){
                                     htmlArr.push( <div className={`tableRecord select` + i}
                                                        key={i} onClick={ () => {
                                         handleShow(i)
                                     }}>
-                                            <span className={"eno"} key={ data[i].eno}>{data[i].eno}</span>
-                                            <span className={`mname mname_${i}`} key={data[i].mname}>{data[i].mname}</span>
-                                            <span className={"msex"} key={data[i].msex}>{data[i].msex}</span>
-                                            <span className={"mbirth"} key={data[i].mbirth}>{data[i].mbirth}</span>
-                                            <span className={"rphone"} key={data[i].mphone}>{data[i].mphone}</span>
-                                            <span className={"pname"} key={data[i].pname_fk}>{data[i].pname_fk}</span>
-                                            <span className={"dcode"} key={data[i].dname}>{data[i].dname}</span>
-                                            <span className={"eaddress"} key={data[i].eaddress}>{data[i].eaddress}</span>
-                                            <span className={"mregiste"} key={data[i].ejoin}>{}</span>
+                                            <span className={`eno`} key={ data[i].eno}>{data[i].eno}</span>
+                                            <span className={`emname`} key={data[i].mname}>{data[i].mname}</span>
+                                            <span className={`emsex`} key={data[i].msex}>{data[i].msex}</span>
+                                            <span className={`mbirth`} key={data[i].mbirth}>{data[i].mbirth}</span>
+                                            <span className={`rphone`} key={data[i].mphone}>{data[i].mphone}</span>
+                                            <span className={`pname`} key={data[i].pname_fk}>{data[i].pname_fk}</span>
+                                            <span className={`dcode`} key={data[i].dname}>{data[i].dname}</span>
+                                            <span className={`eaddress`} key={data[i].eaddress}>{data[i].eaddress}</span>
+                                            <span className={`ejoin`} key={data[i].ejoin}>{data[i].ejoin}</span>
                                         </div>
                                     )
                                 }
@@ -234,22 +252,97 @@ export default function EmployeeManagement(){
         <Modal
             show={show}
             onHide={handleClose}
+            size="lg"
         >
-            <Modal.Body className={"modalBody"}>
-                <div className={"modalContent"}>
-                    <div className={"memberInfo"}>
-                        <h3>{1}호 객실 이용자 정보</h3> {/* 객실 이용자 출력 구역 */}
-                        <div className={"modalText"}> 성함 : {1} </div>
-                        <div className={"modalText"}> 전화번호 : {2} </div>
-                        <div className={"modalText"}> 예약 시작 날짜 : {3} </div>
-                        <div className={"modalText"}> 예약 종료 날짜 : {4} </div>
+            <Modal.Body className={"employeeModalBody"}>
+                <div className={"employeeModal"}>
+                    <div className={"employeeBeforeInfo"}>
+                        <h4>직원 정보</h4>
+                        <div className={"employeeInfoWrap"}>
+                            <span>이름</span>
+                            <span>{modalEmployeeInfo.mname}</span>
+                        </div>
+                        <div className={"employeeInfoWrap"}>
+                            <span>직책</span>
+                            <span> {modalEmployeeInfo.position} </span></div>
+                        <div className={"employeeInfoWrap"}>
+                            <span>부서</span>
+                            <span> {modalEmployeeInfo.depart} </span>
+                        </div>
+                    </div>
+                    <div className={"pointerWrap"}>
+
+                        <p> ‣ </p>
+
+                    </div>
+                    <div className={"employeeAfterInfo"}>
+                        <h4>변경 후 직원 정보</h4>
+                        <div className={"employeeInfoWrap"}>
+                            <span>이름</span>
+                            <span>{modalEmployeeInfo.mname}</span>
+                        </div>
+                        <select defaultValue={modalEmployeeInfo.position}
+                                onChange={ (e) =>
+                                    setModalEmployeeInfo({...modalEmployeeInfo,afterPosition: e.target.value})
+                        }>
+                            <option value={""}>직책</option>
+                            <option value={"사원"}>사원</option>
+                            <option value={"주임"}>주임</option>
+                            <option value={"대리"}>대리</option>
+                            <option value={"과장"}>과장</option>
+                            <option value={"차장"}>차장</option>
+                            <option value={"부장"}>부장</option>
+                            <option value={"이사"}>이사</option>
+                            <option value={"사장"}>사장</option>
+                        </select>
+                        <select defaultValue={modalEmployeeInfo.depart}
+                                onChange={ (e) =>
+                                    setModalEmployeeInfo({...modalEmployeeInfo,afterDepart: e.target.value})
+                        }>
+                            <option value={""}>부서</option>
+                            <option value={"서비스"}>서비스</option>
+                            <option value={"시설관리"}>시설관리</option>
+                            <option value={"호텔조리"}>호텔조리</option>
+                            <option value={"마케팅"}>마케팅</option>
+                            <option value={"총무"}>총무</option>
+                            <option value={"인사"}>인사</option>
+                            <option value={"운영"}>운영</option>
+                        </select>
                     </div>
                 </div>
-
             </Modal.Body>
             <Modal.Footer> {/* 버튼 출력 구역 */}
-                <button className={"modalButton checkoutBtn"}>
-                    퇴실
+                <button className={"modalButton checkoutBtn"} onClick={ ()=> {
+                    // 둘 다 변경사항 없을 시 return
+                    if( modalEmployeeInfo.depart === modalEmployeeInfo.afterDepart
+                        && modalEmployeeInfo.position === modalEmployeeInfo.afterPosition
+                        || ( modalEmployeeInfo.afterDepart === ""
+                        || modalEmployeeInfo.afterPosition === "")
+                    )
+                        return alert("변경 사항이 없습니다.");
+
+                    // 수정 사항 put 메서드 전송
+                    axios
+                        .put("http://localhost:80/employeeManegement/updateEmployee" ,
+                            {
+                                    eno: modalEmployeeInfo.eno ,
+                                    departmentDto:{
+                                        dname:modalEmployeeInfo.afterDepart
+                                    },
+                                    positionDto: {
+                                        pname: modalEmployeeInfo.afterPosition
+                                    }
+                                })
+                        .then(response=>{
+                            if(response.data){
+                                alert("수정성공");
+                                handleClose();
+                                onSearch()
+                            }
+                            else alert("수정실패")
+                        })
+                } }>
+                    수정
                 </button>
                 <button className={"modalButton"} onClick={handleClose}>
                     닫기

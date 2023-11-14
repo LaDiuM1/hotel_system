@@ -1,5 +1,6 @@
 package hotelManagement.controller.employee;
 
+import hotelManagement.model.dto.employee.EmployeeDto;
 import hotelManagement.model.dto.employee.EmployeeManegementDto;
 import hotelManagement.service.employee.EmployeeManegementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class EmployeeManegementController {
         System.out.println("employeeManegementDto = " + employeeManegementDto);
 
         return employeeManegementService.getList(employeeManegementDto);
+    }
+    @PutMapping("/updateEmployee")
+    public boolean putEmployee( @RequestBody EmployeeDto employeeDto ){
+        System.out.println("employeeDto = " + employeeDto);
+        return employeeManegementService.putEmployee(employeeDto);
     }
 }
