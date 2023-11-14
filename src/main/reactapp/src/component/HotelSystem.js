@@ -20,7 +20,6 @@ export default function HotelSystem(){
 
     return(<>
         <div className={'webContainer'}>
-            <BrowserRouter>
                 <div className={"sidebar"}>
                     <Sidebar/>
                 </div>
@@ -40,7 +39,6 @@ export default function HotelSystem(){
                         </Routes>
                     </div>
                 </div>
-            </BrowserRouter>
         </div>
     </>)
 }

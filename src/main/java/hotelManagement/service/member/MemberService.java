@@ -44,8 +44,8 @@ public class MemberService implements UserDetailsService {
         // 권한 목록
         List<GrantedAuthority> authorityList = new ArrayList<>();
         // 권한 목록에 추가 직급, 부서
-        authorityList.add( new SimpleGrantedAuthority( employeeEntity.getPositionEntity().getPname() ));
-        authorityList.add( new SimpleGrantedAuthority( employeeEntity.getDepartmentEntity().getDname() ));
+        authorityList.add( new SimpleGrantedAuthority( "ROLE_"+employeeEntity.getPositionEntity().getPname() ));
+        authorityList.add( new SimpleGrantedAuthority( "ROLE_"+employeeEntity.getDepartmentEntity().getDname() ));
 
         return EmployeeDto.builder()
                 .eno(employeeEntity.getEno())       // 사번

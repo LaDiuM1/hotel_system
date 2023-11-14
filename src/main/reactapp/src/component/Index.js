@@ -6,8 +6,8 @@ export default function Index(){
     return(<>
         <BrowserRouter>
             <Routes>
-                <Route path={"/hotelSystem"} element={HotelSystem}></Route>
-                <Route path={"/login"} element={Login}></Route>
+                <Route path={"/hotelSystem"} element={<HotelSystem/>}></Route>
+                <Route path={"/login"} element={<Login/>}></Route>
             </Routes>
         </BrowserRouter>
     </>)
