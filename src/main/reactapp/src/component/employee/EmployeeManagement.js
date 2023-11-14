@@ -102,9 +102,9 @@ export default function EmployeeManagement(){
     // 직원 등록 모달창 상태 관리
     const [show2, setShow2] = useState(false);
     // 직원 등록 모달창 클로즈
-    const handleClose2 = () => setShow(false);
+    const handleClose2 = () => setShow2(false);
     // 직원 등록 모달창 오픈
-    const handleShow2 = () => setShow(true);
+    const handleShow2 = () => setShow2(true);
 
     // 3개로 나뉘어져 있는 전화번호 값 관리용 상태 함수
     const [phoneValue, setPhoneValue] = useState([ '', '', '' ] )
