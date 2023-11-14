@@ -155,7 +155,7 @@ export default function EmployeeManagement(){
         axios
             .post('http://localhost:80/employeeRegister', updateTransData )
             .then( r => {
-                if(r) { alert('회원 등록을 완료하였습니다.'); handleClose() }
+                if(r) { alert('회원 등록을 완료하였습니다.'); handleClose2() }
             })
 
     }
@@ -247,7 +247,7 @@ export default function EmployeeManagement(){
                             <option value={"mname"}>사원명</option>
                             <option value={"mphone"}>전화번호</option>
                         </select>
-                        <button className={"registerBtn"} type={"button"}>직원 등록</button>
+                        <button onClick={handleShow2} className={"registerBtn"} type={"button"}>직원 등록</button>
                     </div>
 
                     <div className={"totalRecordBox"}>
@@ -457,99 +457,6 @@ export default function EmployeeManagement(){
 
         </Modal>
 
-        <Modal /* 모달창 상태 변경 구역 */
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-        >
-
-            <Modal.Body className={"modalArea"}>
-                <div className={"registerArea"}> {/* 직원 등록 입력 구역 */}
-                    <div className={"memberInfoArea"}> {/* 회원 공통 정보 입력 구역*/}
-                        <h5>직원 등록</h5>
-                        <div className={"itemBlock"}>
-                            <div className={"textArea"}>성명</div> {/* 이름, 성별 구역 */}
-                            <div className={"nameInputArea"}>
-                                <div><input onChange={inputValueChange} className={"mname"} maxLength={20} type={"text"}></input></div>
-                                <div className={"textArea"} style={{marginLeft:"15px", width:"30%"}}>성별</div>
-                                <div className={"radioArea"}>
-                                    남<input onChange={inputValueChange} className={"msex"} type={"radio"} name={"msex"} value={"남성"} defaultChecked={"defaultChecked"}></input>
-                                    여<input onChange={inputValueChange} className={"msex"} type={"radio"} name={"msex"} value={"여성"}></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={"itemBlock"}>
-                            <div className={"textArea"}>생년월일</div>
-                            <div className={"inputArea"}>
-                                <input onChange={inputValueChange} className={"mbirth"} type={"date"}></input>
-                            </div>
-                        </div>
-                        <div className={"itemBlock"}>
-                            <div className={"textArea"}>전화번호</div>
-                            <div className={"inputArea phoneNoArea"}>
-                                {/* 최대 자릿수 제한 */}
-                                <input
-                                    onInput={(e) => {
-                                        if (e.target.value.length > e.target.maxLength)
-                                            e.target.value = e.target.value.slice(0, e.target.maxLength);
-                                    }}
-                                    maxLength={3}
-                                    onChange={inputValueChange} className={"mphone part1"} type={"number"}></input>
-                                <h4>-</h4>
-                                <input
-                                    onInput={(e) => {
-                                        if (e.target.value.length > e.target.maxLength)
-                                            e.target.value = e.target.value.slice(0, e.target.maxLength);
-                                    }}
-                                    maxLength={4}
-                                    onChange={inputValueChange} className={"mphone part2"} type={"number"}></input>
-                                <h4>-</h4>
-                                <input
-                                    onInput={(e) => {
-                                        if (e.target.value.length > e.target.maxLength)
-                                            e.target.value = e.target.value.slice(0, e.target.maxLength);
-                                    }}
-                                    maxLength={4}
-                                    onChange={inputValueChange} className={"mphone part3"} type={"number"}></input>
-                            </div>
-                        </div>
-                        <div className={"itemBlock"}>
-                            <div className={"textArea"}>주소</div>
-                            <div className={"inputArea"}><input onChange={inputValueChange} className={"eaddress"} maxLength={50} type={"text"}></input></div>
-                        </div>
-                        <div className={"itemBlock"}>
-                            <div className={"textArea"}>입사일</div>
-                            <div className={"inputArea"}>
-                                <input onChange={inputValueChange} className={"ejoin"} type={"date"}></input>
-                            </div>
-                        </div>
-                        <div className={"itemBlock"}>
-                            <div className={"textArea"}>부서</div>
-                            <div className={"inputArea"}>
-                                <select onChange={inputValueChange} className={"dcode"} defaultValue='01'>
-                                    <option value={'01'}>서비스</option>
-                                    <option value={'02'}>시설관리</option>
-                                    <option value={'03'}>호텔조리</option>
-                                    <option value={'04'}>마케팅</option>
-                                    <option value={'05'}>총무</option>
-                                    <option value={'06'}>인사</option>
-                                    <option value={'07'}>총괄</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </Modal.Body>
-            <Modal.Footer>
-                <div className={"buttonArea"}>
-                    <button onClick={employeeRegister} className={"regiSubmitBtn"} type={"button"}>등록</button>
-                    <button onClick={handleClose} type={"button"}>취소</button>
-                </div>
-            </Modal.Footer>
-        </Modal>
 
         {/* 직원 등록 모달창 구역 시작*/}
 
@@ -642,7 +549,7 @@ export default function EmployeeManagement(){
             <Modal.Footer>
                 <div className={"buttonArea"}>
                     <button onClick={employeeRegister} className={"regiSubmitBtn"} type={"button"}>등록</button>
-                    <button onClick={handleClose} type={"button"}>취소</button>
+                    <button onClick={handleClose2} type={"button"}>취소</button>
                 </div>
             </Modal.Footer>
         </Modal>
