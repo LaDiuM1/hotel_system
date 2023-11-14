@@ -1,6 +1,6 @@
 package hotelManagement.model.entity.employee;
 
-import hotelManagement.model.dto.department.DepartmentDto;
+import hotelManagement.model.dto.employee.DepartmentDto;
 import lombok.*;
 import hotelManagement.model.entity.BaseTime;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

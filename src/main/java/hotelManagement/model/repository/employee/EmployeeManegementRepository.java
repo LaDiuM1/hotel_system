@@ -12,7 +12,7 @@ import java.util.Map;
 public interface EmployeeManegementRepository extends JpaRepository<EmployeeEntity, String> {
 
     // employee, depart, memberinfo 테이블 join
-    @Query(value = " select e.eno,e.eaddress,m.mname,m.msex,m.mbirth,m.mphone,e.pname_fk,d.dname " +
+    @Query(value = " select e.eno,e.ejoin,e.eaddress,m.mname,m.msex,m.mbirth,m.mphone,e.pname_fk,d.dname " +
             "from employee e,department d ,memberinfo m " +
             // 교집합
             "where e.mno_fk = m.mno and e.dcode_fk = d.dcode " +

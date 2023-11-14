@@ -1,5 +1,6 @@
-package hotelManagement.model.dto.department;
+package hotelManagement.model.dto.employee;
 
+import hotelManagement.model.dto.employee.EmployeeDto;
 import hotelManagement.model.entity.employee.DepartmentEntity;
 import lombok.*;
 

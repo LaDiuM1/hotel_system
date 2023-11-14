@@ -1,6 +1,6 @@
 package hotelManagement.model.entity.employee;
 
-import hotelManagement.model.dto.department.PositionDto;
+import hotelManagement.model.dto.employee.PositionDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
