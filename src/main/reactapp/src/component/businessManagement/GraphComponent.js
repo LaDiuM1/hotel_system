@@ -5,7 +5,7 @@ export default function GraphComponent(prop){
 
     return(<>
         <ResponsiveLine
-            data={data}
+
             margin={{ top: 150, right: 200, bottom: 50, left: 60 }}
             xScale={{ type: 'point' }}
             yScale={{

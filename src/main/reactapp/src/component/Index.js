@@ -14,9 +14,7 @@ import EmployeeManagement from "./employee/EmployeeManagement";
 import EmployeeRegister from "./employee/EmployeeRegister";
 import {useState} from "react";
 import Login from './Login'
-import BusinessManagement from "./businessManagement/BusinessManagement";
-import OperationalManagement from "./businessManagement/OperationalManagement";
-import OperationalStatistics from "./businessManagement/OperationalStatistics";
+import RevenueManagement from "./revenue/RevenueManagement";
 
 export default function Index(){
     let[ loginState, setLoginState ] = useState({})
