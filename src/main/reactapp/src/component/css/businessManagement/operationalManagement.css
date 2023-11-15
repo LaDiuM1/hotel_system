@@ -1,0 +1,10 @@
+.operationalContent{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 1230px;
+    height: 715px;
+    margin: 30px auto;
+    padding: 20px 20px 20px;
+    box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);
+}

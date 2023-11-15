@@ -3,9 +3,29 @@
 use hotelmanegement;
 # ------------------------회원 관련 테이블
 
+SET foreign_key_checks=0;
+SELECT Concat('TRUNCATE TABLE ', TABLE_NAME, ';')
+FROM INFORMATION_SCHEMA.TABLES
+WHERE table_schema = 'db_name'
+  AND table_type = 'BASE TABLE';
+
+TRUNCATE TABLE memberinfo;
+TRUNCATE TABLE department;
+TRUNCATE TABLE discount;
+TRUNCATE TABLE employee;
+TRUNCATE TABLE location;
+TRUNCATE TABLE lresv;
+TRUNCATE TABLE member;
+TRUNCATE TABLE memberinfo;
+TRUNCATE TABLE position;
+TRUNCATE TABLE rgrade;
+TRUNCATE TABLE room;
+TRUNCATE TABLE roomresv;
+TRUNCATE TABLE ticket;
+
+SET foreign_key_checks=1;
 
 # memberinfo (회원 공통 정보)
-truncate table memberinfo;
 INSERT INTO memberinfo (mno, mtype, mname, msex, mphone, mbirth, cdate)
 VALUES
     (1, 1, '홍길동', '남성', '01011111111', '19990630', NOW()),
@@ -140,7 +160,6 @@ VALUES
     (130, 2, '정서연', '여성', '01066668888', '19941011', NOW());
 
 # member 샘플 코드 (회원)
-truncate table member;
 INSERT INTO member (mid, mpwd, mno_fk)
 VALUES
     ('qwe123', 'Al123456@', 1),
@@ -212,7 +231,6 @@ VALUES
     ('secure_9876', 'S3cur3_9876', 95);
 
 # ------------------------객실 관련 테이블
-truncate table rgrade;
 INSERT INTO rgrade (rgname, rhprice,rwprice, rgmaxcapa)
 VALUES
     ('Standard', 400000, 800000, 3),
@@ -222,7 +240,6 @@ VALUES
     ('Royal', 3000000, 6000000, 10);
 
 # 객실 샘플 코드
-truncate table room;
 INSERT INTO room (rno, rgname_fk, rstate)
 VALUES
     (401, 'Standard', 1),
@@ -332,7 +349,6 @@ VALUES
     (1015, 'Royal', 1);
 
 # 객실 예약 명단 샘플 코드
-truncate table roomresv;
 drop procedure if exists random_dates;
 DELIMITER $$
 
@@ -392,7 +408,6 @@ CALL random_dates_40times();
 # ------------------------시설 관련 테이블
 
 # location (시설) 샘플코드
-truncate table location;
 INSERT INTO location (lname, lstarttime, lendtime, lprice, lchildprice, lmaxcapa)
 VALUES
     ('실내수영장', '09:00:00', '18:00:00', 35000, 20000, 100),
@@ -405,7 +420,6 @@ VALUES
 
 
 # discount (할인율) 샘플코드
-truncate table discount;
 INSERT INTO discount (dtype, drate, cdate, udate)
 VALUES
     ('실내수영장', 0.30, '2023-10-28 9:00:00', '2023-11-03 12:00:00'),
@@ -422,22 +436,7 @@ VALUES
 
 
 # locationresv (시설 예약 명단)
-truncate table lresv;
-INSERT INTO lresv ( lrstate, lrtime, lname, mno, udate)
-VALUES
-    ( 0, '2023-10-30 11:00:00', '실내수영장', 1, '2023-10-28 9:00:00'),
-    ( 0, '2023-10-28 19:00:00', '디너_다이닝', 2, '2023-10-29 00:00:00'),
-    ( 0, '2023-10-30 11:00:00', '피트니스', 3, '2023-10-28 8:30:00'),
-    ( 0, '2023-10-30 14:00:00', '실내골프장', 4, '2023-10-30 11:00:00'),
-    ( 0, '2023-10-30 12:00:00', '런치_다이닝', 5, '2023-10-28 9:30:00'),
-    ( 0, '2023-10-30 8:00:00', '모닝_다이닝', 6, '2023-10-28 10:30:00'),
-    ( 0, '2023-10-31 12:00:00', '런치_다이닝', 7, '2023-10-28 8:00:00'),
-    ( 0, '2023-10-28 12:00:00', '런치_다이닝', 8, '2023-10-29 9:15:00'),
-    ( 0, '2023-11-02 19:00:00', '디너_다이닝', 9, '2023-10-28 11:00:00'),
-    ( 0, '2023-11-01 19:00:00', '디너_다이닝', 10, '2023-10-28 8:45:00');
-# 무작위로 생성해주는 sql
-# 많은 데이터 원할 시 반복해서 실행
-# lrstate 0 : 예약중 1 : 예약 완료 2 : 예약 취소
+
 
 INSERT INTO lresv (lrstate, lrtime, lname, mno, udate)
 SELECT
@@ -476,7 +475,7 @@ SELECT
         WHEN FLOOR(RAND() * 6) = 4 THEN '런치_다이닝'
         WHEN FLOOR(RAND() * 6) = 5 THEN '모닝_다이닝'
         END AS lname,
-    FLOOR(1 + RAND() * 134),
+    FLOOR(1 + RAND() * 129),
     CURRENT_TIMESTAMP
 FROM
     information_schema.tables
@@ -487,7 +486,6 @@ UPDATE lresv
 SET lrstate = 1
 WHERE DATE(lrtime) < CURDATE();
 # ticket 샘플코드 (회원권)
-truncate table ticket;
 INSERT INTO ticket (tstartdate, tenddate, mno)
 VALUES
     ('2023-10-30', '2023-10-20', 1),
@@ -539,7 +537,6 @@ VALUES
 /* 직원 관련 샘플 코드 */
 
 /* 부서 테이블 */
-truncate table department;
 insert into department (dcode, dname)
 values
     ('01', '서비스'),
@@ -552,7 +549,6 @@ values
 
 
 /* 직책 테이블 */
-truncate table position;
 insert into position (pname, psalary, pbonus, pannual)
 values
     ('사원', 3000000, 0.5,15),
@@ -565,7 +561,6 @@ values
     ('사장', 20000000, 20,30);
 
 /* 직원 테이블 */
-truncate table employee;
 insert into employee (eno, epwd, eaddress, ejoin, mno_fk,dcode_fk,pname_fk)
 values
     ('23010001', 'asdopkopk', '경기도 안산시 단원구 중앙동', '2018-07-01', '101', '01', '사원'),

@@ -14,7 +14,9 @@ import EmployeeManagement from "./employee/EmployeeManagement";
 import EmployeeRegister from "./employee/EmployeeRegister";
 import {useState} from "react";
 import Login from './Login'
-import RevenueManagement from "./revenue/RevenueManagement";
+import BusinessManagement from "./businessManagement/BusinessManagement";
+import OperationalManagement from "./businessManagement/OperationalManagement";
+import OperationalStatistics from "./businessManagement/OperationalStatistics";
 
 export default function Index(){
     let[ loginState, setLoginState ] = useState({})
@@ -35,7 +37,9 @@ export default function Index(){
                             <Route path={"/locationManagement"} element={<LocationManagement/>}></Route>
                             <Route path={"/employeeManagement"} element={<EmployeeManagement/>}></Route>
                             <Route path={"/employeeRegister"} element={<EmployeeRegister/>}></Route>
-                            <Route path={"/revenueManagement"} element={<RevenueManagement/>}></Route>
+                            <Route path={"/revenueManagement"} element={<BusinessManagement/>}></Route>
+                            <Route path={"/operationalManagement"} element={<OperationalManagement/>}></Route>
+                            <Route path={"/operationalStatistics"} element={<OperationalStatistics/>}></Route>
                         </Routes>
                     </div>
                 </div>
