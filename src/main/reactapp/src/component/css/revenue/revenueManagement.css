@@ -1,0 +1,39 @@
+.webConteiner{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+
+}
+.revenueContent{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 1230px;
+    height: 715px;
+    margin: 30px auto;
+
+    padding: 20px 20px  20px;
+}
+
+.selectAreaBtn{
+    border: none;
+    width: 400px;
+    height: 400px;
+    background-color: white;
+    border-radius: 100px;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+    font-size: 50px;
+    font-weight: bold;
+    color: #494949;
+    text-shadow: 0 1px 2px rgb(128, 128, 128);
+    padding-top: 170px;
+    background-size: 100%;
+    background-position-y: 20px;
+    background-repeat: no-repeat;
+}
+.selectAreaBtn:hover{
+    background-blend-mode: multiply;
+    background-color: rgba(0, 102, 255, 0.25);
+
+}

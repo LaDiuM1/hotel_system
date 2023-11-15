@@ -69,7 +69,7 @@ public class EmployeeRegisterService {
         String birth = new SimpleDateFormat("yyMMdd").format(Date.valueOf(memberInfoEntity.getMbirth()));
 
         // 초기 비밀번호인 생년월일을 해시코드로 암호화하여 저장
-        employeeEntity.setEpwd(new BCryptPasswordEncoder().encode(memberInfoEntity.getMbirth()));
+        employeeEntity.setEpwd(new BCryptPasswordEncoder().encode(birth));
         // 회원 공통 정보 회원 구분 필드에 3[직원] 저장
         employeeEntity.getMemberInfoEntity().setMtype(3);
 
