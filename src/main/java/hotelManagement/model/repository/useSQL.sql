@@ -5,7 +5,7 @@ use hotelmanegement;
 
 
 # memberinfo (회원 공통 정보)
-
+truncate table memberinfo;
 INSERT INTO memberinfo (mno, mtype, mname, msex, mphone, mbirth, cdate)
 VALUES
     (1, 1, '홍길동', '남성', '01011111111', '19990630', NOW()),
@@ -140,6 +140,7 @@ VALUES
     (130, 2, '정서연', '여성', '01066668888', '19941011', NOW());
 
 # member 샘플 코드 (회원)
+truncate table member;
 INSERT INTO member (mid, mpwd, mno_fk)
 VALUES
     ('qwe123', 'Al123456@', 1),
@@ -211,6 +212,7 @@ VALUES
     ('secure_9876', 'S3cur3_9876', 95);
 
 # ------------------------객실 관련 테이블
+truncate table rgrade;
 INSERT INTO rgrade (rgname, rhprice,rwprice, rgmaxcapa)
 VALUES
     ('Standard', 400000, 800000, 3),
@@ -220,6 +222,7 @@ VALUES
     ('Royal', 3000000, 6000000, 10);
 
 # 객실 샘플 코드
+truncate table room;
 INSERT INTO room (rno, rgname_fk, rstate)
 VALUES
     (401, 'Standard', 1),
@@ -389,6 +392,7 @@ CALL random_dates_40times();
 # ------------------------시설 관련 테이블
 
 # location (시설) 샘플코드
+truncate table location;
 INSERT INTO location (lname, lstarttime, lendtime, lprice, lchildprice, lmaxcapa)
 VALUES
     ('실내수영장', '09:00:00', '18:00:00', 35000, 20000, 100),
@@ -401,6 +405,7 @@ VALUES
 
 
 # discount (할인율) 샘플코드
+truncate table discount;
 INSERT INTO discount (dtype, drate, cdate, udate)
 VALUES
     ('실내수영장', 0.30, '2023-10-28 9:00:00', '2023-11-03 12:00:00'),
@@ -417,6 +422,7 @@ VALUES
 
 
 # locationresv (시설 예약 명단)
+truncate table lresv;
 INSERT INTO lresv ( lrstate, lrtime, lname, mno, udate)
 VALUES
     ( 0, '2023-10-30 11:00:00', '실내수영장', 1, '2023-10-28 9:00:00'),
@@ -481,6 +487,7 @@ UPDATE lresv
 SET lrstate = 1
 WHERE DATE(lrtime) < CURDATE();
 # ticket 샘플코드 (회원권)
+truncate table ticket;
 INSERT INTO ticket (tstartdate, tenddate, mno)
 VALUES
     ('2023-10-30', '2023-10-20', 1),
@@ -532,6 +539,7 @@ VALUES
 /* 직원 관련 샘플 코드 */
 
 /* 부서 테이블 */
+truncate table department;
 insert into department (dcode, dname)
 values
     ('01', '서비스'),
@@ -544,6 +552,7 @@ values
 
 
 /* 직책 테이블 */
+truncate table position;
 insert into position (pname, psalary, pbonus, pannual)
 values
     ('사원', 3000000, 0.5,15),
@@ -556,6 +565,7 @@ values
     ('사장', 20000000, 20,30);
 
 /* 직원 테이블 */
+truncate table employee;
 insert into employee (eno, epwd, eaddress, ejoin, mno_fk,dcode_fk,pname_fk)
 values
     ('23010001', 'asdopkopk', '경기도 안산시 단원구 중앙동', '2018-07-01', '101', '01', '사원'),
