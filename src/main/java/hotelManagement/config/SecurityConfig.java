@@ -22,8 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/").authenticated()
-                .antMatchers("/hotelSystem").authenticated() // "/hotelSystem" URL은 인증된 사용자에게만 허용
+                .antMatchers("/").authenticated() // "/" URL은 인증된 사용자에게만 허용
                 .antMatchers("/**").permitAll() // 다른 모든 URL은 누구에게나 허용(일시적)
                 .and()
                 .formLogin()
@@ -31,19 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/member/login")
                 .usernameParameter("eno")
                 .passwordParameter("epwd")
-                .defaultSuccessUrl("/hotelSystem")
+                .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .successHandler(authLoginController)
                 .failureHandler(authLoginController)
                 .and()
                 .csrf().disable();
-
-
-        // "/" 페이지에 대한 리다이렉트 설정
-        http.formLogin().defaultSuccessUrl("/your-desired-url", true);
-
-        // "/" 페이지에 접근 시 미인증 사용자는 "/login"으로 리다이렉트
-        http.formLogin().loginPage("/login");
 
        /* // 로그인 커스텀
         http.formLogin()

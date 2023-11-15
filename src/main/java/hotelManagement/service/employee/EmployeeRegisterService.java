@@ -67,9 +67,9 @@ public class EmployeeRegisterService {
 
         // YYYY-MM-DD 형식의 생년월일을 yymmdd 형식으로 변환하여 변수에 저장
         String birth = new SimpleDateFormat("yyMMdd").format(Date.valueOf(memberInfoEntity.getMbirth()));
-
+        System.out.println(birth);
         // 초기 비밀번호인 생년월일을 해시코드로 암호화하여 저장
-        employeeEntity.setEpwd(new BCryptPasswordEncoder().encode(memberInfoEntity.getMbirth()));
+        employeeEntity.setEpwd(new BCryptPasswordEncoder().encode(birth));
         // 회원 공통 정보 회원 구분 필드에 3[직원] 저장
         employeeEntity.getMemberInfoEntity().setMtype(3);
 

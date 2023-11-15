@@ -9,7 +9,14 @@ export default function Sidebar(){
     function changeColor( color ){
         setColor(color);
     }
-    return(<>
+    // 현재 url경로가 /login이라면 Sidebar 컴포넌트를 반환X
+    const isLoginPage = (window.location.pathname === "/login")
+    return(
+        isLoginPage ?
+            <></>
+            :
+        <>
+
             <div className={"sidebar"}>
                 <div className={"categoryMenu"}>
                     <div className={"mainText"}> <Link to={"/"} onClick={(e)=>{changeColor( 0 )}}>관리 메뉴</Link> </div>
@@ -23,6 +30,6 @@ export default function Sidebar(){
                     <Link to={"/"} className={"category " + ( color == 7 ? "active" : "" )}  onClick={(e)=>{changeColor( 7 )}}> 운영 관리 </Link>
                 </div>
             </div>
-        </>)
-
+        </>
+    )
 }
