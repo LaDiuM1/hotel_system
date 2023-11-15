@@ -22,13 +22,9 @@ export default function Index(){
     return(<>
         <div className={'webContainer'}>
             <BrowserRouter>
-                <div className={"sidebar"}>
                     <Sidebar/>
-                </div>
                 <div className={"main"}>
-                    <div className={"header"}>
                         <Header/>
-                    </div>
                     <div className={"content"}>
                         <Routes>{/*라우트 구역*/}
                             <Route path={"/"} element={<Main/>}></Route>

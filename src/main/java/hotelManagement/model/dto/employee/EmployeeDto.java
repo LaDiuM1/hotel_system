@@ -22,13 +22,13 @@ public class EmployeeDto implements UserDetails {
     private List<GrantedAuthority> authorityList ;
     // 권한 목록 get
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {return null;}
+    public Collection<? extends GrantedAuthority> getAuthorities() {return authorityList;}
     // 사원 비밀번호
     @Override
-    public String getPassword() {return this.epwd;}
+    public String getPassword() {return epwd;}
     // 사번
     @Override
-    public String getUsername() {return this.eno;}
+    public String getUsername() {return eno;}
     // 계정 만료여부
     @Override
     public boolean isAccountNonExpired() {return true;}

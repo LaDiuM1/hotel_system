@@ -457,6 +457,24 @@ FROM location
     ) AS n2
 ) AS nums
 WHERE FLOOR(RAND() * lmaxcapa) > 0;
+
+INSERT INTO lresv (lrstate, lrtime, lname, mno, udate)
+SELECT
+    0,
+    TIMESTAMPADD(MINUTE, FLOOR(RAND() * TIMESTAMPDIFF(MINUTE, '2021-01-01', '2024-04-30')), '2021-01-01'),
+    CASE
+        WHEN FLOOR(RAND() * 6) = 0 THEN '실내수영장'
+        WHEN FLOOR(RAND() * 6) = 1 THEN '디너_다이닝'
+        WHEN FLOOR(RAND() * 6) = 2 THEN '피트니스'
+        WHEN FLOOR(RAND() * 6) = 3 THEN '실내골프장'
+        WHEN FLOOR(RAND() * 6) = 4 THEN '런치_다이닝'
+        WHEN FLOOR(RAND() * 6) = 5 THEN '모닝_다이닝'
+        END AS lname,
+    FLOOR(1 + RAND() * 134),
+    CURRENT_TIMESTAMP
+FROM
+    information_schema.tables
+LIMIT 100;
 # 삽입한 시설 예약 샘플 코드가
 # 오늘 날짜 기준으로 이전이면 예약 만료(1)로 변경
 UPDATE lresv
