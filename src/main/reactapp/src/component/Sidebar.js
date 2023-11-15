@@ -18,7 +18,6 @@ export default function Sidebar(){
                     <Link to={"/roomManagement"} className={"category " + ( color == 3 ? "active" : "" )}  onClick={(e)=>{changeColor( 3)}}>객실 이용 현황</Link>
                     <Link to={"/locationManagement"} className={"category " + ( color == 4 ? "active" : "" )}  onClick={(e)=>{changeColor( 4 )}}> 시설 이용 현황 </Link>
                     <Link to={"/EmployeeManagement"} className={"category " + ( color == 5 ? "active" : "" )}  onClick={(e)=>{changeColor( 5 )}}> 직원 관리 </Link>
-                    <Link to={"/EmployeeRegister"} className={"category " + ( color == 8 ? "active" : "" )}  onClick={(e)=>{changeColor( 8 )}}> 직원 등록 (임시) </Link>
                     <Link to={"/"} className={"category " + ( color == 6 ? "active" : "" )}  onClick={(e)=>{changeColor( 6 )}}> 매출 관리 </Link>
                     <Link to={"/"} className={"category " + ( color == 7 ? "active" : "" )}  onClick={(e)=>{changeColor( 7 )}}> 운영 관리 </Link>
                 </div>
