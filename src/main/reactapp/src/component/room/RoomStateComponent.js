@@ -1,9 +1,10 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 
 
 export default function RoomStateComponent( props ){
+
     // 객실 예약 정보 공통 함수에 저장
     const reservInfo = props.reservInfo;
     // 모달창 상태 관리
@@ -18,6 +19,10 @@ export default function RoomStateComponent( props ){
     //모당창 여는 함수
     const handleShow = () => setShow(true);
 
+    // 속성 변경 시 상태값 변경 재 렌더링
+    useEffect(() => {
+        setState(props.state);
+    }, [props.state, props.rno, props.rgname, props.reservInfo]);
 
     // 객실 상태를 사용가능 / 사용불가 스위치 해주는 함수
     const updateState = () => {

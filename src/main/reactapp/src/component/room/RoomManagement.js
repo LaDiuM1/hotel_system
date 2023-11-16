@@ -5,15 +5,17 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import RoomStateComponent from "./RoomStateComponent";
+import refrashBtn from "../img/refresh_btn.png";
 
 
 export default function RoomManagement(){
     const [roomStateData, setRoomStateData] = useState([]); // 객실 데이터 상태 관리 함수
     const [isVisible, setIsVisible] = useState(false);  // 데이터 호출 후 동시 출력을 위한 상태 관리 함수
-
-
-    useEffect(  () => {
-          axios
+    const [nowTime, setNowTime] = useState('')
+    const [timer, setTimer] = useState(10);
+    
+    const fetchData = () =>{
+        axios
             .get('http://localhost:80/guestRoom')
             .then(r => {
 
@@ -28,24 +30,52 @@ export default function RoomManagement(){
 
                 console.dir(slicedData)
                 setRoomStateData(slicedData);
+                setTimer(10);
 
                 // 데이터 호출 이후 div 속성을 none에서 block으로 변경하여 일시에 출력
                 setIsVisible(true);
+                // YYYY-MM-DD hh:mm:ss 형태의 현재 시간 생성
+                const now = new Date();
+                let year = now.getFullYear();
+                const month = ('0' + (now.getMonth() + 1)).slice(-2);
+                const day = ('0' + now.getDate()).slice(-2);
+                const hours = ('0' + now.getHours()).slice(-2);
+                const minutes = ('0' + now.getMinutes()).slice(-2);
+                const seconds = ('0' + now.getSeconds()).slice(-2);
+
+                setNowTime(`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`);
 
             })
 
+    }
+    
+    // 최초 실행 시 호출되는 useEffect
+    useEffect( () => {
+
+        // 최초 랜더링 시 데이터 호출
+        fetchData();
+        // 이후 10초 간격으로 반복 랜더링
+        const interval = setInterval(() => {
+            setTimer((prevTimer) => {
+                if (prevTimer === 1) {
+                    fetchData();
+                    return 10;
+                } else {
+                    return prevTimer - 1;
+                }
+            });
+        }, 1000);
+
+        // 컴포넌트 해제 시 때 타이머 해제
+        return () => clearInterval(interval);
+
     }, [])
 
-    // YYYY-MM-DD hh:mm:ss 형태의 현재 시간 생성
-    const now = new Date();
-    let year = now.getFullYear();
-    const month = ('0' + (now.getMonth() + 1)).slice(-2);
-    const day = ('0' + now.getDate()).slice(-2);
-    const hours = ('0' + now.getHours()).slice(-2);
-    const minutes = ('0' + now.getMinutes()).slice(-2);
-    const seconds = ('0' + now.getSeconds()).slice(-2);
+    useEffect(  () => {
+          
 
-    const nowTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }, [])
+
 
     return(<>
             <div className={`${isVisible ? 'webContainer' : 'hidden'}`}> {/* 웹페이지 전체 영역 */}
@@ -135,6 +165,13 @@ export default function RoomManagement(){
                         }
                         </tbody>
                     </table>
+                    <div className={"refrashArea"} style={{marginTop:'20px'}}>
+                        {/* 숫자 10의 자리 1의 자리 가운데 정렬을 위한 삼항 연산자 */}
+                        <div onClick={fetchData} className={"refrashBtn"}>
+                            <div className={`${timer === 10 ? "timer1" : "timer"}`}>{timer}</div>
+                            <img src={refrashBtn} alt={"null"} width={"50px"} height={"50px"}/>
+                        </div>
+                    </div>
                 </div>
             </div>
 

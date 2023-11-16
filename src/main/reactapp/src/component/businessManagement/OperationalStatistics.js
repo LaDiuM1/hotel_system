@@ -26,7 +26,7 @@ export default function OperationalStatistics(){
         /* 년도 캘린더 */
         () => {
             let year = new Date().getFullYear()
-            let optionHtml =
+            //let optionHtml =
             for( let i = (year - 20); i <= year + 3; i++ ){
 
             }

@@ -8,6 +8,8 @@ export default function LocationManagement() {
     // 데이터 상태 저장용 객체
     const [data, setData] = useState([]);
     const [timer, setTimer] = useState(10);
+    // 데이터 호출 후 출력을 위한 상태 관리 함수
+    const [isVisible, setIsVisible] = useState(false);
 
     // 컴포넌트 상태 표기용 데이터 호출
     const fetchData = () =>{
@@ -39,6 +41,8 @@ export default function LocationManagement() {
                 // 상태 저장용 함수에 객체 대입
                 setData(dataArr)
                 setTimer(10);
+                // 데이터 호출 이후 div 속성을 none에서 block으로 변경하여 일시에 출력
+                setIsVisible(true);
 
             })
     }
@@ -50,7 +54,7 @@ export default function LocationManagement() {
         // 이후 10초 간격으로 반복 랜더링
         const interval = setInterval(() => {
             setTimer((prevTimer) => {
-                if (prevTimer === 0) {
+                if (prevTimer === 1) {
                     fetchData();
                     return 10;
                 } else {
@@ -68,7 +72,7 @@ export default function LocationManagement() {
 
     return(<>
 
-        <div className={"webConteiner"}>
+        <div className={`${isVisible ? 'webContainer' : 'hidden'}`}> {/* 웹페이지 전체 영역 */}
             <div className={"locationContent"}>
                 <div className={"componentArea"}>
 

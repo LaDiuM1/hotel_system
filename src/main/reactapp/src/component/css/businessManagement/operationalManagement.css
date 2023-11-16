@@ -1,10 +1,45 @@
 .operationalContent{
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 1230px;
+    width: 90%;
     height: 715px;
-    margin: 30px auto;
-    padding: 20px 20px 20px;
-    box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    padding: 10px 10px 10px;
+    /*background-color: white;*/
+    /*box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);*/
+}
+
+.opTitleArea{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 30%;
+
+}
+
+.opPrintArea{
+    border-radius: 15px;
+    width: 80%;
+    height: 60%;
+    background-color: white;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.componentTitle{
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 90%;
+    background-color: white;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+    font-size: 40px;
+    font-weight: bold;
+    color: #696969;
+    text-shadow: 0 1px 2px rgb(128, 128, 128);
 }
