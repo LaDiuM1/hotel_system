@@ -17,14 +17,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class LocationReservationService implements GetListInterface {
+public class LocationReservationService implements GetListInterface<LocationSearchDto> {
 
     @Autowired
     LocationReservationEntityRepository locationReservationEntityRepository;
     @Override
     // 시설 예약 리스트 getList
-    public Map<String,Object> getList(Object locationSearchObject){
-        LocationSearchDto locationSearchDto = (LocationSearchDto) locationSearchObject;
+    public Map<String,Object> getList(LocationSearchDto locationSearchDto){
 
         // 검색 조건에 따른 예약 정보 Map객체 하나당 레코드 한개
         List<Map<String,Object>> totalList = locationReservationEntityRepository.findByLocationReservation(

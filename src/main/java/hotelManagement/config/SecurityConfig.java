@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authLoginController)
                 .failureHandler(authLoginController)
                 .and()
-                .csrf().disable();
+                .csrf().ignoringAntMatchers("/signup");
+
 
        /* // 로그인 커스텀
         http.formLogin()

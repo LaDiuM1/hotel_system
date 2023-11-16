@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class EmployeeManegementService implements GetListInterface {
+public class EmployeeManegementService implements GetListInterface<EmployeeManegementDto> {
 
     @Autowired
     // 직원 레포지토리
@@ -33,9 +33,8 @@ public class EmployeeManegementService implements GetListInterface {
 
     @Override
     // getList 추상메서드 구현 직원 리스트 가져옴
-    public Map<String, Object> getList( Object employeeManegementObject ){
+    public Map<String, Object> getList( EmployeeManegementDto employeeManegementDto ){
 
-        EmployeeManegementDto employeeManegementDto = (EmployeeManegementDto) employeeManegementObject;
         // 검색 조건에 따른 employee 리스트
         List<Map<String,Object>> employeeList = employeeManegementRepository.findByCondition(
                 employeeManegementDto.getDepart(), employeeManegementDto.getPosition()
