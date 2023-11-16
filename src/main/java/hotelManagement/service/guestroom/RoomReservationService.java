@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class RoomReservationService implements GetListInterface {
+public class RoomReservationService implements GetListInterface<RoomSearchDto> {
 
     @Autowired
     RoomReservationEntityRepository roomReservationEntityRepository;
@@ -25,9 +25,7 @@ public class RoomReservationService implements GetListInterface {
     * 객실 예약 리스트 정보 호출 메서드
     * */
     @Override
-    public Map<String,Object> getList( Object roomSearchObject ){
-
-        RoomSearchDto roomSearchDto = (RoomSearchDto) roomSearchObject;
+    public Map<String,Object> getList( RoomSearchDto roomSearchDto ){
 
         // 모든 예약 정보 호출
         List<RoomReservationEntity> entities= roomReservationEntityRepository.findAll();
