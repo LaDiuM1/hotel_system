@@ -33,9 +33,16 @@
 .employeeSearchWrap{display:flex; justify-content: space-between}
 /* 검색 구역 */
 .search_Box { display: flex; align-items: start;}
-.search_Box .departmentBox{ margin-right: 5px;}
+.search_Box .departmentBox{ margin-right: 5px; }
 .search_Box .positionBox{ margin-right: 15px; width:75px;}
 .search_Box .employSearchInput{padding-left:3px;margin-right:5px;}
+/* Select 태그 padding 주기  */
+.search_Box .departmentBox,.search_Box .positionBox,
+.search_Box .employSearchBox , .totalRecordBox .selectLimitPage
+, .employeeAfterInfo .selectPositionModal, .employeeAfterInfo .selectDepartModal{
+    padding:3px;
+}
+
 /* 총 검색 수 */
 .totalRecordBox{display:flex; margin-right:15px;align-items: center;}
 .totalRecordBox .totalRecordWrap{margin-right:10px; font-weight: bold;}

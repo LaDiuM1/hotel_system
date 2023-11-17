@@ -6,7 +6,7 @@ export default function RoomReservation(){
     /* 등급명, 시작날짜, 키워드*/
     let[ info, setInfo ] = useState( {
         gname: "Nonselect",
-        rrstartdate: new Date().toISOString().slice(0, 10),
+        rrstartdate: "",
         rrenddate:'',
         keyword: '',
         // 페이징과 정렬 객체

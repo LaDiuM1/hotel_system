@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Service
 public class OperationStatisticsService {
-
+/*
     // wholeCategory=sales, dateCategory=year, divisionMonth=2023, divisionWeek=10
     public void getStatistics(){
 
@@ -26,6 +26,6 @@ public class OperationStatisticsService {
     //      divisionMonth와 divisionWeek에 해당하는 년도, 개월의 주간 별 총 매출, 총 이용자, 총 지출
     public void getStatistics(){
 
-    }
+    }*/
 
 }

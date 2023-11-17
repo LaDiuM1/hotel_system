@@ -11,28 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Service
-public class EmployeeManegementService implements TotalList<EmployeeManegementDto , List<Map<String,Object>>> {
+public class EmployeeManegementService implements TotalList< EmployeeManegementDto , List<Map<String,Object>> > {
 
     @Autowired
     // 직원 레포지토리
     private EmployeeManegementRepository employeeManegementRepository;
-
     @Autowired
     // 부서 레포지토리
     private DepartmentEntityRepository departmentEntityRepository;
-
     @Autowired
     // 직책 레포지토리
     private PositionEntityRepository positionEntityRepository;
 
+
+    /*
+    * getList 추상메서드 구현 직원 리스트 가져옴
+    * */
     @Override
-    // getList 추상메서드 구현 직원 리스트 가져옴
     public Map<String, Object> getList( EmployeeManegementDto employeeManegementDto ){
 
         // 검색 조건에 따른 employee 리스트
@@ -42,24 +41,30 @@ public class EmployeeManegementService implements TotalList<EmployeeManegementDt
         );
         //페이징 처리 메서드
         return onPagging(
-                employeeManegementDto.getPageAndSort().getNowPage()
-                , employeeManegementDto.getPageAndSort().getLimitPage()
-                ,employeeList.size(), employeeList
+                employeeList
+                ,employeeManegementDto.getPageAndSort().getNowPage()
+                ,employeeManegementDto.getPageAndSort().getLimitPage()
+                ,employeeList.size()
         );
-
     }
+    /*
+    * 페이징 처리 추상 메서드 구현
+    * */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    // 페이징 처리 추상 메서드 구현
-    public Map<String,Object> onPagging( int page, int limitPage, int totalSize, List<Map<String,Object>> employeeList ){
-
+    public Map<String,Object> onPagging( List<Map<String,Object>> employeeList, int page, int limitPage, int totalSize ){
 
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
+        // 검색 결과에 따른 총 페이지 수
         int totalPage = totalSize%limitPage == 0 ? totalSize/limitPage : totalSize/limitPage+1 ;
+        // 시작 버튼 정보
         int startBtn = ((page-1) / 5) * 5 + 1;
+        // 종료 버튼 정보
         int endBtn = startBtn + 4;
         // endBtn이 총 페이지 수보다 크거나 같으면 endBtn에 총 페이지 수 대입
         if( endBtn >= totalPage ) endBtn = totalPage;
+        // 종료 버튼 상수로 재선언
         final int finalEndBtn = endBtn;
 
         // 결과 반환
@@ -69,6 +74,23 @@ public class EmployeeManegementService implements TotalList<EmployeeManegementDt
             // 페이지에 따른 검색결과 축소 skip( startRow )만큼 skip하고 limit( limitPage ) 크기로 제한함
             put("paggingResult" , employeeList.stream().skip( startRow ).limit( limitPage ));
         }};
+    }
+
+    /*
+    *   정렬 추상 메서드 구현
+    * */
+    @Override
+    public List<Map<String,Object>> onSort( List<Map<String,Object>> totalList, String columnName, String isSorted ){
+        // 정렬 요청 없을 시 메서드 종료
+        if( columnName.isEmpty() )  return totalList;
+        // 정렬 기준(내림차순,오름차순)
+        final boolean finalIsSorted = Boolean.parseBoolean(isSorted);
+        // totalList 스트림
+        final Stream<Map<String,Object>> mapStream = totalList.stream();
+
+
+        // 빈 배열 반환(결과 없음)
+        return new ArrayList<>();
     }
     /*
     * 사원 정보 수정 메서드

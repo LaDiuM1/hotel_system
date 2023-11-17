@@ -8,18 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
+// 제네릭 타입 T,G 는 각각 시설 검색 Dto, List<Map<String,Object>>
 public class LocationReservationService implements TotalList<LocationSearchDto , List<Map<String,Object>> > {
 
     @Autowired
     LocationReservationEntityRepository locationReservationEntityRepository;
+    /*
+    *  시설 예약 리스트 getList 추상 메서드 구현
+    * */
     @Override
-    // 시설 예약 리스트 getList
     public Map<String,Object> getList(LocationSearchDto locationSearchDto){
 
         // 검색 조건에 따른 예약 정보 Map객체 하나당 레코드 한개
@@ -28,13 +36,18 @@ public class LocationReservationService implements TotalList<LocationSearchDto ,
                 , locationSearchDto.getStartDate(), locationSearchDto.getEndDate()
                 , locationSearchDto.getKeyword()  );
 
+        // 컬럼명, 정렬 기준에 따른 정렬
+        List<Map<String,Object>> results = onSort( totalList, locationSearchDto.getPageAndSort().getCname(), locationSearchDto.getPageAndSort().getIsSorted() );
+
         // 페이징 처리 후 반환
-        return onPagging(locationSearchDto.getPageAndSort().getNowPage(), locationSearchDto.getPageAndSort().getLimitPage(), totalList.size() , totalList);
+        return onPagging( results, locationSearchDto.getPageAndSort().getNowPage(), locationSearchDto.getPageAndSort().getLimitPage(), totalList.size() );
     }
 
+    /*
+    *   페이징 추상 메서드 구현
+    * */
     @Override
-    // 페이징 추상 메서드 구현
-    public Map<String,Object> onPagging( int page, int limitPage, int totalSize, List<Map<String,Object>> totalList ){
+    public Map<String,Object> onPagging( List<Map<String,Object>> totalList, int page, int limitPage, int totalSize  ){
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
         // 검색 결과에 따른 총 페이지 수
@@ -54,6 +67,51 @@ public class LocationReservationService implements TotalList<LocationSearchDto ,
             put("totalSize",totalSize);put("totalPage", totalPage);
             put("startBtn", startBtn);put("endBtn",finalEndBtn);
         }};
+    }
+    /*
+    *   정렬 추상 메서드 구현
+    * */
+    @Override
+    public List<Map<String,Object>> onSort( List<Map<String,Object>> totalList, String columnName, String isSorted ){
+        // 정렬 요청 없을 시 메서드 종료
+        if( columnName.isEmpty() )  return totalList;
+        // 정렬 기준(내림차순,오름차순)
+        final boolean finalIsSorted = Boolean.parseBoolean(isSorted);
+        // totalList 스트림
+        final Stream<Map<String,Object>> mapStream = totalList.stream();
+        // 시설명 정렬
+        if( "lname".equals(columnName) )
+            return mapStream.sorted( (a,b) -> finalIsSorted ?
+                            ((String)a.get("lname")).compareTo((String)b.get("lname"))
+                            :((String)b.get("lname")).compareTo((String)a.get("lname"))
+                    ).collect(Collectors.toList());
+        // 시설 예약 상태 정렬
+        else if( "lrstate".equals(columnName) )
+            return mapStream.sorted( (a,b) -> finalIsSorted ?
+                            ( (Byte)a.get("lrstate") ) - ( (Byte)b.get("lrstate") )
+                            : ( (Byte)b.get("lrstate") ) - ( (Byte)a.get("lrstate") )
+                    ).collect(Collectors.toList());
+        // 예약자명 정렬
+        else if( "mname".equals(columnName) )
+            return mapStream.sorted( (a,b) -> finalIsSorted ?
+                            ((String)a.get("mname")).compareTo((String)b.get("mname"))
+                            : ((String)b.get("mname")).compareTo((String)a.get("mname"))
+                    ).collect(Collectors.toList());
+        // 예약자 전화번호 정렬
+        else if( "mphone".equals(columnName) )
+            return mapStream.sorted( (a,b) -> finalIsSorted ?
+                            ((String)a.get("mphone")).compareTo((String)b.get("mphone"))
+                            : ((String)b.get("mphone")).compareTo((String)a.get("mphone"))
+                    ).collect(Collectors.toList());
+        // 시설예약시간 정렬
+        else if( "lrtime".equals(columnName) )
+            return mapStream.sorted( (a,b) -> finalIsSorted ?
+                    ((Timestamp)a.get("lrtime")).compareTo((Timestamp)b.get("lrtime"))
+                    : ((Timestamp)b.get("lrtime")).compareTo((Timestamp)a.get("lrtime"))
+                     ).collect(Collectors.toList());
+
+        // 빈 배열 반환(결과 없음)
+        return new ArrayList<>();
     }
 }
 

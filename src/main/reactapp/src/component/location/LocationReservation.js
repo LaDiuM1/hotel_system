@@ -8,7 +8,7 @@ export default function LocationReservation(){
     let[ info, setInfo ] = useState({
         lname: "Nonselect",
         lrstate: 3,
-        startDate: new Date().toISOString().slice(0, 10),
+        startDate: "",
         endDate: "",
         keyword: "",
         // 페이징과 정렬 객체
@@ -35,6 +35,7 @@ export default function LocationReservation(){
                 // 검색 결과 리스트 배열
                 setReservationRecord( response.data.locationReservationList );
                 console.log(reservationRecord)
+                console.log(info)
             })
     }
     // 페이징 관련 함수 =========================

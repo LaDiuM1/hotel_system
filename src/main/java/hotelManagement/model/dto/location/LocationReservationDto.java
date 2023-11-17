@@ -17,6 +17,8 @@ public class LocationReservationDto {
     private LocalDateTime lrtime;   // 시설 예약 시간
     private String lname;           // 시설 이름(필요시 객체로 대체)
     private int mno;                // 멤버 번호(필요시 객체로 대체)
+    private String mname;           // 멤버 이름
+    private String mphone;          // 멤버 전화번호
     // 엔티티 변환 메서드
     // lname, mno 제외 된 상태 !!
     public LocationReservationEntity toEntity(){

@@ -255,7 +255,7 @@ export default function EmployeeManagement(){
                             총 검색 게시물 수 : <span>{getTotalSize()}</span>
                         </div>
                         {/* 출력할 레코드 수 select*/}
-                        <select onChange={(e)=>{setInfo({
+                        <select className={"selectLimitPage"} onChange={(e)=>{setInfo({
                             ...info,
                             pageAndSort:{
                                 ...info.pageAndSort
@@ -385,7 +385,7 @@ export default function EmployeeManagement(){
                             <span>이름</span>
                             <span>{modalEmployeeInfo.mname}</span>
                         </div>
-                        <select defaultValue={modalEmployeeInfo.position}
+                        <select className={"selectPositionModal"} defaultValue={modalEmployeeInfo.position}
                                 onChange={ (e) =>
                                     setModalEmployeeInfo({...modalEmployeeInfo,afterPosition: e.target.value})
                         }>
@@ -399,7 +399,7 @@ export default function EmployeeManagement(){
                             <option value={"이사"}>이사</option>
                             <option value={"사장"}>사장</option>
                         </select>
-                        <select defaultValue={modalEmployeeInfo.depart}
+                        <select className={"selectDepartModal"} defaultValue={modalEmployeeInfo.depart}
                                 onChange={ (e) =>
                                     setModalEmployeeInfo({...modalEmployeeInfo,afterDepart: e.target.value})
                         }>
