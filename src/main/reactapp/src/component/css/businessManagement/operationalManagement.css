@@ -7,8 +7,6 @@
     height: 715px;
     margin: 20px auto;
     padding: 10px 10px 10px;
-    /*background-color: white;*/
-    /*box-shadow: 2px 0 10px 10px rgba(0, 0, 0, 0.2);*/
 }
 
 .opTitleArea{
@@ -20,16 +18,10 @@
 
 }
 
-.opPrintArea{
-    border-radius: 15px;
-    width: 80%;
-    height: 60%;
-    background-color: white;
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
 
-}
 
-.componentTitle{
+.componentTitleBtn{
+    border: none;
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -42,4 +34,57 @@
     font-weight: bold;
     color: #696969;
     text-shadow: 0 1px 2px rgb(128, 128, 128);
+}
+
+.componentTitleBtn:hover, .opPrintArea button:hover{
+    background-blend-mode: multiply;
+    background-color: rgba(0, 102, 255, 0.25);
+
+}
+
+.opPrintArea{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    height: 60%;
+    background-color: white;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.opTable{
+    width: 90%;
+    text-align: center;
+}
+
+.opTable td{
+    margin: 10px 0
+}
+
+.opTable input{
+    width: 100px;
+    text-align: center;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+.opTable input:focus{
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+}
+
+.opPrintArea button{
+    margin: 0 20px;
+    border: 1px solid #9d9d9d;
+    border-radius: 10px;
+    background-color: transparent;
+    height: 40px;
+    width: 120px;
+    outline: none;
+    font-weight: bold;
 }

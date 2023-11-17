@@ -16,4 +16,6 @@ public class RoomGradeDto {
     private int rwprice;            // 평일 객실 이용료
     private int rhprice;            // 주말 객실 이용료
     private int rgmaxcapa;          // 객실 최대 수용 인원
+    private double drate;           // 이용권 할인율
+
 }

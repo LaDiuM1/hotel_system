@@ -1,5 +1,6 @@
 package hotelManagement.model.entity.room;
 
+import hotelManagement.model.dto.room.RoomGradeDto;
 import hotelManagement.model.entity.BaseTime;
 import lombok.*;
 
@@ -31,4 +32,16 @@ public class RoomGradeEntity extends BaseTime {
     @Builder.Default
     @OneToMany(mappedBy = "roomGradeEntity")
     private List<RoomEntity> RoomEntityList = new ArrayList<>();    // 양방향 객실 엔티티 리스트
+
+    // dto -> entity
+    public RoomGradeDto toDto(){
+        return RoomGradeDto.builder()
+                .rgname(this.rgname)
+                .rwprice(this.rwprice)
+                .rhprice(this.rhprice)
+                .rgmaxcapa(this.rgmaxcapa)
+                .build();
+
+    }
+
 }
