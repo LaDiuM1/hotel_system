@@ -2,6 +2,7 @@
 import GraphComponent from "./GraphComponent";
 import {useState} from "react";
 import styles from '../css/businessManagement/hotelStatistics.css'
+import axios from "axios";
 export default function OperationalStatistics(){
 
     let[ category, setCategory ] = useState({
@@ -10,6 +11,12 @@ export default function OperationalStatistics(){
         divisionMonth: new Date().getFullYear(),
         divisionWeek: new Date().getMonth()
     })
+    const getStatistics = () => {
+        axios
+            .get('http://localhost:80/operationStatistics', {params: category}  )
+            .then( response => { console.log(response)} )
+    }
+    console.log(getStatistics())
     /* 테스트 콘솔로그 */
     console.log(category)
     /* selectBox에 전달 위한 함수 */
@@ -18,10 +25,11 @@ export default function OperationalStatistics(){
     const changeYear = (e) => setCategory({...category, divisionMonth: e.target.value})
     /* 개월 캘린더에 전달 위한 함수 */
     const changeMonth = (e) => setCategory({...category, divisionWeek: e.target.value})
+
     return(<>
         <div className={"operationalWrap"}>
-            <div>
-                <select onChange={ (e) => setCategory({...category, wholeCategory: e.target.value})  }>
+            <div className={"dateSearchWrap"}>
+                <select onChange={ (e) => setCategory({...category, wholeCategory: e.target.value, dateCategory: "year"})  }>
                     <option value={"sales"}>매출</option>
                     <option value={"expenditure"}>지출</option>
                     <option value={"totalUser"}>이용자수</option>
@@ -30,9 +38,9 @@ export default function OperationalStatistics(){
                 {
                     (()=>{
                         /* 현재 선택된 카테고리가 매출, 지출, 이용자에 따라서 다르게 랜더링*/
-                        return category.wholeCategory === "sales" ? <Selecties_1 changeCategory = { changeCategory } />
+                        return category.wholeCategory === "sales" ? <Selecties_1 dateCategory={category.dateCategory} changeCategory = { changeCategory } />
                             :  category.wholeCategory === "expenditure" ? <Selecties_2 changeCategory = { changeCategory } />
-                            :   <Selecties_1 changeCategory = { changeCategory } />
+                            :   <Selecties_1 dateCategory={category.dateCategory} changeCategory = { changeCategory } />
                     })()
                 }
                 {/* 24번째 코드와 연계됨. 현재 선택된 날짜 구별이 월 별이라면 연도에 관한 selectbox 추가로 랜더링  */}
@@ -52,8 +60,8 @@ export default function OperationalStatistics(){
                     })()
                 }
             </div>
-            <div>
-                <GraphComponent props={""}/>
+            <div className={"graphWrap"}>
+                <GraphComponent data={data}/>
             </div>
 
 
@@ -66,7 +74,7 @@ export default function OperationalStatistics(){
 /* 년,월,주간 */
 function Selecties_1( props ){
     return(<>
-        <select onChange={ props.changeCategory }>
+        <select value={props.dateCategory} onChange={ props.changeCategory }>
             <option value={"year"}>년 별</option>
             <option value={"month"}>월 별</option>
             <option value={"week"}>주간 별</option>
@@ -118,3 +126,60 @@ function Selecties_4( props ){
         </select>
     </>)
 }
+/* 테스트용 임시 데이터 */
+let data = [
+    {
+        "id": "germany",
+        "color": "hsl(286, 70%, 50%)",
+        "data": [
+            {
+                "x": "plane",
+                "y": 21
+            },
+            {
+                "x": "helicopter",
+                "y": 26
+            },
+            {
+                "x": "boat",
+                "y": 134
+            },
+            {
+                "x": "train",
+                "y": 35
+            },
+            {
+                "x": "subway",
+                "y": 153
+            },
+            {
+                "x": "bus",
+                "y": 283
+            },
+            {
+                "x": "car",
+                "y": 247
+            },
+            {
+                "x": "moto",
+                "y": 104
+            },
+            {
+                "x": "bicycle",
+                "y": 226
+            },
+            {
+                "x": "horse",
+                "y": 100
+            },
+            {
+                "x": "skateboard",
+                "y": 236
+            },
+            {
+                "x": "others",
+                "y": 140
+            }
+        ]
+    }
+]
