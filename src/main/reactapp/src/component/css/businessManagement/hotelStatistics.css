@@ -1,13 +1,19 @@
 /* 호텔 통계 페이지 전체 구역 */
 .operationalWrap{padding: 70px;}
-/* 검색 구역 의사 클래스 사용 */
+/* 검색 구역 */
+.operationalWrap .dateSearchWrap{padding-left:55px;}
 .operationalWrap select{padding:2px; margin-right:10px;}
 /* 전체 카테고리 */
-.operationalWrap select:nth-of-type(1){width:70px;}
+.operationalWrap select:nth-of-type(1){width:85px;}
 /* 년 별, 월 별, 주간 별 */
 .operationalWrap select:nth-of-type(2){width:78px;}
 /* 년 캘린더(3), 월 캘린더(4) */
 .operationalWrap select:nth-of-type(3)
-, .operationalWrap select:nth-of-type(4){
+, .operationalWrap select:nth-of-type(4)
+{
     width:80px;
+}
+/* 그래프 구역 height 지정 하지 않으면 그래프 출력 x */
+.graphWrap{
+    height: 650px;
 }

@@ -3,12 +3,9 @@ package hotelManagement.service.location;
 
 import hotelManagement.model.dto.location.LocationSearchDto;
 import hotelManagement.model.repository.location.LocationReservationEntityRepository;
-import hotelManagement.service.getListInterface.GetListInterface;
+import hotelManagement.service.util.TotalList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -17,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class LocationReservationService implements GetListInterface<LocationSearchDto> {
+public class LocationReservationService implements TotalList<LocationSearchDto , List<Map<String,Object>> > {
 
     @Autowired
     LocationReservationEntityRepository locationReservationEntityRepository;
@@ -37,8 +34,7 @@ public class LocationReservationService implements GetListInterface<LocationSear
 
     @Override
     // 페이징 추상 메서드 구현
-    public Map<String,Object> onPagging( int page, int limitPage, int totalSize, Object recordList ){
-        List<Map<String,Object>> totalList = (List<Map<String,Object>>)recordList;
+    public Map<String,Object> onPagging( int page, int limitPage, int totalSize, List<Map<String,Object>> totalList ){
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
         // 검색 결과에 따른 총 페이지 수

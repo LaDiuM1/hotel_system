@@ -1,10 +1,11 @@
 // 그래프 nivo 라이브러리 설치
 import { ResponsiveLine } from '@nivo/line'
 
-export default function GraphComponent(prop){
-
+export default function GraphComponent(props){
+console.log(props.data)
     return(<>
         <ResponsiveLine
+            data={props.data}
             margin={{ top: 150, right: 200, bottom: 50, left: 60 }}
             xScale={{ type: 'point' }}
             yScale={{

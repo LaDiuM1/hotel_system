@@ -6,7 +6,7 @@ import hotelManagement.model.entity.employee.EmployeeEntity;
 import hotelManagement.model.repository.employee.DepartmentEntityRepository;
 import hotelManagement.model.repository.employee.EmployeeManegementRepository;
 import hotelManagement.model.repository.employee.PositionEntityRepository;
-import hotelManagement.service.getListInterface.GetListInterface;
+import hotelManagement.service.util.TotalList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class EmployeeManegementService implements GetListInterface<EmployeeManegementDto> {
+public class EmployeeManegementService implements TotalList<EmployeeManegementDto , List<Map<String,Object>>> {
 
     @Autowired
     // 직원 레포지토리
@@ -40,7 +40,6 @@ public class EmployeeManegementService implements GetListInterface<EmployeeManeg
                 employeeManegementDto.getDepart(), employeeManegementDto.getPosition()
                 ,employeeManegementDto.getKeyword(), employeeManegementDto.getSearchType()
         );
-
         //페이징 처리 메서드
         return onPagging(
                 employeeManegementDto.getPageAndSort().getNowPage()
@@ -51,9 +50,9 @@ public class EmployeeManegementService implements GetListInterface<EmployeeManeg
     }
     @Override
     // 페이징 처리 추상 메서드 구현
-    public Map<String,Object> onPagging( int page, int limitPage, int totalSize, Object recordList ){
-        // 맵 객체 담은 리스트로 형변환
-        List<Map<String,Object>> employeeList = (List<Map<String,Object>>) recordList;
+    public Map<String,Object> onPagging( int page, int limitPage, int totalSize, List<Map<String,Object>> employeeList ){
+
+
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
         int totalPage = totalSize%limitPage == 0 ? totalSize/limitPage : totalSize/limitPage+1 ;

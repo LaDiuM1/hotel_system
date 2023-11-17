@@ -4,10 +4,9 @@ import hotelManagement.model.dto.room.RoomReservationDto;
 import hotelManagement.model.dto.room.RoomSearchDto;
 import hotelManagement.model.entity.room.RoomReservationEntity;
 import hotelManagement.model.repository.room.RoomReservationEntityRepository;
-import hotelManagement.service.getListInterface.GetListInterface;
+import hotelManagement.service.util.TotalList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class RoomReservationService implements GetListInterface<RoomSearchDto> {
+public class RoomReservationService implements TotalList<RoomSearchDto , Stream<RoomReservationEntity>> {
 
     @Autowired
     RoomReservationEntityRepository roomReservationEntityRepository;
@@ -239,8 +238,7 @@ public class RoomReservationService implements GetListInterface<RoomSearchDto> {
     * 페이징 추상 메서드 구현
     * */
     @Override
-    public Map<String,Object> onPagging( int page, int limitPage, int entitiesSize, Object recordList  ){
-        Stream<RoomReservationEntity> entityStream = (Stream<RoomReservationEntity>) recordList;
+    public Map<String,Object> onPagging( int page, int limitPage, int entitiesSize, Stream<RoomReservationEntity> entityStream  ){
         // 스킵할 행 개수
         final int startRow = (page-1) * limitPage;
         // 총페이지 수
