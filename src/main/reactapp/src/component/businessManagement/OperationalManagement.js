@@ -60,10 +60,10 @@ function RoomUpdate(){
         axios
             .get('http://localhost:80/operationalManagement/getRoomOpData')
             .then( r => {
-                let data = r.data;
+                let sortData = r.data;
 
                 // 객실 요금이 낮은 순으로 정렬
-                data.sort(function (a, b) {
+                sortData.sort(function (a, b) {
                     if (a.rwprice > b.rwprice) {
                         return 1;
                     }
@@ -71,6 +71,12 @@ function RoomUpdate(){
                         return -1;
                     }
                     return 0;
+                })
+
+                sortData.forEach( p => {
+                    p.rwprice = p.rwprice.toLocaleString();
+                    p.rhprice = p.rhprice.toLocaleString();
+
                 })
 
                 setRoomOpData(r.data);
@@ -82,8 +88,26 @@ function RoomUpdate(){
 
     const roomOpDataChange = (e, i) => {
         let className = e.target.className;
-        let value = e.target.value;
-        console.log(roomOpData)
+        let value = parseInt(e.target.value.replace(/,/g, ''));
+        if(isNaN(value)) { value = 0 }
+        if(className.indexOf('drate') !== -1){
+            value /= 100;
+        }
+
+        // 그 외에는 일치하는 속성에 입력된 값 저장
+        let updateRoomOpData= {...roomOpData[i], [className]: value.toLocaleString()};
+        let data = [...roomOpData];
+
+        data[i] = updateRoomOpData;
+        console.log(data)
+
+        setRoomOpData(data);
+
+    }
+    const roomOpDataClick = (e, i) => {
+        let className = e.target.className;
+        let value = parseInt(e.target.value.replace(/,/g, ''));
+        if(isNaN(value)) { value = 0 }
         // 그 외에는 일치하는 속성에 입력된 값 저장
         let updateRoomOpData= {...roomOpData[i], [className]: value};
         let data = [...roomOpData];
@@ -100,7 +124,7 @@ function RoomUpdate(){
 
     return(<>
         <div className={"opPrintArea"}>
-            <Table className={"opTable"}> {/* 기능 출력 구역 */}
+            <Table className={"opTable"}>{/* 기능 출력 구역 */}
                 <thead>
                     <tr>
                         <th>등급</th><th>평일 요금</th><th>주말 요금</th><th>최대 인원</th><th>회원권 할인율</th>
@@ -112,8 +136,8 @@ function RoomUpdate(){
                     return(<React.Fragment key={p.rgname}>
                         <tr>
                             <td>{p.rgname}</td>
-                            <td><input className={"rhprice"} onChange={(e) => roomOpDataChange(e, i)} type={"text"} value={p.rhprice.toLocaleString()}/></td>
-                            <td><input className={"rwprice"} onChange={(e) => roomOpDataChange(e, i)} type={"text"} value={p.rwprice.toLocaleString()}/></td>
+                            <td><input className={"rhprice"} onChange={(e) => roomOpDataClick(e, i)} onClick={(e) => roomOpDataClick(e, i)} onBlur={(e) => roomOpDataChange(e, i)} type={"text"} value={p.rhprice}/></td>
+                            <td><input className={"rwprice"} onChange={(e) => roomOpDataClick(e, i)} onClick={(e) => roomOpDataClick(e, i)} onBlur={(e) => roomOpDataChange(e, i)} type={"text"} value={p.rwprice}/></td>
                             <td><input className={"rgmaxcapa"} onChange={(e) => roomOpDataChange(e, i)} type={"text"} value={p.rgmaxcapa+'명'}/></td>
                             <td><input className={"drate"} onChange={(e) => roomOpDataChange(e, i)} type={"text"} value={(p.drate*100)+'%'}/></td>
                         </tr>
