@@ -3,12 +3,10 @@ package hotelManagement.controller.business;
 import hotelManagement.model.dto.room.RoomGradeDto;
 import hotelManagement.service.business.OperationalManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/operationalManagement")
@@ -22,6 +20,12 @@ public class OperationalManagementController {
 
         return operationalManagementService.getRoomOpData();
 
+    }
+    
+    @PostMapping("/updateRoomOpData") // 객실 운영 데이터 업데이트 함수
+    public boolean updateRoomOpData(@RequestBody List<RoomGradeDto> roomGradeDtoList){
+
+        return operationalManagementService.updateRoomOpData(roomGradeDtoList);
     }
 
 

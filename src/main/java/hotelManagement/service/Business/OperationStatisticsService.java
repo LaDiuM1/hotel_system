@@ -7,6 +7,7 @@ import java.util.Map;
 
 @Service
 public class OperationStatisticsService {
+/*
 
     // wholeCategory=sales, dateCategory=year, divisionMonth=2023, divisionWeek=10
     public void getStatistics(){
@@ -27,5 +28,6 @@ public class OperationStatisticsService {
     public void getStatistics(){
 
     }
+*/
 
 }
