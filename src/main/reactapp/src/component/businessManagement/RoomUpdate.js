@@ -107,7 +107,7 @@ export default function RoomUpdate(){
         let updateData = [];
         originalData.forEach( (p, i) => {
                 Object.values(p).forEach( ( p2, j) => {
-                    if( p2 !== Object.values(roomOpData[i])[j] ){
+                    if( p2 != Object.values(roomOpData[i])[j] ){ // 의도적 약비교
 
                         console.log('roomOpData[i][j] : '+Object.values(roomOpData[i])[j]);
                         updateData.push (
@@ -167,7 +167,7 @@ export default function RoomUpdate(){
 
 
     return(<>
-        <div className={"locationOpPrintArea opPrintArea"}>
+        <div className={"opPrintArea"}>
             <Table className={"opTable"}>{/* 기능 출력 구역 */}
                 <thead>
                 <tr>

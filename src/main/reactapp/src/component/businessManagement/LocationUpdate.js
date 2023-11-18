@@ -28,12 +28,12 @@ export default function LocationUpdate() {
             .then(r => {
                 let sortData = r.data;
 
-                // 시설 요금이 낮은 순으로 정렬
+                // 이름순 정렬
                 sortData.sort(function (a, b) {
-                    if (a.lprice > b.lprice) {
+                    if (a.lname < b.lname) {
                         return 1;
                     }
-                    if (a.lprice < b.lprice) {
+                    if (a.lname > b.lname) {
                         return -1;
                     }
                     return 0;
@@ -58,12 +58,14 @@ export default function LocationUpdate() {
         // 값을 정수와 부동소수점 형태로 치환
         let value = e.target.value;
         if(className.indexOf('time') === -1) {
-            value = e.target.value.replace(/[^0-9.]/g, '');
+            value = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
+            console.log(value)
+            // 데이터 변경 시 값이 공백이면 0 대입
             if (isNaN(value)) {
                 value = 0
             }
         }
-        // 데이터 변경 시 값이 공백이면 0 대입
+
 
         // 백분율 표기를 위해 100배수 표기된 데이터 /100 하여 저장
         if (className.indexOf('drate') !== -1) {
@@ -123,7 +125,7 @@ export default function LocationUpdate() {
         let updateData = [];
         originalData.forEach((p, i) => {
             Object.values(p).forEach((p2, j) => {
-                if (p2 !== Object.values(locationOpData[i])[j]) {
+                if (p2 != Object.values(locationOpData[i])[j]) { // 의도적 약비교
 
                     console.log('Object.values(locationOpData[i])[j] : ' + Object.values(locationOpData[i])[j]);
                     updateData.push(
@@ -131,11 +133,12 @@ export default function LocationUpdate() {
                             'grade': originalData[i].lname,
                             'item': itemName[j],
                             'beforeValue': itemName[j] === '회원권 할인율' ? Object.values(p)[j] * 100 + "%" :
-                                itemName[j] === '최대 예약 가능 인원' ? Object.values(p)[j] + "명" :
-                                    itemName[j] === '시설 종류' ? Object.values(p)[j] : Object.values(p)[j] + "원",
+                                    itemName[j] === '최대 예약 가능 인원' ? Object.values(p)[j] + "명" :
+                                    itemName[j] === '최대 예약 가능 인원' ? Object.values(locationOpData[i])[j] + "명" :
+                                    itemName[j].indexOf('시간') !== -1 ? Object.values(locationOpData[i])[j] : Object.values(locationOpData[i])[j] + "원",
                             'afterValue': itemName[j] === '회원권 할인율' ? Object.values(locationOpData[i])[j] * 100 + "%" :
-                                itemName[j] === '최대 예약 가능 인원' ? Object.values(locationOpData[i])[j] + "명" :
-                                    itemName[j] === '시설 종류' ? Object.values(locationOpData[i])[j] : Object.values(locationOpData[i])[j] + "원"
+                                    itemName[j] === '최대 예약 가능 인원' ? Object.values(locationOpData[i])[j] + "명" :
+                                    itemName[j].indexOf('시간') !== -1 ? Object.values(locationOpData[i])[j] : Object.values(locationOpData[i])[j] + "원"
                         })
 
 
@@ -161,7 +164,7 @@ export default function LocationUpdate() {
         let jsonData = locationOpData.map(p => {
             const newObj = {};
             Object.entries(p).forEach(([key, value], i) => {
-                if (typeof value === 'string' && key.indexOf('lname') === -1) {
+                if (typeof value === 'string' && key.indexOf('lname') === -1 && key.indexOf('time') === -1 && key.indexOf('lesvList') === -1) {
                     newObj[key] = parseFloat(value.replace(/,/g, ''));
                 } else {
                     newObj[key] = value;
@@ -169,7 +172,7 @@ export default function LocationUpdate() {
             });
             return newObj;
         });
-
+        console.log(jsonData)
         axios
             .post('http://localhost:80/operationalManagement/updateLocationOpData', jsonData)
             .then(r => {
