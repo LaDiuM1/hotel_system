@@ -20,6 +20,7 @@ public class LocationDto {
     private int lprice;                 // 일반 요금
     private int lchildprice;            // 아동 요금
     private int lmaxcapa;               // 최대 수용 인원
+    private double drate;                 // 이용권 할인율
 
     @ToString.Exclude
     @Builder.Default

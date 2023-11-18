@@ -10,11 +10,11 @@ export default function RoomUpdate(){
     const [roomOpData, setRoomOpData] = useState( // 전송 데이터
         [
             {
-                'rgname' : '',
-                'rwprice' : 0,
-                'rhprice' : 0,
-                'rgmaxcapa' : 0,
-                'drate' : 0.0,
+                'rgname' : '',      // 객실 등급명 [PK]
+                'rwprice' : 0,      // 주말 이용료
+                'rhprice' : 0,      // 평일 이용료
+                'rgmaxcapa' : 0,    // 등급별 최대 수용 인원
+                'drate' : 0.0,      // 등급별 회원권 할인율
             }
         ]
     );
@@ -167,7 +167,7 @@ export default function RoomUpdate(){
 
 
     return(<>
-        <div className={"opPrintArea"}>
+        <div className={"locationOpPrintArea opPrintArea"}>
             <Table className={"opTable"}>{/* 기능 출력 구역 */}
                 <thead>
                 <tr>

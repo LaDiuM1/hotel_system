@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Table} from "react-bootstrap";
 import axios from "axios";
 import RoomUpdate from "./RoomUpdate";
+import LocationUpdate from "./LocationUpdate";
 
 
 export default function OperationalManagement(){
@@ -32,7 +33,7 @@ export default function OperationalManagement(){
                         </button>
                     </div>  {/* 변경 기능 종류 선택 종료*/}
 
-                    <RoomUpdate />
+                    <LocationUpdate />
 
                 </div>{/* 컨텐츠 표시 구역 종료*/}
 
