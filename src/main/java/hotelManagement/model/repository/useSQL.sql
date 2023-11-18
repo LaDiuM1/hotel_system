@@ -487,6 +487,11 @@ LIMIT 100;
 UPDATE lresv
 SET lrstate = 1
 WHERE DATE(lrtime) < CURDATE();
+
+# udate와 cdate가 같으면서 lrtime보다 작은 랜덤한 날짜
+update lresv set cdate = date_sub( lrtime, interval floor( rand() * 365 ) day ) where cdate is null;
+update lresv set udate = cdate where udate = udate;
+
 # ticket 샘플코드 (회원권)
 INSERT INTO ticket (tstartdate, tenddate, mno)
 VALUES
@@ -535,6 +540,10 @@ VALUES
     ('2023-09-20', '2024-09-10', 89),
     ('2023-10-05', '2024-09-25', 91),
     ('2023-12-05', '2024-11-25', 95);
+
+-- 데이터 추가 (cdate와 udate가 서로 같으며, tstartdate보다 작은 날짜이면서 1년보다 작지 않은 랜덤한 날짜)
+update ticket set cdate = DATE_SUB(cdate, INTERVAL FLOOR(RAND() * 365) DAY);
+update ticket set udate = cdate where udate = udate;
 
 /* 직원 관련 샘플 코드 */
 

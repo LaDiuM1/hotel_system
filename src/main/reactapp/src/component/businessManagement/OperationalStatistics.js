@@ -63,10 +63,7 @@ export default function OperationalStatistics(){
             <div className={"graphWrap"}>
                 <GraphComponent data={data}/>
             </div>
-
-
         </div>
-
     </>)
 }
 
