@@ -1,5 +1,6 @@
 package hotelManagement.controller.business;
 
+import hotelManagement.model.dto.location.LocationDto;
 import hotelManagement.model.dto.room.RoomGradeDto;
 import hotelManagement.service.business.OperationalManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,20 @@ public class OperationalManagementController {
     public boolean updateRoomOpData(@RequestBody List<RoomGradeDto> roomGradeDtoList){
 
         return operationalManagementService.updateRoomOpData(roomGradeDtoList);
+    }
+
+    @GetMapping("/getLocationOpData") // 시설 운영 데이터 반환 함수
+    public List<LocationDto> getLocationOpData(){
+
+        return operationalManagementService.getLocationOpData();
+
+    }
+
+
+    @PostMapping("/updateLocationOpData") // 시설 운영 데이터 업데이트 함수
+    public boolean updateLocationOpData(@RequestBody List<LocationDto> locationDtoList){
+
+        return operationalManagementService.updateLocationOpData(locationDtoList);
     }
 
 
