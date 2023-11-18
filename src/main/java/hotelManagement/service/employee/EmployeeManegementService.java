@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -39,7 +43,14 @@ public class EmployeeManegementService implements TotalList< EmployeeManegementD
                 employeeManegementDto.getDepart(), employeeManegementDto.getPosition()
                 ,employeeManegementDto.getKeyword(), employeeManegementDto.getSearchType()
         );
-        //페이징 처리 메서드
+        // 정렬 처리 후 employeeList에 반환
+        employeeList = onSort(
+                employeeList
+                , employeeManegementDto.getPageAndSort().getCname()
+                , employeeManegementDto.getPageAndSort().getIsSorted()
+        );
+
+        //페이징 처리 메서드 후 Controller에 반환
         return onPagging(
                 employeeList
                 ,employeeManegementDto.getPageAndSort().getNowPage()
@@ -50,7 +61,6 @@ public class EmployeeManegementService implements TotalList< EmployeeManegementD
     /*
     * 페이징 처리 추상 메서드 구현
     * */
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public Map<String,Object> onPagging( List<Map<String,Object>> employeeList, int page, int limitPage, int totalSize ){
 
@@ -68,7 +78,7 @@ public class EmployeeManegementService implements TotalList< EmployeeManegementD
         final int finalEndBtn = endBtn;
 
         // 결과 반환
-        return new HashMap(){{
+        return new HashMap<String,Object>(){{
             put("totalSize",totalSize);put("totalPage", totalPage);
             put("startBtn", startBtn);put("endBtn",finalEndBtn);
             // 페이지에 따른 검색결과 축소 skip( startRow )만큼 skip하고 limit( limitPage ) 크기로 제한함
@@ -79,17 +89,35 @@ public class EmployeeManegementService implements TotalList< EmployeeManegementD
     /*
     *   정렬 추상 메서드 구현
     * */
+    @SuppressWarnings("CallToPrintStackTrace")
     @Override
-    public List<Map<String,Object>> onSort( List<Map<String,Object>> totalList, String columnName, String isSorted ){
+    public List<Map<String,Object>> onSort( List<Map<String,Object>> totalList, String columnName, String ascOrDesc ){
         // 정렬 요청 없을 시 메서드 종료
         if( columnName.isEmpty() )  return totalList;
         // 정렬 기준(내림차순,오름차순)
-        final boolean finalIsSorted = Boolean.parseBoolean(isSorted);
+        final boolean finalAscOrDesc = Boolean.parseBoolean(ascOrDesc);
         // totalList 스트림
         final Stream<Map<String,Object>> mapStream = totalList.stream();
 
+        try {
+            // 입사일 정렬
+            if( "ejoin".equals(columnName) )
+                return mapStream.sorted( (a,b) -> finalAscOrDesc ?
+                                ((Date)a.get(columnName)).compareTo((Date)b.get(columnName))
+                                : ((Date)b.get(columnName)).compareTo((Date)a.get(columnName))
+                        ).collect(Collectors.toList());
+            // 그 외 나머지 정렬
+            else
+                return mapStream.sorted( (a,b) -> finalAscOrDesc ?
+                                ((String)a.get(columnName)).compareTo((String)b.get(columnName))
+                                : ((String)b.get(columnName)).compareTo((String)a.get(columnName))
+                        ).collect(Collectors.toList());
+        } catch (Exception e) {
 
-        // 빈 배열 반환(결과 없음)
+            e.printStackTrace();
+        }
+
+        // 빈 배열 반환(예외 발생)
         return new ArrayList<>();
     }
     /*
@@ -99,8 +127,8 @@ public class EmployeeManegementService implements TotalList< EmployeeManegementD
     public boolean putEmployee( EmployeeDto employeeDto ){
         // 입력받은 사원번호 데이터로 사원 엔티티 find
         Optional<EmployeeEntity> employeeEntityOptional = employeeManegementRepository.findByEno( employeeDto.getEno() );
-        // 수정할 부서 엔티티와 직책 엔티티 find
 
+        // 수정할 부서 엔티티와 직책 엔티티 find
         if( employeeEntityOptional.isPresent() ){
             EmployeeEntity employeeEntity = employeeEntityOptional.get();
             // 부서 엔티티 수정

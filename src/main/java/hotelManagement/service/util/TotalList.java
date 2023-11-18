@@ -19,6 +19,6 @@ public interface TotalList< T , G > {
     /*
     * 정렬 처리 담당하는 추상 메서드
     * */
-    public abstract G onSort( G recordList, String columnName, String isSorted );
+    public abstract G onSort( G recordList, String columnName, String ascOrDesc );
 
 }

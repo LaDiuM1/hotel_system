@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,45 +70,38 @@ public class LocationReservationService implements TotalList<LocationSearchDto ,
     *   정렬 추상 메서드 구현
     * */
     @Override
-    public List<Map<String,Object>> onSort( List<Map<String,Object>> totalList, String columnName, String isSorted ){
-        // 정렬 요청 없을 시 메서드 종료
-        if( columnName.isEmpty() )  return totalList;
+    public List<Map<String,Object>> onSort( List<Map<String,Object>> totalList, String columnName, String ascOrDesc ){
+        // 정렬 요청 없을 시 리스트 반환
+        if (columnName.isEmpty()) return totalList;
         // 정렬 기준(내림차순,오름차순)
-        final boolean finalIsSorted = Boolean.parseBoolean(isSorted);
+        final boolean finalAscOrDesc = Boolean.parseBoolean(ascOrDesc);
         // totalList 스트림
-        final Stream<Map<String,Object>> mapStream = totalList.stream();
-        // 시설명 정렬
-        if( "lname".equals(columnName) )
-            return mapStream.sorted( (a,b) -> finalIsSorted ?
-                            ((String)a.get("lname")).compareTo((String)b.get("lname"))
-                            :((String)b.get("lname")).compareTo((String)a.get("lname"))
-                    ).collect(Collectors.toList());
-        // 시설 예약 상태 정렬
-        else if( "lrstate".equals(columnName) )
-            return mapStream.sorted( (a,b) -> finalIsSorted ?
-                            ( (Byte)a.get("lrstate") ) - ( (Byte)b.get("lrstate") )
-                            : ( (Byte)b.get("lrstate") ) - ( (Byte)a.get("lrstate") )
-                    ).collect(Collectors.toList());
-        // 예약자명 정렬
-        else if( "mname".equals(columnName) )
-            return mapStream.sorted( (a,b) -> finalIsSorted ?
-                            ((String)a.get("mname")).compareTo((String)b.get("mname"))
-                            : ((String)b.get("mname")).compareTo((String)a.get("mname"))
-                    ).collect(Collectors.toList());
-        // 예약자 전화번호 정렬
-        else if( "mphone".equals(columnName) )
-            return mapStream.sorted( (a,b) -> finalIsSorted ?
-                            ((String)a.get("mphone")).compareTo((String)b.get("mphone"))
-                            : ((String)b.get("mphone")).compareTo((String)a.get("mphone"))
-                    ).collect(Collectors.toList());
-        // 시설예약시간 정렬
-        else if( "lrtime".equals(columnName) )
-            return mapStream.sorted( (a,b) -> finalIsSorted ?
-                    ((Timestamp)a.get("lrtime")).compareTo((Timestamp)b.get("lrtime"))
-                    : ((Timestamp)b.get("lrtime")).compareTo((Timestamp)a.get("lrtime"))
-                     ).collect(Collectors.toList());
+        final Stream<Map<String, Object>> mapStream = totalList.stream();
 
-        // 빈 배열 반환(결과 없음)
+        try {
+            // 시설명 or 예약자명 or 예약자전화번호 정렬
+            if ("lname".equals(columnName) || "mname".equals(columnName) || "mphone".equals(columnName))
+                return mapStream.sorted((a, b) -> finalAscOrDesc ?
+                                ((String) a.get(columnName)).compareTo((String) b.get(columnName))
+                                : ((String) b.get(columnName)).compareTo((String) a.get(columnName))
+                        ).collect(Collectors.toList());
+                // 시설 예약 상태 정렬
+            else if ("lrstate".equals(columnName))
+                return mapStream.sorted((a, b) -> finalAscOrDesc ?
+                                ((Byte) a.get(columnName)) - ((Byte) b.get(columnName))
+                                : ((Byte) b.get(columnName)) - ((Byte) a.get(columnName))
+                        ).collect(Collectors.toList());
+                // 시설예약시간 정렬
+            else if ("lrtime".equals(columnName))
+                return mapStream.sorted((a, b) -> finalAscOrDesc ?
+                                ((Timestamp) a.get(columnName)).compareTo((Timestamp) b.get(columnName))
+                                : ((Timestamp) b.get(columnName)).compareTo((Timestamp) a.get(columnName))
+                        ).collect(Collectors.toList());
+        }catch (Exception e){
+            //noinspection CallToPrintStackTrace
+            e.printStackTrace();
+        }
+        // 빈 배열 반환(예외 발생)
         return new ArrayList<>();
     }
 }

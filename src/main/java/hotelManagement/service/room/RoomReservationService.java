@@ -1,4 +1,4 @@
-package hotelManagement.service.guestroom;
+package hotelManagement.service.room;
 
 import hotelManagement.model.dto.room.RoomReservationDto;
 import hotelManagement.model.dto.room.RoomSearchDto;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class RoomReservationService implements TotalList<RoomSearchDto , Stream<RoomReservationEntity>> {
+public class RoomReservationService implements TotalList<RoomSearchDto, Stream<RoomReservationEntity>> {
 
     @Autowired
     RoomReservationEntityRepository roomReservationEntityRepository;
@@ -35,17 +35,17 @@ public class RoomReservationService implements TotalList<RoomSearchDto , Stream<
         Stream<RoomReservationEntity> entityStream = entities.stream();
 
         // 정렬 요청 시 정렬 메서드 호출 결과 반환
-        if( !roomSearchDto.getPageAndSort().getCname().isEmpty() ) {
-            // onSort() <- 정렬된 스트림 객체 반환, collect()로 리스트화 시켜서 entities에 저장
-            entities = onSort(entityStream, roomSearchDto.getPageAndSort().getCname(), roomSearchDto.getPageAndSort().getIsSorted()).collect(Collectors.toList());
-            // 저장 후 다시 스트림 변환, entityStream에 저장
-            entityStream = entities.stream();
-        }
+        // onSort() <- 정렬된 스트림 객체 반환, collect()로 리스트화 시켜서 entities에 저장
+        entities = onSort(entityStream, roomSearchDto.getPageAndSort().getCname(), roomSearchDto.getPageAndSort().getIsSorted()).collect(Collectors.toList());
+        // 저장 후 다시 스트림 변환, entityStream에 저장
+        entityStream = entities.stream();
+
 
         // 페이징 메서드 호출
         // 결과 값 : 프론트단에서 사용할 페이지 데이터 및 페이징 처리 된 데이터 리스트를 담은 해시 맵 객체
         Map<String,Object> resultMap = onPagging( entityStream, roomSearchDto.getPageAndSort().getNowPage(), roomSearchDto.getPageAndSort().getLimitPage(), entities.size());
         // 페이징 처리 된 스트림 객체 entityStream에 저장
+        //noinspection unchecked
         entityStream = (Stream<RoomReservationEntity>) resultMap.get("paggingResult");
         // 저장된 스트림 리스트로 변환, entities에 다시 저장
         entities = entityStream.collect(Collectors.toList());
@@ -75,75 +75,81 @@ public class RoomReservationService implements TotalList<RoomSearchDto , Stream<
     *   정렬 추상 메서드 구현
     * */
     @Override
-    public Stream<RoomReservationEntity> onSort( Stream<RoomReservationEntity> entityStream, String columnName, String isSorted  ){
-        // 정렬할 컬럼 명
-        final String cname = columnName;
-        // 정렬 기준
-        final boolean finalIsSorted = Boolean.parseBoolean(isSorted);
+    public Stream<RoomReservationEntity> onSort(Stream<RoomReservationEntity> entityStream, String columnName, String ascOrDesc  ){
+        // 정렬 요청 없을 시 스트림 반환
+        if( columnName.isEmpty() ) return entityStream;
+
+        try {
+            // 정렬 기준
+            final boolean finalAscOrDesc = Boolean.parseBoolean(ascOrDesc);
             // 호실 정렬
-        if( "rrno".equals(cname) )
-            return entityStream.sorted( (a,b) -> finalIsSorted ?
-                            a.getRoomEntity().getRno() - b.getRoomEntity().getRno()
-                            : b.getRoomEntity().getRno() - a.getRoomEntity().getRno() );
+            if ("rrno".equals(columnName))
+                return entityStream.sorted((a, b) -> finalAscOrDesc ?
+                        a.getRoomEntity().getRno() - b.getRoomEntity().getRno()
+                        : b.getRoomEntity().getRno() - a.getRoomEntity().getRno());
 
-            // 객실 등급 정렬
-        else if( "rgrade".equals(cname) )
-            return entityStream.sorted(
-                            (a,b) -> finalIsSorted ? // compareTo 사용
-                                    a.getRoomEntity().getRoomGradeEntity().getRgname()
-                                            .compareTo(b.getRoomEntity().getRoomGradeEntity().getRgname() )
-                                    : b.getRoomEntity().getRoomGradeEntity().getRgname()
-                                    .compareTo(a.getRoomEntity().getRoomGradeEntity().getRgname()));
+                // 객실 등급 정렬
+            else if ("rgrade".equals(columnName))
+                return entityStream.sorted(
+                        (a, b) -> finalAscOrDesc ? // compareTo 사용
+                                a.getRoomEntity().getRoomGradeEntity().getRgname()
+                                        .compareTo(b.getRoomEntity().getRoomGradeEntity().getRgname())
+                                : b.getRoomEntity().getRoomGradeEntity().getRgname()
+                                .compareTo(a.getRoomEntity().getRoomGradeEntity().getRgname()));
 
-            // 시작 날짜 정렬
-        else if( "sdate".equals(cname) ) // compareTo 사용
-            return entityStream.sorted( (a,b) -> finalIsSorted ?
-                            a.getRrstartdate().compareTo(b.getRrenddate())
-                            : b.getRrstartdate().compareTo( a.getRrstartdate() ));
+                // 시작 날짜 정렬
+            else if ("sdate".equals(columnName)) // compareTo 사용
+                return entityStream.sorted((a, b) -> finalAscOrDesc ?
+                        a.getRrstartdate().compareTo(b.getRrenddate())
+                        : b.getRrstartdate().compareTo(a.getRrstartdate()));
 
-            // 종료 날짜 정렬
-        else if( "edate".equals(cname) ) // compareTo 사용
-            return  entityStream.sorted( (a,b) -> finalIsSorted ?
-                            a.getRrenddate().compareTo(b.getRrenddate())
-                            : b.getRrenddate().compareTo( a.getRrenddate() ));
+                // 종료 날짜 정렬
+            else if ("edate".equals(columnName)) // compareTo 사용
+                return entityStream.sorted((a, b) -> finalAscOrDesc ?
+                        a.getRrenddate().compareTo(b.getRrenddate())
+                        : b.getRrenddate().compareTo(a.getRrenddate()));
 
-            // 예약자 명 정렬
-        else if( "rname".equals(cname) )
-            return entityStream.sorted( (a,b) -> finalIsSorted ?
-                            a.getMemberInfoEntity().getMname().compareTo( b.getMemberInfoEntity().getMname())
-                            : b.getMemberInfoEntity().getMname().compareTo( a.getMemberInfoEntity().getMname()));
-            // 휴대번호 정렬
-        else if( "rphone".equals(cname) )
-            return entityStream.sorted( (a,b) -> finalIsSorted ?
-                            a.getMemberInfoEntity().getMphone().compareTo( b.getMemberInfoEntity().getMphone())
-                            : b.getMemberInfoEntity().getMphone().compareTo( a.getMemberInfoEntity().getMphone()));
-            // 체크인 정렬
-        else if( "rcin".equals(cname) )
-            return entityStream.sorted( finalIsSorted ?
-                    Comparator.comparing( RoomReservationEntity::getRrcheckin )
-                    : Comparator.comparing( RoomReservationEntity::getRrcheckin ).reversed());
-            // 체크아웃 정렬
-        else if("rcout".equals(cname) )
-            return entityStream.sorted( (a,b) -> {
-                final LocalDateTime aTime = a.getRrcheckout();
-                final LocalDateTime bTime = b.getRrcheckout();
-                // 오름차순
-                if(finalIsSorted){
-                    if( aTime == null && bTime != null ) return -1;
-                    if( aTime != null && bTime == null ) return 1;
-                    if( aTime == null && bTime == null ) return 0;
-                    if( aTime != null && bTime != null ) return aTime.compareTo(bTime);
-                }
-                // 내림차순
-                else {
-                    if( aTime == null && bTime != null ) return 1;
-                    if( aTime != null && bTime == null ) return -1;
-                    if( aTime == null && bTime == null ) return 0;
-                    if( aTime != null && bTime != null ) return bTime.compareTo(aTime);
-                }
-                return 0;
-            });
-        return null;
+                // 예약자 명 정렬
+            else if ("rname".equals(columnName))
+                return entityStream.sorted((a, b) -> finalAscOrDesc ?
+                        a.getMemberInfoEntity().getMname().compareTo(b.getMemberInfoEntity().getMname())
+                        : b.getMemberInfoEntity().getMname().compareTo(a.getMemberInfoEntity().getMname()));
+                // 휴대번호 정렬
+            else if ("rphone".equals(columnName))
+                return entityStream.sorted((a, b) -> finalAscOrDesc ?
+                        a.getMemberInfoEntity().getMphone().compareTo(b.getMemberInfoEntity().getMphone())
+                        : b.getMemberInfoEntity().getMphone().compareTo(a.getMemberInfoEntity().getMphone()));
+                // 체크인 정렬
+            else if ("rcin".equals(columnName))
+                return entityStream.sorted(finalAscOrDesc ?
+                        Comparator.comparing(RoomReservationEntity::getRrcheckin)
+                        : Comparator.comparing(RoomReservationEntity::getRrcheckin).reversed());
+                // 체크아웃 정렬
+            else if ("rcout".equals(columnName))
+                return entityStream.sorted((a, b) -> {
+                    final LocalDateTime aTime = a.getRrcheckout();
+                    final LocalDateTime bTime = b.getRrcheckout();
+                    // 오름차순
+                    if (finalAscOrDesc) {
+                        if (aTime == null && bTime != null) return -1;
+                        if (aTime != null && bTime == null) return 1;
+                        if (aTime == null && bTime == null) return 0;
+                        if (aTime != null && bTime != null) return aTime.compareTo(bTime);
+                    }
+                    // 내림차순
+                    else {
+                        if (aTime == null && bTime != null) return 1;
+                        if (aTime != null && bTime == null) return -1;
+                        if (aTime == null && bTime == null) return 0;
+                        if (aTime != null && bTime != null) return bTime.compareTo(aTime);
+                    }
+                    return 0;
+                });
+        }catch (Exception e){
+            //noinspection CallToPrintStackTrace
+            e.printStackTrace();
+        }
+        return entityStream;
     }// onSort() end
     /*
      *   검색 메서드
@@ -252,7 +258,8 @@ public class RoomReservationService implements TotalList<RoomSearchDto , Stream<
         final int finalEndBtn = endBtn;
 
         // 결과 반환
-        return new HashMap(){{
+
+        return new HashMap<String,Object>(){{
             put("totalSize",entitiesSize);put("totalPage", totalPage);
             put("startBtn", startBtn);put("endBtn",finalEndBtn);
             // 페이지에 따른 검색결과 축소 skip( startRow )만큼 skip하고 limit( limitPage ) 크기로 제한함

@@ -278,17 +278,27 @@ export default function EmployeeManagement(){
                                     {className:"emname" ,ctitle:"사원명",cname:"mname"},
                                     {className:"emsex" ,ctitle:"성별",cname:"msex"},
                                     {className:"mbirth" ,ctitle:"생년월일",cname:"mbirth"},
-                                    {className:"rphone" ,ctitle:"전화번호",cname:"rphone"},
-                                    {className:"pname" ,ctitle:"직책",cname:"pname"},
-                                    {className:"dcode" ,ctitle:"부서",cname:"dcode"},
+                                    {className:"rphone" ,ctitle:"전화번호",cname:"mphone"},
+                                    {className:"pname" ,ctitle:"직책",cname:"pname_fk"},
+                                    {className:"dcode" ,ctitle:"부서",cname:"dname"},
                                     {className:"eaddress" ,ctitle:"주소",cname:"eaddress"},
                                     {className:"ejoin" ,ctitle:"입사일",cname:"ejoin"}
                                 ]
                                 let htmlArr = [];
                                 //
                                 for(let i = 0; i < tableColumn.length; i++){
-                                    htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}<span className={"sortPointer"}
-                                    >↑↓</span></span> )
+                                    htmlArr.push( <span key={i} className={tableColumn[i].className}>{tableColumn[i].ctitle}
+                                        <span className={"sortPointer"}
+                                              onClick={()=>{
+                                                setInfo({
+                                                    ...info,
+                                                    pageAndSort:{
+                                                        ...info.pageAndSort,
+                                                        cname:tableColumn[i].cname,
+                                                        isSorted: !info.pageAndSort.isSorted
+                                                    }
+                                            })}}
+                                        >↑↓</span></span> )
                                 }
                                 return htmlArr;
                             })()
