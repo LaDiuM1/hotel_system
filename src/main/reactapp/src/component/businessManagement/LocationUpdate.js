@@ -3,8 +3,8 @@ import axios from "axios";
 import {Table} from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
-export default function LocationUpdate() {
-    // 객실 등급별 평일/주말 요금,최대 인원, 회원권 할인율 변경
+export default function LocationUpdate({ dataLoadState, setDataLoadState }) {
+    // 시설 등급별 평일/주말 요금,최대 인원, 회원권 할인율 변경
     const [originalData, setOriginalData] = useState([]) // 변경 전 / 후 데이터 비교용 초기 데이터
     const [updateData, setUpdateData] = useState([]); // 변경된 데이터 확인용 상태 관리 함수
     const [locationOpData, setLocationOpData] = useState( // 전송 데이터
@@ -26,10 +26,8 @@ export default function LocationUpdate() {
         axios
             .get('http://localhost:80/operationalManagement/getLocationOpData')
             .then(r => {
-                let sortData = r.data;
-
                 // 이름순 정렬
-                sortData.sort(function (a, b) {
+                r.data.sort(function (a, b) {
                     if (a.lname < b.lname) {
                         return 1;
                     }
@@ -40,13 +38,14 @@ export default function LocationUpdate() {
                 })
 
                 // 초기 이용료 데이터에 쉼표 적용
-                sortData.forEach(p => {
+                r.data.forEach(p => {
                     p.lprice = p.lprice.toLocaleString();
                     p.lchildprice = p.lchildprice.toLocaleString();
                 })
 
-                setLocationOpData(r.data);
-                setOriginalData(r.data);
+                setLocationOpData(r.data);  // 변경 관리 함수에 저장
+                setOriginalData(r.data);// 초기 데이터 확인 함수에 저장
+                setDataLoadState(true); // 데이터 로드 후 출력하는 상위 컴포넌트 관리 함수에 true값 대입
                 console.log(r.data)
             })
     }, []);
@@ -134,8 +133,7 @@ export default function LocationUpdate() {
                             'item': itemName[j],
                             'beforeValue': itemName[j] === '회원권 할인율' ? Object.values(p)[j] * 100 + "%" :
                                     itemName[j] === '최대 예약 가능 인원' ? Object.values(p)[j] + "명" :
-                                    itemName[j] === '최대 예약 가능 인원' ? Object.values(locationOpData[i])[j] + "명" :
-                                    itemName[j].indexOf('시간') !== -1 ? Object.values(locationOpData[i])[j] : Object.values(locationOpData[i])[j] + "원",
+                                    itemName[j].indexOf('시간') !== -1 ? Object.values(p)[j] : Object.values(p)[j] + "원",
                             'afterValue': itemName[j] === '회원권 할인율' ? Object.values(locationOpData[i])[j] * 100 + "%" :
                                     itemName[j] === '최대 예약 가능 인원' ? Object.values(locationOpData[i])[j] + "명" :
                                     itemName[j].indexOf('시간') !== -1 ? Object.values(locationOpData[i])[j] : Object.values(locationOpData[i])[j] + "원"
@@ -154,7 +152,7 @@ export default function LocationUpdate() {
         handleShow();
     }
 
-    // 모달창에서 확인 클릭 시 객실 데이터를 최종 업데이트 하는 함수
+    // 모달창에서 확인 클릭 시 시설 데이터를 최종 업데이트 하는 함수
     const dataUpdate = () => {
         if (!window.confirm('데이터를 변경하시겠습니까?')) {
             return;
@@ -177,8 +175,7 @@ export default function LocationUpdate() {
             .post('http://localhost:80/operationalManagement/updateLocationOpData', jsonData)
             .then(r => {
                 if (r) {
-                    alert('변경이 완료되었습니다.');
-                    window.location.reload()
+                    alert('변경이 완료되었습니다.'); handleClose();
                 }
                 // false의 경우는 트랜잭션 연산 실패하여 롤백하는 케이스
                 else {
@@ -246,7 +243,7 @@ export default function LocationUpdate() {
                 }
                 </tbody>
             </Table>
-            <div>
+            <div className={"opButtonArea"}>
                 <button onClick={updateConfirmModal} type={"button"}>변경 확인</button>
                 <button type={"button"} onClick={() => window.location.reload()}>취소</button>
             </div>
