@@ -1,6 +1,6 @@
 
 import GraphComponent from "./GraphComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from '../css/businessManagement/hotelStatistics.css'
 import axios from "axios";
 export default function OperationalStatistics(){
@@ -11,12 +11,16 @@ export default function OperationalStatistics(){
         divisionMonth: new Date().getFullYear(),
         divisionWeek: new Date().getMonth()
     })
+    let[ statistics, setStatistics ] = useState( data )
     const getStatistics = () => {
         axios
             .get('http://localhost:80/operationStatistics', {params: category}  )
-            .then( response => { console.log(response)} )
+            .then( response => {
+                console.log(response.data);
+                setStatistics( response.data )
+            } )
     }
-    console.log(getStatistics())
+    useEffect(() => {getStatistics()}, [category]);
     /* 테스트 콘솔로그 */
     console.log(category)
     /* selectBox에 전달 위한 함수 */
@@ -61,7 +65,7 @@ export default function OperationalStatistics(){
                 }
             </div>
             <div className={"graphWrap"}>
-                <GraphComponent data={data}/>
+                <GraphComponent data={statistics}/>
             </div>
         </div>
     </>)
@@ -126,32 +130,32 @@ function Selecties_4( props ){
 /* 테스트용 임시 데이터 */
 let data = [
     {
-        "id": "germany",
-        "color": "hsl(286, 70%, 50%)",
+        "id": "japan",
+        "color": "hsl(202, 70%, 50%)",
         "data": [
             {
-                "x": "plane",
-                "y": 21
+                "기구": "plane",
+                "y": 44
             },
             {
-                "x": "helicopter",
-                "y": 26
+                "기구": "helicopter",
+                "y": 211
             },
             {
-                "x": "boat",
-                "y": 134
+                "기구": "boat",
+                "y": 227
             },
             {
-                "x": "train",
-                "y": 35
+                "기구": "train",
+                "y": 33
             },
             {
-                "x": "subway",
-                "y": 153
+                "기구": "subway",
+                "y": 299
             },
             {
                 "x": "bus",
-                "y": 283
+                "y": 7
             },
             {
                 "x": "car",
@@ -159,23 +163,239 @@ let data = [
             },
             {
                 "x": "moto",
-                "y": 104
+                "y": 142
             },
             {
                 "x": "bicycle",
-                "y": 226
+                "y": 57
             },
             {
                 "x": "horse",
-                "y": 100
+                "y": 274
             },
             {
                 "x": "skateboard",
-                "y": 236
+                "y": 129
             },
             {
                 "x": "others",
-                "y": 140
+                "y": 200
+            }
+        ]
+    },
+    {
+        "id": "france",
+        "color": "hsl(339, 70%, 50%)",
+        "data": [
+            {
+                "x": "plane",
+                "y": 221
+            },
+            {
+                "x": "helicopter",
+                "y": 101
+            },
+            {
+                "x": "boat",
+                "y": 220
+            },
+            {
+                "x": "train",
+                "y": 276
+            },
+            {
+                "x": "subway",
+                "y": 46
+            },
+            {
+                "x": "bus",
+                "y": 127
+            },
+            {
+                "x": "car",
+                "y": 227
+            },
+            {
+                "x": "moto",
+                "y": 284
+            },
+            {
+                "x": "bicycle",
+                "y": 59
+            },
+            {
+                "x": "horse",
+                "y": 270
+            },
+            {
+                "x": "skateboard",
+                "y": 83
+            },
+            {
+                "x": "others",
+                "y": 26
+            }
+        ]
+    },
+    {
+        "id": "us",
+        "color": "hsl(52, 70%, 50%)",
+        "data": [
+            {
+                "x": "plane",
+                "y": 3
+            },
+            {
+                "x": "helicopter",
+                "y": 53
+            },
+            {
+                "x": "boat",
+                "y": 40
+            },
+            {
+                "x": "train",
+                "y": 204
+            },
+            {
+                "x": "subway",
+                "y": 120
+            },
+            {
+                "x": "bus",
+                "y": 246
+            },
+            {
+                "x": "car",
+                "y": 164
+            },
+            {
+                "x": "moto",
+                "y": 28
+            },
+            {
+                "x": "bicycle",
+                "y": 120
+            },
+            {
+                "x": "horse",
+                "y": 201
+            },
+            {
+                "x": "skateboard",
+                "y": 282
+            },
+            {
+                "x": "others",
+                "y": 248
+            }
+        ]
+    },
+    {
+        "id": "germany",
+        "color": "hsl(150, 70%, 50%)",
+        "data": [
+            {
+                "x": "plane",
+                "y": 64
+            },
+            {
+                "x": "helicopter",
+                "y": 120
+            },
+            {
+                "x": "boat",
+                "y": 275
+            },
+            {
+                "x": "train",
+                "y": 21
+            },
+            {
+                "x": "subway",
+                "y": 228
+            },
+            {
+                "x": "bus",
+                "y": 82
+            },
+            {
+                "x": "car",
+                "y": 250
+            },
+            {
+                "x": "moto",
+                "y": 147
+            },
+            {
+                "x": "bicycle",
+                "y": 261
+            },
+            {
+                "x": "horse",
+                "y": 223
+            },
+            {
+                "x": "skateboard",
+                "y": 245
+            },
+            {
+                "x": "others",
+                "y": 70
+            }
+        ]
+    },
+    {
+        "id": "norway",
+        "color": "hsl(77, 70%, 50%)",
+        "data": [
+            {
+                "x": "plane",
+                "y": 252
+            },
+            {
+                "x": "helicopter",
+                "y": 33
+            },
+            {
+                "x": "boat",
+                "y": 160
+            },
+            {
+                "x": "train",
+                "y": 187
+            },
+            {
+                "x": "subway",
+                "y": 25
+            },
+            {
+                "x": "bus",
+                "y": 89
+            },
+            {
+                "x": "car",
+                "y": 165
+            },
+            {
+                "x": "moto",
+                "y": 280
+            },
+            {
+                "x": "bicycle",
+                "y": 259
+            },
+            {
+                "x": "horse",
+                "y": 187
+            },
+            {
+                "x": "skateboard",
+                "y": 252
+            },
+            {
+                "x": "others",
+                "y": 44
             }
         ]
     }

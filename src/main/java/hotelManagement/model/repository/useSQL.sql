@@ -403,6 +403,7 @@ DELIMITER ;
 
 CALL random_dates_40times();
 
+update roomresv set rrtime = date_sub( rrcheckin, interval floor( rand() * 500 ) day) where rrno = rrno;
 # 객실 등급 샘플 코드
 
 
@@ -488,7 +489,7 @@ UPDATE lresv
 SET lrstate = 1
 WHERE DATE(lrtime) < CURDATE();
 
-# udate와 cdate가 같으면서 lrtime보다 작은 랜덤한 날짜
+# udate와 cdate가 같으면서 lrtime보다 작은(365일) 랜덤한 날짜
 update lresv set cdate = date_sub( lrtime, interval floor( rand() * 365 ) day ) where cdate is null;
 update lresv set udate = cdate where udate = udate;
 
