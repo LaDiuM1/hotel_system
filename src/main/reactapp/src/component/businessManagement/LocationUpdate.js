@@ -24,7 +24,7 @@ export default function LocationUpdate({ dataLoadState, setDataLoadState }) {
     // 컴포넌트 생성 시 시설 운영 데이터 호출
     useEffect(() => {
         axios
-            .get('http://localhost:80/operationalManagement/getLocationOpData')
+            .get('/operationalManagement/getLocationOpData')
             .then(r => {
                 // 이름순 정렬
                 r.data.sort(function (a, b) {
@@ -172,7 +172,7 @@ export default function LocationUpdate({ dataLoadState, setDataLoadState }) {
         });
         console.log(jsonData)
         axios
-            .post('http://localhost:80/operationalManagement/updateLocationOpData', jsonData)
+            .post('/operationalManagement/updateLocationOpData', jsonData)
             .then(r => {
                 if (r) {
                     alert('변경이 완료되었습니다.'); handleClose();

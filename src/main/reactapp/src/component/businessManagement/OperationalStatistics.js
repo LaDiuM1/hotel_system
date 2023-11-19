@@ -13,7 +13,7 @@ export default function OperationalStatistics(){
     })
     const getStatistics = () => {
         axios
-            .get('http://localhost:80/operationStatistics', {params: category}  )
+            .get('/operationStatistics', {params: category}  )
             .then( response => { console.log(response)} )
     }
     console.log(getStatistics())

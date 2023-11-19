@@ -3,7 +3,7 @@ package hotelManagement.controller.business;
 import hotelManagement.model.dto.employee.PositionDto;
 import hotelManagement.model.dto.location.LocationDto;
 import hotelManagement.model.dto.room.RoomGradeDto;
-import hotelManagement.service.Business.OperationalManagementService;
+import hotelManagement.service.business.OperationalManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/operationalManagement")
-@CrossOrigin("http://localhost:3000")
 public class OperationalManagementController {
     @Autowired
     private OperationalManagementService operationalManagementService;

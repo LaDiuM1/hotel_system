@@ -1,4 +1,4 @@
-package hotelManagement.service.Business;
+package hotelManagement.service.business;
 
 import hotelManagement.model.dto.employee.PositionDto;
 import hotelManagement.model.dto.location.LocationDto;

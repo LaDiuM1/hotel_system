@@ -14,7 +14,7 @@ export default function LocationManagement() {
     // 컴포넌트 상태 표기용 데이터 호출
     const fetchData = () =>{
         axios
-            .get('http://localhost:80/location')
+            .get('/location')
             .then( r => {
                 /*데이터가 모닝 다이닝, 런치, 디너, 피트니스, 실내수영장, 실내골프장으로 분리되어 있어
                   컴포넌트 사용에 불리하여 다이닝 객체는 하나로 통합하여

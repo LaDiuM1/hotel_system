@@ -22,6 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").authenticated() // "/" URL은 인증된 사용자에게만 허용
                 .antMatchers("/**").permitAll() // 다른 모든 URL은 누구에게나 허용(일시적)
+              //.antMatchers("/접근 제한 주소").hasRole("권한명")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -55,5 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService( memberService ).passwordEncoder( new BCryptPasswordEncoder() );
         // auth.userDetailsService( userDetailsService 구현체  ).passwordEncoder( 사용할 암호화 객체 )
     }
+
+
 
 }

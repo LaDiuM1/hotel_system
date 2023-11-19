@@ -6,12 +6,10 @@ import hotelManagement.service.employee.EmployeeManegementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/employeeManegement")
-@CrossOrigin("http://localhost:3000")
 public class EmployeeManegementController {
 
     @Autowired

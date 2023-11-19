@@ -22,7 +22,7 @@ export default function PositionUpdate({ dataLoadState, setDataLoadState }){
     // 컴포넌트 생성 시 인사 등급 데이터 호출
     useEffect(() => {
         axios
-            .get('http://localhost:80/operationalManagement/getPositionOpData')
+            .get('/operationalManagement/getPositionOpData')
             .then( r => {
                 // 월급 순 정렬
                 r.data.sort(function (a, b) {
@@ -151,7 +151,7 @@ export default function PositionUpdate({ dataLoadState, setDataLoadState }){
         });
 
         axios
-            .post('http://localhost:80/operationalManagement/updatePositionOpData', jsonData)
+            .post('/operationalManagement/updatePositionOpData', jsonData)
             .then( r => {
                 if(r) { alert('변경이 완료되었습니다.'); handleClose();}
                 // false의 경우는 트랜잭션 연산 실패하여 롤백하는 케이스

@@ -31,7 +31,7 @@ export default function RoomReservation(){
     // 검색 함수
     const onSearch = () => {
         axios
-            .post("http://localhost:80/guestRoomReservation", info)
+            .post("/guestRoomReservation", info)
             .then( response => {
                 // 페이징 처리를 위한 데이터
                 setRecordPage(response.data);

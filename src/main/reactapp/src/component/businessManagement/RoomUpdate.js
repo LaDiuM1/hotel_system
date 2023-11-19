@@ -22,7 +22,7 @@ export default function RoomUpdate({ dataLoadState, setDataLoadState }){
     // 컴포넌트 생성 시 객실 등급 데이터 호출
     useEffect(() => {
         axios
-            .get('http://localhost:80/operationalManagement/getRoomOpData')
+            .get('/operationalManagement/getRoomOpData')
             .then( r => {
                 // 객실 요금이 낮은 순으로 정렬
                 r.data.sort(function (a, b) {
@@ -154,7 +154,7 @@ export default function RoomUpdate({ dataLoadState, setDataLoadState }){
         });
 
         axios
-            .post('http://localhost:80/operationalManagement/updateRoomOpData', jsonData)
+            .post('/operationalManagement/updateRoomOpData', jsonData)
             .then( r => {
                 if(r) { alert('변경이 완료되었습니다.'); handleClose(); }
                 // false의 경우는 트랜잭션 연산 실패하여 롤백하는 케이스
