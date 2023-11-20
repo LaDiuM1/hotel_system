@@ -14,10 +14,18 @@ a{
     text-decoration: none!important;
     color:inherit!important;
 }
+
+.header {
+    background-color: #f8f8f8;
+    height: 79px;
+    padding: 20px;
+    box-shadow: 5px 0 10px 1px rgba(0, 0, 0, 0.2);
+}
+
 html{background-color: rgba(250, 250, 250, 0.54);}
 /*이름구역*/
 .profile{
-    padding: 20px;
+    padding: 15px 20px;
     text-align: right;
     background-color: white;
     box-shadow: -1px 0 5px 4px rgba(0, 0, 0, 0.2);
@@ -28,12 +36,10 @@ html{background-color: rgba(250, 250, 250, 0.54);}
 
 }
 
-.profile .mno{
-    margin-left: 18px;
-}
-.profile .mname{
-    margin-left: 18px;
-}
-.profile .tier{
-    margin-left: 18px;
+.profile .headerName, .departmentName, .positionName, .enum{
+    border: 1px solid #e8e8e8;
+    padding: 3px 10px;
+    margin: 0 5px;
+    border-radius: 5px;
+    color: black;
 }
