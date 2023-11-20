@@ -41,8 +41,8 @@
     font-weight: bold;
 }
 .active{
-    background-color: rgba(145, 200, 228, 0.54);
-    color: rgba(0, 60, 255, 0.74)!important;
+    background-color: #e8e8e8;
+    color: #3a85f5!important;
     font-weight: bold!important;
 }
 
