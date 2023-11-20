@@ -32,7 +32,7 @@ export default function EmployeeManagement(){
     // 검색 함수
     const onSearch = ()=>{
         axios
-            .post("http://localhost:80/employeeManegement", info)
+            .post("/employeeManegement", info)
             .then( response => {setResultData(response.data); console.log(response.data)})
     }
     useEffect(() => {
@@ -153,7 +153,7 @@ export default function EmployeeManagement(){
         setInputData(initialValue);
 
         axios
-            .post('http://localhost:80/employeeRegister', updateTransData )
+            .post('/employeeRegister', updateTransData )
             .then( r => {
                 if(r) { alert('회원 등록을 완료하였습니다.'); handleClose2() }
             })
@@ -437,7 +437,7 @@ export default function EmployeeManagement(){
 
                     // 수정 사항 put 메서드 전송
                     axios
-                        .put("http://localhost:80/employeeManegement/updateEmployee" ,
+                        .put("/employeeManegement/updateEmployee" ,
                             {
                                     eno: modalEmployeeInfo.eno ,
                                     departmentDto:{

@@ -31,7 +31,7 @@ export default function EmployeeRegister(){
     /* input data 관리용 함수 */
     const [ inputData, setInputData] = useState(initialValue);
 
-
+    // 직원 등록 함수
     const employeeRegister = () => {
         // 객체에 공백 문자가 있으면 종료
         for( let p of Object.values(inputData)){
@@ -61,7 +61,7 @@ export default function EmployeeRegister(){
         setInputData(initialValue);
 
         axios
-            .post('http://localhost:80/employeeRegister', updateTransData )
+            .post('employeeRegister', updateTransData )
             .then( r => {
                 if(r) { alert('회원 등록을 완료하였습니다.'); handleClose() }
             })

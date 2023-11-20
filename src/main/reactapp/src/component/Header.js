@@ -11,9 +11,12 @@ export default function Header(){
             <>
             <div className={"header"}>
                  <div className={"profile"}>
-                     <span className={"mname"}>홍길동님</span>
-                     <span className={"mno"}>사원번호 : 20221020</span>
-                     <span className={"tier"}>등급 : 관리자</span>
+                     <span className={"headerName"}>정희수님</span>
+                     <span className={"enum"}>사원번호 : 20221020</span>
+                     <span>
+                         <span className={"departmentName"}>총괄부</span><span className={"positionName"}>사장</span>
+                     </span>
+
                  </div>
                 <div className={"headerContainer"}>
                 </div>

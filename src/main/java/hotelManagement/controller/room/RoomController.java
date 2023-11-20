@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/guestRoom")
-@CrossOrigin("http://localhost:3000")
 public class RoomController {
 
     @Autowired

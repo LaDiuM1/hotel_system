@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,13 +28,11 @@ public class OperationStatisticsController {
     public List<Map<String,Object>> getStatistics(OperationStatisticsDto operationStatisticsDto ){
         System.out.println("operationStatisticsDto = " + operationStatisticsDto);
         String wholeCategory = operationStatisticsDto.getWholeCategory();
+        // 카테고리가 매출/사용자 수에 따라 다른 처리 경로
         if( "sales".equals(wholeCategory) )
             return totalSalesStatisticsService.reportStatistics( operationStatisticsDto );
-        else if( "totalUser".equals(wholeCategory) )
-            return totalUserStatisticsService.reportStatistics( operationStatisticsDto );
         else
-
-        return totalSalesStatisticsService.reportStatistics(operationStatisticsDto);
+            return totalUserStatisticsService.reportStatistics( operationStatisticsDto );
     }
 
 

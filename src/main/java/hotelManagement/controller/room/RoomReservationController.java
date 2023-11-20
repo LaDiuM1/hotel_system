@@ -9,7 +9,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/guestRoomReservation")
-@CrossOrigin("http://localhost:3000")
 public class RoomReservationController {
 
     @Autowired

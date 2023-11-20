@@ -11,17 +11,13 @@ export default function OperationalStatistics(){
         divisionMonth: new Date().getFullYear(),
         divisionWeek: new Date().getMonth()
     })
-    let[ statistics, setStatistics ] = useState( data )
     const getStatistics = () => {
         axios
-            .get('http://localhost:80/operationStatistics', {params: category}  )
-            .then( response => {
-                setStatistics( response.data )
-            } )
+            .get('/operationStatistics', {params: category}  )
+            .then( response => { console.log(response)} )
     }
     useEffect(() => {getStatistics()}, [category]);
-    /* 테스트 콘솔로그 */
-    console.log(category)
+
     /* selectBox에 전달 위한 함수 */
     const changeCategory = (e) => setCategory({...category, dateCategory: e.target.value});
     /* 년도 캘린더에 전달 위한 함수 */
@@ -66,7 +62,10 @@ export default function OperationalStatistics(){
             <div className={"graphWrap"}>
                 <GraphComponent data={statistics}/>
             </div>
+
+
         </div>
+
     </>)
 }
 
@@ -292,109 +291,55 @@ let data = [
     },
     {
         "id": "germany",
-        "color": "hsl(150, 70%, 50%)",
+        "color": "hsl(286, 70%, 50%)",
         "data": [
             {
                 "x": "plane",
-                "y": 64
-            },
-            {
-                "x": "helicopter",
-                "y": 120
-            },
-            {
-                "x": "boat",
-                "y": 275
-            },
-            {
-                "x": "train",
                 "y": 21
             },
             {
-                "x": "subway",
-                "y": 228
-            },
-            {
-                "x": "bus",
-                "y": 82
-            },
-            {
-                "x": "car",
-                "y": 250
-            },
-            {
-                "x": "moto",
-                "y": 147
-            },
-            {
-                "x": "bicycle",
-                "y": 261
-            },
-            {
-                "x": "horse",
-                "y": 223
-            },
-            {
-                "x": "skateboard",
-                "y": 245
-            },
-            {
-                "x": "others",
-                "y": 70
-            }
-        ]
-    },
-    {
-        "id": "norway",
-        "color": "hsl(77, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 252
-            },
-            {
                 "x": "helicopter",
-                "y": 33
+                "y": 26
             },
             {
                 "x": "boat",
-                "y": 160
+                "y": 134
             },
             {
                 "x": "train",
-                "y": 187
+                "y": 35
             },
             {
                 "x": "subway",
-                "y": 25
+                "y": 153
             },
             {
                 "x": "bus",
-                "y": 89
+                "y": 283
             },
             {
                 "x": "car",
-                "y": 165
+                "y": 247
             },
             {
                 "x": "moto",
-                "y": 280
+                "y": 104
             },
             {
                 "x": "bicycle",
-                "y": 259
+                "y": 226
             },
             {
                 "x": "horse",
-                "y": 187
+                "y": 100
             },
             {
                 "x": "skateboard",
-                "y": 252
+                "y": 236
             },
             {
                 "x": "others",
-                "y": 44
+                "y": 140
             }
         ]
     }

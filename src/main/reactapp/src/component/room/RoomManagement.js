@@ -16,7 +16,7 @@ export default function RoomManagement(){
     
     const fetchData = () =>{
         axios
-            .get('http://localhost:80/guestRoom')
+            .get('/guestRoom')
             .then(r => {
 
                 let floor = 15; // 각층 마다 호실 수 설정

@@ -1,20 +1,20 @@
 package hotelManagement.service.business;
 
+import hotelManagement.model.dto.employee.PositionDto;
 import hotelManagement.model.dto.location.LocationDto;
 import hotelManagement.model.dto.room.RoomGradeDto;
 import hotelManagement.model.entity.discount.DiscountEntity;
+import hotelManagement.model.entity.employee.PositionEntity;
 import hotelManagement.model.entity.locationEntity.LocationEntity;
 import hotelManagement.model.entity.room.RoomGradeEntity;
 import hotelManagement.model.repository.discount.DiscountEntityRepository;
-import hotelManagement.model.repository.employee.EmployeeEntityRepository;
+import hotelManagement.model.repository.employee.PositionEntityRepository;
 import hotelManagement.model.repository.location.LocationEntityRepository;
 import hotelManagement.model.repository.room.RoomGradeEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,17 +31,19 @@ public class OperationalManagementService {
     private LocationEntityRepository locationEntityRepository;
 
     @Autowired
-    private EmployeeEntityRepository employeeEntityRepository;
+    private PositionEntityRepository positionEntityRepository;
 
-    @Transactional  // 객실 운영 데이터 반환 함수
+
+
+    @Transactional  // 인사 데이터 반환 함수
     public List<RoomGradeDto> getRoomOpData(){
-        // 객실 운영 데이터 전체 호출
+        // 인사 데이터 전체 호출
         List<RoomGradeEntity> roomGradeEntityList = roomGradeEntityRepository.findAll();
         // 반환용 리스트 선언
         List<RoomGradeDto> roomGradeDtoList = new ArrayList<>();
 
         roomGradeEntityList.forEach( roomGradeEntity -> {
-            // 반환용 개별 dto 선언
+            // 반환용 개별 dto 선언 후 entity -> dto 변환
             RoomGradeDto roomGradeDto = roomGradeEntity.toDto();
             // 객실 등급에 해당하는 할인율 엔티티 호출
             Optional<DiscountEntity> discountEntity = discountEntityRepository.findById(roomGradeDto.getRgname());
@@ -54,7 +56,7 @@ public class OperationalManagementService {
         return roomGradeDtoList;
     }
 
-    @Transactional// 객실 운영 데이터 업데이트 함수
+    @Transactional// 인사 데이터 업데이트 함수
     public boolean updateRoomOpData( List<RoomGradeDto> roomGradeDtoList ){
         try{
             roomGradeDtoList.forEach( roomGradeDto -> {
@@ -87,7 +89,7 @@ public class OperationalManagementService {
         List<LocationDto> locationDtoList = new ArrayList<>();
 
         locationEntityList.forEach( locationEntity -> {
-            // 반환용 개별 dto 선언
+            // 반환용 개별 dto 선언 후 entity -> dto 변환
             LocationDto locationDto = locationEntity.toDto();
             // 시설 등급에 해당하는 할인율 엔티티 호출
             Optional<DiscountEntity> discountEntity = discountEntityRepository.findById(locationEntity.getLname());
@@ -103,6 +105,7 @@ public class OperationalManagementService {
     @Transactional// 시설 운영 데이터 업데이트 함수
     public boolean updateLocationOpData( List<LocationDto> locationDtoList ){
         try{
+            System.out.println("locationDtoList = " + locationDtoList);
             locationDtoList.forEach( locationDto -> {
                 Optional<LocationEntity> locationEntityOptional = locationEntityRepository.findById(locationDto.getLname());
                 Optional<DiscountEntity> discountEntityOptional = discountEntityRepository.findById(locationDto.getLname());
@@ -119,6 +122,45 @@ public class OperationalManagementService {
                     discountEntityOptional.ifPresent( p -> {
                         p.setDrate(locationDto.getDrate());
                     });
+                }
+            });
+            return true;
+        } catch (Exception e){
+            return false; // 트랙잭션 롤백 발생 시 false 반환
+        }
+    }
+
+    @Transactional  // 직책 데이터 반환 함수
+    public List<PositionDto> getPositionOpData(){
+        // 직책 데이터 전체 호출
+        List<PositionEntity> PositionEntityList = positionEntityRepository.findAll();
+        // 반환용 리스트 선언
+        List<PositionDto> PositionDtoList = new ArrayList<>();
+
+        PositionEntityList.forEach( PositionEntity -> {
+            // 반환용 개별 dto 선언 후 entity -> dto 변환
+            PositionDto PositionDto = PositionEntity.toDto();
+            
+            // 반환용 List에 추가
+            PositionDtoList.add(PositionDto);
+        });
+        // 각 dto정보가 추가된 리스트 반환
+        return PositionDtoList;
+    }
+
+    @Transactional// 직책 데이터 업데이트 함수
+    public boolean updatePositionOpData( List<PositionDto> PositionDtoList ){
+        try{
+            PositionDtoList.forEach( PositionDto -> {
+                Optional<PositionEntity> PositionEntityOptional = positionEntityRepository.findById(PositionDto.getPname());
+
+                if(PositionEntityOptional.isPresent()) {
+                    PositionEntity PositionEntity = PositionEntityOptional.get();
+
+                    PositionEntity.setPsalary(PositionDto.getPsalary());
+                    PositionEntity.setPannual(PositionDto.getPannual());
+                    PositionEntity.setPbonus(PositionDto.getPbonus());
+
                 }
             });
             return true;

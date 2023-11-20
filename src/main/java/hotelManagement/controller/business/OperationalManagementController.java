@@ -1,5 +1,6 @@
 package hotelManagement.controller.business;
 
+import hotelManagement.model.dto.employee.PositionDto;
 import hotelManagement.model.dto.location.LocationDto;
 import hotelManagement.model.dto.room.RoomGradeDto;
 import hotelManagement.service.business.OperationalManagementService;
@@ -7,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/operationalManagement")
-@CrossOrigin("http://localhost:3000")
 public class OperationalManagementController {
     @Autowired
     private OperationalManagementService operationalManagementService;
@@ -41,6 +40,20 @@ public class OperationalManagementController {
     public boolean updateLocationOpData(@RequestBody List<LocationDto> locationDtoList){
 
         return operationalManagementService.updateLocationOpData(locationDtoList);
+    }
+
+    @GetMapping("/getPositionOpData") // 인사 데이터 반환 함수
+    public List<PositionDto> getPositionOpData(){
+
+        return operationalManagementService.getPositionOpData();
+
+    }
+
+
+    @PostMapping("/updatePositionOpData") // 인사 데이터 업데이트 함수
+    public boolean updatePositionOpData(@RequestBody List<PositionDto> PositionDtoList){
+
+        return operationalManagementService.updatePositionOpData(PositionDtoList);
     }
 
 

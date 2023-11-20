@@ -35,7 +35,7 @@ export default function RoomStateComponent( props ){
         // 확인창 출력, 메시지 내용은 상태에 따라 구분하여 저장된 문자열 변수 사용
         if (window.confirm(alarm)) {
             axios
-                .put('http://localhost:80/guestRoom', data)
+                .put('/guestRoom', data)
                 .then(r => {
                     if (r) {
                         alert("객실 상태를 변경하였습니다.")
@@ -51,7 +51,7 @@ export default function RoomStateComponent( props ){
         // 확인창 출력
         if (window.confirm("퇴실 처리하시겠습니까?")) {
             axios   // onclick에서 객실 번호를 매개변수로 받아 퇴실 처리용 컨트롤러로 전달
-                .get('http://localhost:80/guestRoom/checkout', {params: { 'rrno' : rrno }})
+                .get('/guestRoom/checkout', {params: { 'rrno' : rrno }})
                 .then(r => {
                     if (r) {
                         alert("퇴실 처리하였습니다.")
