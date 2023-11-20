@@ -2,13 +2,13 @@
 import './css/Main.css'
 import {useEffect, useState} from "react";
 export default function Main(){
-    const [nowTime, setNowTime] = useState('')
+    let now = new Date().toLocaleString()
+    const [nowTime, setNowTime] = useState(now)
 
     useEffect( () => {
 
-
         const interval = setInterval(() => {
-            const now = new Date().toLocaleString()
+            now = new Date().toLocaleString()
             setNowTime(now);
         }, 1000);
 

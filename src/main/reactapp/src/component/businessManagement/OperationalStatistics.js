@@ -33,7 +33,6 @@ export default function OperationalStatistics(){
             <div className={"dateSearchWrap"}>
                 <select onChange={ (e) => setCategory({...category, wholeCategory: e.target.value, dateCategory: "year"})  }>
                     <option value={"sales"}>매출</option>
-                    <option value={"expenditure"}>지출</option>
                     <option value={"totalUser"}>이용자수</option>
                 </select>
                 {/* /* 현재 선택된 카테고리(매출, 지출, 이용자수)에 따라 년 별, 월별, 주간별 selectbox 랜더링 */}
