@@ -68,8 +68,12 @@ export default function EmployeeManagement(){
     const handleClose = () => setShow(false);
 
 
+
     //모당창 여는 함수
     const handleShow = (i) => {
+        let position = JSON.parse( sessionStorage.getItem('login_token')).positionDto.pname
+        if( position === '사원' || position === '주임' || position === '대리' || position === '과장'  )
+            return alert('접근 권한이 없습니다.')
         // 모달창 상태 변경
         setShow(true);
 

@@ -43,3 +43,11 @@ html{background-color: rgba(250, 250, 250, 0.54);}
     border-radius: 5px;
     color: black;
 }
+/* 로그아웃 버튼 */
+.logoutBtn button{
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    color: #000;
+    margin: 0 5px;
+    padding: 0px 10px
+}
