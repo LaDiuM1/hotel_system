@@ -1,4 +1,4 @@
-package hotelManagement.service.Business.staticsService;
+package hotelManagement.service.business.staticsService;
 
 import hotelManagement.model.dto.business.OperationStatisticsDto;
 import hotelManagement.model.repository.business.statistics.TotalUserStatisticsRepositiory;

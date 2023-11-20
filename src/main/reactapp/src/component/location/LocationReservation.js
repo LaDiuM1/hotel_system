@@ -28,7 +28,7 @@ export default function LocationReservation(){
     /* 최초 검색 실행 */
     useEffect(() => {onSearch();}, [info]);
     const onSearch = () => {
-        axios.post("/locationReservation",info)
+        axios.post("/locationResv",info)
             .then(response=>{
                 // 페이징 처리를 위한 데이터
                 setRecordPage(response.data);

@@ -11,10 +11,13 @@ export default function OperationalStatistics(){
         divisionMonth: new Date().getFullYear(),
         divisionWeek: new Date().getMonth()
     })
+    let[ statistics, setStatistics ] = useState( data )
     const getStatistics = () => {
         axios
-            .get('/operationStatistics', {params: category}  )
-            .then( response => { console.log(response)} )
+            .get('http://localhost:80/operationStatistics', {params: category}  )
+            .then( response => {
+                setStatistics( response.data )
+            } )
     }
     useEffect(() => {getStatistics()}, [category]);
 
