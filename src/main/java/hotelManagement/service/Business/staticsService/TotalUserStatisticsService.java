@@ -81,12 +81,13 @@ public class TotalUserStatisticsService implements ReportStatistics {
     /*
      * 카테고리에 따른 통계
      * */
+    @SuppressWarnings("unchecked")
     @Override
     public List<Map<String,Object>> monthTotal( String year ){
 
-        List<Object[]> monthLocationTotalSales = totalUserStatisticsRepositiory.monthLocationTotal(year);
-        List<Object[]> monthRoomReservationTotalSales = totalUserStatisticsRepositiory.monthRoomTotal(year);
-        List<Object[]> monthTicketTotalSales = totalUserStatisticsRepositiory.monthLocationTotal(year);
+        List<Object[]> monthLocationTotalUser = totalUserStatisticsRepositiory.monthLocationTotal(year);
+        List<Object[]> monthRoomReservationTotalUser = totalUserStatisticsRepositiory.monthRoomTotal(year);
+        List<Object[]> monthTicketTotalUser = totalUserStatisticsRepositiory.monthLocationTotal(year);
 
         // 1월부터 12월까지 0으로 초기화 하기 위한 리스트
         List<Map<String,Object>> hasMonth = new ArrayList<>();
@@ -99,36 +100,42 @@ public class TotalUserStatisticsService implements ReportStatistics {
 
         Map<String,Object> locationMap = new HashMap<String,Object>(){{
             put("id","시설"); put("color","hsl(286, 70%, 50%)" );
-            put("data", new ArrayList<Map<String,Object>>() );
+            put("data", new ArrayList<Map<String,Object>>(hasMonth) );
         }};
         Map<String,Object> roomresvMap = new HashMap<String,Object>(){{
             put("id","객실"); put("color","hsl(339, 70%, 50%)" );
-            put("data", new ArrayList<Map<String,Object>>() );
+            put("data", new ArrayList<Map<String,Object>>(hasMonth) );
         }};
         Map<String,Object> ticketMap = new HashMap<String,Object>(){{
             put("id","회원권"); put("color","hsl(52, 70%, 50%)" );
-            put("data", new ArrayList<Map<String,Object>>() );
+            put("data", new ArrayList<Map<String,Object>>(hasMonth) );
         }};
 
         ArrayList<Map<String,Object>> maps;
 
         maps = ((ArrayList<Map<String,Object>>)locationMap.get("data"));
-        for( Object[] objects : monthLocationTotalSales )
-            maps.add( new HashMap<String,Object>(){{
-                put( "x", String.valueOf((int)objects[0])); put("y", objects[1]);
-            }});
+        for( Object[] objects : monthLocationTotalUser ){
+            int month = (int)objects[0] - 1;
+            if( maps.get( month ).containsValue(0) ){
+                maps.get( month ).put("y",objects[1]);
+            }
+        }
 
         maps = ((ArrayList<Map<String,Object>>)roomresvMap.get("data"));
-        for( Object[] objects : monthRoomReservationTotalSales )
-            maps.add( new HashMap<String,Object>(){{
-                put( "x",String.valueOf((int)objects[0])); put("y", objects[1]);
-            }});
+        for( Object[] objects : monthRoomReservationTotalUser ){
+            int month = (int)objects[0]-1;
+            if( maps.get( month ).containsValue(0) ){
+                maps.get( month ).put("y",objects[1]);
+            }
+        }
 
         maps = ((ArrayList<Map<String,Object>>)ticketMap.get("data"));
-        for( Object[] objects : monthTicketTotalSales )
-            maps.add( new HashMap<String,Object>(){{
-                put( "x", String.valueOf((int)objects[0])); put("y", objects[1]);
-            }});
+        for( Object[] objects : monthTicketTotalUser ){
+            int month = (int)objects[0]-1;
+            if( maps.get( month ).containsValue(0) ){
+                maps.get( month ).put("y",objects[1]);
+            }
+        }
 
 
         return Arrays.asList( locationMap, roomresvMap, ticketMap );

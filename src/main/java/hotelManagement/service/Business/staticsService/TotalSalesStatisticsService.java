@@ -119,7 +119,6 @@ public class TotalSalesStatisticsService implements ReportStatistics {
 
         maps = ((ArrayList<Map<String,Object>>)locationMap.get("data"));
         for( Object[] objects : monthLocationTotalSales ){
-            System.out.println(objects[0]);
             int month = (int)objects[0]-1;
             if( maps.get( month ).containsValue(0) ){
                 maps.get( month ).put("y",objects[1]);
