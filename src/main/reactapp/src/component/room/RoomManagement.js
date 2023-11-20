@@ -71,10 +71,6 @@ export default function RoomManagement(){
 
     }, [])
 
-    useEffect(  () => {
-          
-
-    }, [])
 
 
     return(<>

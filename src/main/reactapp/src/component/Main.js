@@ -1,17 +1,28 @@
 
 import './css/Main.css'
+import {useEffect, useState} from "react";
 export default function Main(){
+    const [nowTime, setNowTime] = useState('')
+
+    useEffect( () => {
+
+
+        const interval = setInterval(() => {
+            const now = new Date().toLocaleString()
+            setNowTime(now);
+        }, 1000);
+
+        // 컴포넌트 해제 시 때 타이머 해제
+        return () => clearInterval(interval);
+
+    }, [])
 
     return(<>
         <div className="mainContainer">
             <div className="mainContent">
                 <h1>Welcome to Hotel management System</h1>
                 <div>
-                    <a href={"/reservation"}><p>객실 예약 정보</p></a>
-                    <a href={"/locationReservation"}><p>시설 예약 정보</p></a>
-                    <a href={"/roomManagement"}><p>객실 이용 현황</p></a>
-                    <a href={"/locationManagement"}><p>시설 이용 현황</p></a>
-                    <a href={"/employeeManagement"}><p>직원 관리</p></a>
+                    <p>{nowTime}</p>
                 </div>
             </div>
         </div>
