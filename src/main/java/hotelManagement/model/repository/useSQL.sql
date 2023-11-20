@@ -543,8 +543,8 @@ VALUES
     ('2023-12-05', '2024-11-25', 95);
 
 -- 데이터 추가 (cdate와 udate가 서로 같으며, tstartdate보다 작은 날짜이면서 1년보다 작지 않은 랜덤한 날짜)
-update ticket set cdate = DATE_SUB(cdate, INTERVAL FLOOR(RAND() * 365) DAY);
-update ticket set udate = cdate where udate = udate;
+update ticket set cdate = DATE_SUB(tstartdate, INTERVAL FLOOR(RAND() * 365) DAY) where tno = tno;
+update ticket set udate = cdate where tno = tno;
 
 /* 직원 관련 샘플 코드 */
 

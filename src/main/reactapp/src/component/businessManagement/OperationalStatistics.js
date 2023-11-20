@@ -16,7 +16,6 @@ export default function OperationalStatistics(){
         axios
             .get('http://localhost:80/operationStatistics', {params: category}  )
             .then( response => {
-                console.log(response.data);
                 setStatistics( response.data )
             } )
     }

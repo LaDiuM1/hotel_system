@@ -2,8 +2,8 @@ package hotelManagement.controller.business;
 
 import hotelManagement.model.dto.business.OperationStatisticsDto;
 
-import hotelManagement.service.Business.staticsService.TotalSalesStatisticsService;
-import hotelManagement.service.Business.staticsService.TotalUserStatisticsService;
+import hotelManagement.service.business.staticsService.TotalUserStatisticsService;
+import hotelManagement.service.business.staticsService.TotalSalesStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

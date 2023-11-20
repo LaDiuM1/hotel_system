@@ -33,7 +33,7 @@ public class TotalSalesStatisticsRepositiory implements StatisticsQuery {
                 "         inner join ticket t on l.mno = t.mno " +
                 "         inner join discount d on lo.lname = d.dtype" +
                 "         inner join memberinfo m on l.mno = m.mno" +
-                "         group by year(l.cdate) order by year(l.cdate) asc;  ");
+                "         group by year(l.cdate) order by year(l.cdate) asc  ");
         List<Object[]> results = q.getResultList();
         return results;
     }
@@ -53,7 +53,8 @@ public class TotalSalesStatisticsRepositiory implements StatisticsQuery {
                 "        inner join discount d on d.dtype = r.rgname_fk" +
                 "        inner join rgrade g on g.rgname = r.rgname_fk" +
                 "        inner join ticket t on rv.mno_fk = t.mno" +
-                "        group by year(rv.rrtime)");
+                "        group by year(rv.rrtime) " +
+                "       order by year(rv.rrtime) asc ");
         List<Object[]> results = q.getResultList();
         return results;
     }
@@ -142,7 +143,7 @@ public class TotalSalesStatisticsRepositiory implements StatisticsQuery {
                         " inner join ticket t on l.mno = t.mno " +
                         " inner join discount d on lo.lname = d.dtype " +
                         " inner join memberinfo m on l.mno = m.mno " +
-                        "where date_format(l.cdate, '%Y-%m') = :year"+"'-'"+" :month " +
+                        "where date_format(l.cdate, '%Y-%m') = :year '-' :month " +
                         "group by( week(l.cdate, 1) - week( date_format(l.cdate, '%Y-%m-01' ),1)+1) ")
                          .setParameter("year",year ).setParameter("month", month);
         List<Object[]> results = q.getResultList();

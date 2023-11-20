@@ -6,7 +6,7 @@ console.log(props.data)
     return(<>
         <ResponsiveLine
             data={props.data}
-            margin={{ top: 150, right: 200, bottom: 50, left: 80 }}
+            margin={{ top: 50, right: 200, bottom: 50, left: 80 }}
             xScale={{ type: 'point' }}
             yScale={{
                 type: 'linear',
