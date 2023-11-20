@@ -14,7 +14,7 @@ export default function OperationalStatistics(){
     let[ statistics, setStatistics ] = useState( data )
     const getStatistics = () => {
         axios
-            .get('http://localhost:80/operationStatistics', {params: category}  )
+            .get('/operationStatistics', {params: category}  )
             .then( response => {
                 setStatistics( response.data )
             } )

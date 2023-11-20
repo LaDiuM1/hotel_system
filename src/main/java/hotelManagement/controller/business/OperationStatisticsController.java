@@ -15,7 +15,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/operationStatistics")
-@CrossOrigin("http://localhost:3000")
 public class OperationStatisticsController {
 
     @Autowired
