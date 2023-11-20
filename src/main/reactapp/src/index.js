@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Index from './component/Index'
 import Header from "./component/Header";
+import Main from "./component/Main";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Index />

@@ -1,5 +1,37 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
 
-/* 전체 구역 */
-.mainContainer{
-    padding: 70px;
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 80px;
+    width: 70%;
+    height: 500px;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 100px;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mainContent h1 {
+    margin-top: 30px;
+    font-size: 50px;
+    font-weight: bold;
+    color: #494949;
+    text-shadow: 0 1px 5px rgb(128, 128, 128);
+    margin-bottom: 20px;
+}
+
+.mainContent p {
+    font-size: 25px;
+    font-weight: bold;
+    color: #494949;
+    text-shadow: 0 1px 5px rgb(128, 128, 128);
+    margin-bottom: 20px;
 }
