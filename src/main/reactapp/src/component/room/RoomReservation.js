@@ -108,10 +108,10 @@ export default function RoomReservation(){
                                 let tableColumn = [
                                     {className:"guestRoomNum" ,ctitle:"호실",cname:"rrno"},
                                     {className:"guestRoomGrade" ,ctitle:"등급",cname:"rgrade"},
-                                    {className:"guestRoomName" ,ctitle:"성함",cname:"rname"},
-                                    {className:"guestRoomPhone" ,ctitle:"전화번호",cname:"rphone"},
                                     {className:"guestRoomCheckIn" ,ctitle:"체크인",cname:"rcin"},
                                     {className:"guestRoomCheckOut" ,ctitle:"체크아웃",cname:"rcout"},
+                                    {className:"guestRoomName" ,ctitle:"성함",cname:"rname"},
+                                    {className:"guestRoomPhone" ,ctitle:"전화번호",cname:"rphone"},
                                     {className:"guestRoomStart" ,ctitle:"시작 날짜",cname:"sdate"},
                                     {className:"guestRoomEnd" ,ctitle:"종료 날짜",cname:"edate"},
                                 ]
