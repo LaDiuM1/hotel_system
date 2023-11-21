@@ -8,7 +8,7 @@ export default function Record(props){
     return(<>
         <div className={"tableRecord"}>
             <span className={"lname"}>{props.props.lname}</span>
-            <span className={"lrstate"}>{props.props.lrstate}</span>
+            <span className={"lrstate"}>{props.props.lrstate === 0 ? '예약중' : props.props.lrstate === 1 ? '입장완료' : '예약취소' }</span>
             <span className={"lrmname"}>{props.props.mname}</span>
             <span className={"lrmphone"}>{props.props.mphone}</span>
             <span className={"lrtime"}>{formatLrtime()}</span>
