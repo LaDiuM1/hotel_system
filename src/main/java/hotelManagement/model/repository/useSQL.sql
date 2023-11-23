@@ -352,7 +352,7 @@ VALUES
     (1015, 'Royal', 1);
 
 # 객실 예약 명단 샘플 코드
-
+/*
 drop procedure if exists random_dates;
 DELIMITER $$
 
@@ -407,7 +407,7 @@ CALL random_dates_40times();
 
 update roomresv set rrtime = date_sub( rrcheckin, interval floor( rand() * 500 ) day) where rrno = rrno;
 # 객실 등급 샘플 코드
-
+*/
 
 
 # ------------------------시설 관련 테이블

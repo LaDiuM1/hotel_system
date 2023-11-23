@@ -22,7 +22,7 @@ export default function LocationManagement() {
 
                 // 반환용 배열 선언
                 let dataArr = [] ;
-                // 모닝,런치,디너로 분리 되어 있는 객체 합치기 위한 배열 선언
+                // 모닝,런치,디너로 분리 되어 있는 객체를 합치기 위한 배열 선언
                 let diningObj = { 'lname' : [] } ;
                 // 이름이 다이닝인지 확인 후 다이닝 일 시 diningObj.lname 속성 배열에 하나씩 추가
                 // 아닐 시 dataArr에 추가
@@ -81,7 +81,7 @@ export default function LocationManagement() {
                         data.map( p => {
                             return(<React.Fragment key={p.lname} >
                                 {/* 배열 크기가 0이 아닐때만 컴포넌트 호출 / 리랜더링 이전 데이터 사용으로 인한 오류 방지 */}
-                                { data.length !== 0 ? <LocationComponent data={ p } /> : null }
+                                { data.length !== 0 && <LocationComponent data={ p } /> }
                             </React.Fragment>)
                         })
 
