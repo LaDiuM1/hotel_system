@@ -46,7 +46,6 @@ public class MemberService implements UserDetailsService {
             throw new UsernameNotFoundException("없는 사번입니다.");
 
         EmployeeEntity employeeEntity = employeeEntityOptional.get();
-        System.out.println("실행"+ employeeEntity);
         // 권한 목록
         List<GrantedAuthority> authorityList = new ArrayList<>();
         // 권한 목록에 추가 직급, 부서

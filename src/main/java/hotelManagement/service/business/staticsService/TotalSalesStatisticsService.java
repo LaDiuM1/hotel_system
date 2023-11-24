@@ -66,19 +66,19 @@ public class TotalSalesStatisticsService implements ReportStatistics {
         maps = ((ArrayList<Map<String,Object>>)locationMap.get("data"));
         for( Object[] objects : yearLocationTotalSales )
             maps.add( new HashMap<String,Object>(){{
-                put( "x", String.valueOf((int)objects[0])); put("y", (int)(double)objects[1]);
+                put( "x", objects[0]); put("y", objects[1]);
             }});
 
         maps = ((ArrayList<Map<String,Object>>)roomresvMap.get("data"));
         for( Object[] objects : yearRoomReservationTotalSales )
             maps.add( new HashMap<String,Object>(){{
-                    put( "x",String.valueOf((int)objects[0])); put("y", (int)(double)objects[1]);
+                    put( "x",objects[0]); put("y", objects[1]);
             }});
 
         maps = ((ArrayList<Map<String,Object>>)ticketMap.get("data"));
         for( Object[] objects : yearTicketTotalSales )
             maps.add( new HashMap<String,Object>(){{
-                put( "x", String.valueOf((int)objects[0])); put("y", ((BigDecimal)objects[1]).intValue() );
+                put( "x", objects[0]); put("y", objects[1]);
             }});
 
         return Arrays.asList( locationMap, roomresvMap,ticketMap );

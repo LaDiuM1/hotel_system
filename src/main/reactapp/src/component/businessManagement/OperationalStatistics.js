@@ -134,53 +134,25 @@ let data = [
         "color": "hsl(202, 70%, 50%)",
         "data": [
             {
-                "기구": "plane",
+                "x": "plane",
                 "y": 44
             },
             {
-                "기구": "helicopter",
+                "x": "helicopter",
                 "y": 211
             },
             {
-                "기구": "boat",
+                "x": "boat",
                 "y": 227
             },
             {
-                "기구": "train",
+                "x": "train",
                 "y": 33
             },
             {
-                "기구": "subway",
+                "x": "subway",
                 "y": 299
             },
-            {
-                "x": "bus",
-                "y": 7
-            },
-            {
-                "x": "car",
-                "y": 247
-            },
-            {
-                "x": "moto",
-                "y": 142
-            },
-            {
-                "x": "bicycle",
-                "y": 57
-            },
-            {
-                "x": "horse",
-                "y": 274
-            },
-            {
-                "x": "skateboard",
-                "y": 129
-            },
-            {
-                "x": "others",
-                "y": 200
-            }
         ]
     },
     {
@@ -206,34 +178,6 @@ let data = [
             {
                 "x": "subway",
                 "y": 46
-            },
-            {
-                "x": "bus",
-                "y": 127
-            },
-            {
-                "x": "car",
-                "y": 227
-            },
-            {
-                "x": "moto",
-                "y": 284
-            },
-            {
-                "x": "bicycle",
-                "y": 59
-            },
-            {
-                "x": "horse",
-                "y": 270
-            },
-            {
-                "x": "skateboard",
-                "y": 83
-            },
-            {
-                "x": "others",
-                "y": 26
             }
         ]
     },

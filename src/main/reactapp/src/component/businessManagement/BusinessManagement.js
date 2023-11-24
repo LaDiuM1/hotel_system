@@ -25,3 +25,4 @@ export default function BusinessManagement(){
             </div>  {/* 페이지 전체 구역 종료 */}
         </>)
 }
+
