@@ -22,7 +22,7 @@ export default function RoomStateComponent( props ){
     // 속성 변경 시 상태값 변경 재 렌더링
     useEffect(() => {
         setState(props.state);
-    }, [props.state, props.rno, props.rgname, props.reservInfo]);
+    }, [props.state]);
 
     // 객실 상태를 사용가능 / 사용불가 스위치 해주는 함수
     const updateState = () => {

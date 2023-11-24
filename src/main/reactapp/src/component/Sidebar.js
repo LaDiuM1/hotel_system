@@ -17,13 +17,13 @@ export default function Sidebar(){
             <div className={"sidebar"}>
                 <div className={"categoryMenu"}>
                     <div className={"mainText"}> <a href={"/"}>관리 메뉴</a> </div>
-                    <a href={"/reservation"} className={"category " + ( currentPage === "/reservation" ? "active" : "" )}> 객실 예약 정보</a>
-                    <a href={"/locationReservation"} className={"category " + ( currentPage === "/locationReservation" ? "active" : "" )}> 시설 예약 정보 </a>
-                    <a href={"/roomManagement"} className={"category " + ( currentPage === "/roomManagement" ? "active" : "" )}>객실 이용 현황</a>
-                    <a href={"/locationManagement"} className={"category " + ( currentPage === "/locationManagement" ? "active" : "" )}> 시설 이용 현황 </a>
-                    <a href={"/employeeManagement"} className={"category " + ( currentPage === "/employeeManagement" ? "active" : "" )}> 직원 관리 </a>
+                    <a href={"/reservation"} className={"category " + ( currentPage.startsWith("/reservation") ? "active" : "" )}> 객실 예약 정보</a>
+                    <a href={"/locationReservation"} className={"category " + ( currentPage.startsWith("/locationReservation") ? "active" : "" )}> 시설 예약 정보 </a>
+                    <a href={"/roomManagement"} className={"category " + ( currentPage.startsWith("/roomManagement") ? "active" : "" )}>객실 이용 현황</a>
+                    <a href={"/locationManagement"} className={"category " + ( currentPage.startsWith("/locationManagement") ? "active" : "" )}> 시설 이용 현황 </a>
+                    <a href={"/employeeManagement"} className={"category " + ( currentPage.startsWith("/employeeManagement") ? "active" : "" )}> 직원 관리 </a>
                     <a href={"/revenueManagement"} className={"category " + (
-                        (currentPage === "/revenueManagement" || currentPage === "/operationalStatistics" ||  currentPage === "/operationalManagement")
+                        (currentPage.startsWith("/revenueManagement") || currentPage.startsWith("/operationalStatistics") ||  currentPage.startsWith("/operationalManagement"))
                             ? "active" : "" )}> 경영 관리 </a>
                 </div>
             </div>

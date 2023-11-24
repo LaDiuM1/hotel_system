@@ -17,12 +17,12 @@ export default function Record(props){
      <div className={"tableRecord"}>
           <span className={"guestRoomNum"}>{props.props.rno}</span>
           <span className={"guestRoomGrade"}>{props.props.gname}</span>
-          <span className={"guestRoomStart"}>{props.props.rrstartdate}</span>
-          <span className={"guestRoomEnd"}>{props.props.rrenddate}</span>
-          <span className={"guestRoomName"}>{props.props.mname}</span>
-          <span className={"guestRoomPhone"}>{props.props.mphone}</span>
          <span className={"guestRoomCheckIn"}>{rrcheckinDateTime()}</span>
          <span className={"guestRoomCheckOut"}>{props.props.rrcheckout == null ? '-' : rrcheckoutDateTime() }</span>
+         <span className={"guestRoomName"}>{props.props.mname}</span>
+         <span className={"guestRoomPhone"}>{props.props.mphone}</span>
+         <span className={"guestRoomStart"}>{props.props.rrstartdate}</span>
+         <span className={"guestRoomEnd"}>{props.props.rrenddate}</span>
      </div>
     </>)
 }

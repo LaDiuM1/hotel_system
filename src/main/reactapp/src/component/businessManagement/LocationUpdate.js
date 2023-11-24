@@ -174,13 +174,9 @@ export default function LocationUpdate({ dataLoadState, setDataLoadState }) {
         axios
             .post('/operationalManagement/updateLocationOpData', jsonData)
             .then(r => {
-                if (r) {
-                    alert('변경이 완료되었습니다.'); handleClose();
-                }
+                if (r) { alert('변경이 완료되었습니다.'); window.location.reload(); }
                 // false의 경우는 트랜잭션 연산 실패하여 롤백하는 케이스
-                else {
-                    alert('변경에 실패하였습니다. [관리자 문의]');
-                }
+                else { alert('변경에 실패하였습니다. [관리자 문의]'); }
             })
 
     }

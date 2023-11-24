@@ -33,16 +33,17 @@ export default function EmployeeRegister(){
 
     // 직원 등록 함수
     const employeeRegister = () => {
-        // 객체에 공백 문자가 있으면 종료
+        // 인풋 데이터 문자열의 길이가 0일 시 함수 종료
         for( let p of Object.values(inputData)){
             if(p.length === 0){
                 alert('항목을 모두 입력해 주세요');
                 return;
             }
         }
-        // 전화번호 유효성 검사
-        if(phoneValue[0] < 2 || phoneValue[1] < 3 || phoneValue[2] < 3 )
-        { alert('항목을 모두 입력해 주세요'); return; }
+        // 전화번호 유효성 검사 [ 2~3자리 - 4자리 - 4자리 숫자 ]
+        if( (phoneValue[0].length < 2 || phoneValue[0].length > 3)
+            || phoneValue[1].length !== 4 || phoneValue[2].length !== 4 )
+        { alert('전화번호 형식이 일치하지 않습니다.'); return; }
 
         // dto 연관 관계 필드 구조에 맞게 inputData 변경
         const updateTransData = {

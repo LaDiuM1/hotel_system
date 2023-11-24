@@ -54,8 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("operationalManagement")
                      .hasRole("총괄_사장")
 
-                .antMatchers("/**").permitAll() // 다른 모든 URL은 누구에게나 허용(일시적)
-              //.antMatchers("/접근 제한 주소").hasRole("권한명")
+                .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -67,12 +66,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authLoginController)
                 .failureHandler(authLoginController);
 
-        http.logout()                    // 1. 로그인(인증) 로그아웃 처리
-                // 2. 로그아웃 처리할 HTTP 주소 정의
+        http.logout()                    //  로그인(인증) 로그아웃 처리
+                //  로그아웃 처리할 HTTP 주소 정의
                 .logoutRequestMatcher( new AntPathRequestMatcher("/member/logout") )
-                // 3. 로그아웃 성공했을때 이동할 HTTP 주소 [ "/" : 메인페이지로 이동 ]
+                //  로그아웃 성공했을때 이동할 HTTP 주소 [ "/" : 메인페이지로 이동 ]
                 .logoutSuccessUrl("/login")
-                // 4. 로그아웃 할때 http세션 모두 초기화  [ true : 초기화O / false : 초기화X ]
+                //  로그아웃 할때 http세션 모두 초기화  [ true : 초기화O / false : 초기화X ]
                 .invalidateHttpSession( true );
 
                 http.csrf().disable();
